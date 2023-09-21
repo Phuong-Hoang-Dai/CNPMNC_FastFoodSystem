@@ -1,0 +1,32 @@
+﻿@model AgentManager.WebApp.Models.ViewModel.RoleVM
+
+@{
+    ViewData["Title"] = "Quản lý quyền";
+    ViewData["Action"] = "Thêm quyền";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<form asp-action="Create" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm quyền</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="RoleName" class="control-label"></label>
+                        <input asp-for="RoleName" class="form-control" />
+                        <span asp-validation-for="RoleName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

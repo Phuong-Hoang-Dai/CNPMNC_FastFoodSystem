@@ -1,0 +1,34 @@
+﻿@model AgentManager.WebApp.Models.ViewModel.AddRoleVM
+
+@{
+    ViewData["Title"] = "Quản lý quyền";
+    ViewData["Action"] = "Thêm quyền";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<form asp-action="AddRole" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm quyền</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="roles" class="control-label"></label>
+                        @Html.ListBoxFor(m => m.roles, Model.allRoles, new {
+                            @class = "form-control"
+                        })
+                        <span asp-validation-for="roles" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

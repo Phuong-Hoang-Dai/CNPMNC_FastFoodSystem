@@ -1,0 +1,50 @@
+﻿@model AgentManager.WebApp.Models.Data.Agent
+
+@{
+    ViewData["Title"] = "Quản lý đại lý";
+    ViewData["Action"] = "Thêm đại lý";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<form asp-action="Create" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm đại lý</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="AgentName" class="control-label"></label>
+                        <input asp-for="AgentName" class="form-control" />
+                        <span asp-validation-for="AgentName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DistrictId" class="control-label"></label>
+                        <select asp-for="DistrictId" class="form-control" asp-items="ViewBag.DistrictId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AgentCategoryId" class="control-label"></label>
+                        <select asp-for="AgentCategoryId" class="form-control" asp-items="ViewBag.AgentCategoryId"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

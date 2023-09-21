@@ -1,0 +1,36 @@
+﻿@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+
+@model AgentManager.WebApp.Models.Data.AgentCategory
+
+@{
+    ViewData["Title"] = "Quản lý loại đại lý";
+    ViewData["Action"] = "Thêm loại đại lý";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<form asp-action="Create" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm đại lý</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="MaxDebt" class="control-label"></label>
+                        <input asp-for="MaxDebt" class="form-control" />
+                        <span asp-validation-for="MaxDebt" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

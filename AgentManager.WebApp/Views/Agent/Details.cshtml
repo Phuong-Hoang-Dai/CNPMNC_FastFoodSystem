@@ -1,0 +1,129 @@
+﻿@model AgentManager.WebApp.Models.Data.Agent
+
+@{
+    ViewData["Title"] = "Quản lý đại lý";
+    ViewData["Action"] = "Chi tiết đại lý";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Chi tiết đại lý</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                    <div class="row">
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted">Tổng trị giá phiếu xuất</span>
+                                    <span class="info-box-number text-center text-muted mb-0">23.000.000 đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted">Tổng số lượng mua</span>
+                                    <span class="info-box-number text-center text-muted mb-0">2.000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                    <span class="info-box-text text-center text-muted">Tổng nợ</span>
+                                    <span class="info-box-number text-center text-muted mb-0">-5.000.000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Recent Activity</h4>
+                            <div class="post">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                    <span class="username">
+                                        <a href="#">Nhân viên Sơn Bảo</a>
+                                    </span>
+                                    <span class="description">5/5/2023</span>
+                                </div>
+                                <p>
+                                    Thu tiền
+                                </p>
+                                <p class ="link-black text-sm">
+                                    Trị giá 4.000.000 đ còn nợ 0 đ
+                                </p>
+                            </div>
+                            <div class="post clearfix">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                    <span class="username">
+                                        <a href="#">Nhân viên Sơn Bảo</a>
+                                    </span>
+                                    <span class="description">5/5/2023</span>
+                                </div>
+                                <p>
+                                    Xuất 200 hộp sửa
+                                </p>
+                                <p class="link-black text-sm">
+                                    Trị giá 4.000.000 đ còn nợ 4.000.000 đ
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                    <h3 class="text-primary">
+                        <i class="fas fa-paint-brush"></i>                                 
+                        @Html.DisplayFor(model => model.AgentName)
+                    </h3>
+@*                    <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                    <br>*@
+                    <div class="text-muted">
+                        <p class="text-sm">
+                            @Html.DisplayNameFor(model => model.Address)
+                            <b class="d-block">
+                                @Html.DisplayFor(model => model.Address)
+                            </b>
+                        </p>
+                        <p class="text-sm">
+                            @Html.DisplayNameFor(model => model.Phone)
+                            <b class="d-block">
+                                @Html.DisplayFor(model => model.Phone)
+                            </b>
+                        </p>
+                        <p class="text-sm">
+                            @Html.DisplayNameFor(model => model.ReceptionDate)                            
+                            <b class="d-block">
+                                @Html.DisplayFor(model => model.ReceptionDate)
+                            </b>
+                        </p>
+                        <p class="text-sm">
+                            @Html.DisplayNameFor(model => model.District)
+                            <b class="d-block">
+                                @Html.DisplayFor(model => model.District.DistrictID)
+                            </b>
+                        </p>
+                        <p class="text-sm">
+                            @Html.DisplayNameFor(model => model.AgentCategory)
+                            <b class="d-block">
+                                @Html.DisplayFor(model => model.AgentCategory.AgentCategoryId)
+                            </b>
+                        </p>
+                    </div>
+                    <div class="text-center mt-5 mb-3">
+                        <a asp-action="Index" class="btn btn-sm btn-secondary">Quay lại</a>
+                        <a asp-action="Edit" asp-route-id="@Model?.AgentId" class="btn btn-sm btn-info">Chỉnh sửa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>

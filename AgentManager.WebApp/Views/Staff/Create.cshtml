@@ -1,0 +1,59 @@
+﻿@model AgentManager.WebApp.Models.ViewModel.StaffVM
+
+@{
+    ViewData["Title"] = "Quản lý quyền";
+    ViewData["Action"] = "Thêm quyền";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<form asp-action="Create" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm quyền</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="StaffName" class="control-label"></label>
+                        <input asp-for="StaffName" class="form-control" />
+                        <span asp-validation-for="StaffName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DoB" class="control-label"></label>
+                        <input asp-for="DoB" class="form-control" />
+                        <span asp-validation-for="DoB" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gender" class="control-label"></label>
+                        <select asp-for="Gender" class="form-control" asp-items="ViewBag.Gender"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PositionId" class="control-label"></label>
+                        <select asp-for="PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                        <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

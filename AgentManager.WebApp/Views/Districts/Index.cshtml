@@ -1,0 +1,96 @@
+﻿@model IEnumerable<AgentManager.WebApp.Models.Data.District>
+
+@{
+    ViewData["Title"] = "Quản lý quyền";
+    ViewData["Action"] = "Danh sách quyền";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Projects</h3>
+            <div class="card-tools">
+                @*                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+                </button>*@
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DistrictName)
+                        </th>
+                        <th style="width: 20%">
+                            <a asp-action="Create" class="btn btn-block btn-dark"> Thêm quyền</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DistrictName)
+                            </td>
+                            <td class="project-actions text-right">
+                                <a asp-action="Edit" asp-route-id="@item.DistrictID" class="btn btn-info btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Sửa
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.DistrictID" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@*
+@model IEnumerable<AgentManager.WebApp.Models.Data.District>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DistrictName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistrictName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DistrictID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DistrictID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DistrictID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

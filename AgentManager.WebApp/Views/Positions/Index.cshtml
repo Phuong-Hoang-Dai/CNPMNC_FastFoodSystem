@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AgentManager.WebApp.Models.Data.Position>
+
+@{
+    ViewData["Title"] = "Quản lý chức vụ";
+    ViewData["Action"] = "Danh sách chức vụ";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<section class="content">
+    <div class="card">
+
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PositionName)
+                        </th>
+                        <th style="width: 20%">
+                            <a asp-action="Create" class="btn btn-block btn-dark"> Thêm chức vụ</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PositionName)
+                            </td>
+                            <td class="project-actions text-right">
+                                <a asp-action="Edit" asp-route-id="@item.PositionId" class="btn btn-info btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Sửa
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.PositionId" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+@*
+@model IEnumerable<AgentManager.WebApp.Models.Data.Position>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PositionName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PositionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PositionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PositionId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Quản lý quyền";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<div class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">@ViewData["Action"]</h3>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        Xác nhận @ViewData["Action"] cho tài khoản
+                        <b>@ViewData["email"]</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Register">
+                <a asp-action="Index" class="btn btn-sm btn-secondary">Quay lại</a>
+                <input type="submit" value=@ViewData["Action"] class="btn btn-sm btn-danger" />
+            </form>
+        </div>
+    </div>
+</div>
