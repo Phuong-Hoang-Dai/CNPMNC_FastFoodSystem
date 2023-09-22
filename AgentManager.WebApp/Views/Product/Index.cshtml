@@ -31,14 +31,11 @@
 					@*<td>@item.soLuongTonKho</td>
 					<td>@item.khoiLuong</td>*@
 					<td>@item.Price₫</td>
-                    <td>
-                        @*<a asp-controller="Product" asp-action="Detail" asp-route-ID="@item.ProductId" type="button" class="btn btn-info">Details<i class="fas fa-eye"></i></a>*@
-                        @Html.Partial("_DetailsButton", @item.ProductId)
-
-
-                        <a asp-controller="Product" asp-action="Edit" asp-route-ID="@item.ProductId" type="button" class="btn btn-success">Edit<i class="fas fa-edit"></i></a>
-                        <a asp-controller="Product" asp-action="Delete" asp-route-ID="@item.ProductId" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-                    </td>
+					<td>
+								<a asp-controller="Product" asp-action="Detail" asp-route-ID="@item.ProductId" type="button" class="btn btn-info"><i class="fas fa-eye"></i></a>
+								<a asp-controller="Product" asp-action="Edit" asp-route-ID="@item.ProductId" type="button" class="btn btn-success"><i class="fas fa-edit"></i></a>
+								<a asp-controller="Product" asp-action="Delete" asp-route-ID="@item.ProductId" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
+					</td>
 				</tr>
 			}
 		  </tbody>
