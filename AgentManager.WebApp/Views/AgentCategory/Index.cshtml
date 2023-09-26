@@ -16,10 +16,8 @@
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.MaxDebt)
-                       <th style="width: 20%">
-                            <a asp-action="Create" class="btn btn-block btn-dark"> Thêm loại đại lý</a>
-                        </th>
-                    </tr>
+                            @Html.Partial("Buttons/_AddButton")
+</tr>
                 </thead>
                 <tbody>
             @foreach (var item in Model) {
