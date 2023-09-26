@@ -4,6 +4,7 @@ namespace AgentManager.WebApp.Models.Data
 {
     public class Products
     {
+       
         [Display(Name = "Mã sản phẩm")]
         public String ProductId { get; set; }
 
@@ -24,6 +25,6 @@ namespace AgentManager.WebApp.Models.Data
         [Display(Name = "Hình ảnh")]
         public string Image {  get; set; }
 
-        //public ICollection<ProductCategories>? ProductCategories { get; set; }
+        public ICollection<ProductOrder>? ProductOrder { get; set; }
     }
 }

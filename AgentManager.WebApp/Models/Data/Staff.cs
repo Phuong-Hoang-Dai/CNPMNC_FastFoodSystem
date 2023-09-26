@@ -5,7 +5,7 @@ namespace AgentManager.WebApp.Models.Data
 {
     public class Staff : IdentityUser
     {
-        [Required]
+   
         [Display(Name = "Tên nhân viên")]
         public string? StaffName { get; set; }
         [Display(Name = "Giới tính")]
@@ -24,5 +24,7 @@ namespace AgentManager.WebApp.Models.Data
         public Position? Position { get; set; }
         public ICollection<Receipt>? Receipts { get; set; }
         public ICollection<DeliveryNote>? DeliveryNotes { get; set; }
+        public ICollection<Orders>? Orders { get; set; }
+        public ICollection<Shipments>? Shipments { get; set; }
     }
 }
