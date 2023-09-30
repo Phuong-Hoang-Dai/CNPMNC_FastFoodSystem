@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{  
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+    string imageUrl = Model.anh;
+}
+@model AgentManager.WebApp.Models.ViewModel.SanPhamVM
+<div class="container mt-3 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="images p-3">
+                            <div class="text-center p-4"> <img id="main-image" src="@Html.DisplayFor(model => model.anh)" width="350" /> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product p-4">
+                            <div class="mt-4 mb-3">
+                                <div style="text-align: right;">
+                                    <span class="text-uppercase text-muted brand" style="float: left;">@Html.DisplayFor(model => model.maSanPham)</span>
+                                    <span class="text-uppercase text-muted brand">Gà quay-Gà rán</span>
+                                </div>
+
+                                <h5 class="text-uppercase">@Html.DisplayFor(model => model.tenSanPham)</h5>
+                                <div class="price d-flex flex-row align-items-center">
+                                    <span class="act-price">@Html.DisplayFor(model => model.gia) VND</span>
+                                </div>
+                            </div>
+                            <p class="about">Gà quay hấp dẫn, thơm ngon từng miếng thịt. Đậm đà hơn khi ăn kèm cơm súp khoai</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
