@@ -17,12 +17,12 @@
     <div class="form-groupd">
         <label class="col-md-12">Ảnh: </label>
         <input asp-for="anh" class="form-control" />
-        <img src="/img/@Model.anh" class="img-fluid" style="max-width:30rem"/>
+        <img src="@Model.anh" class="img-fluid" style="max-width:30rem"/>
         <span asp-validation-for="anh" class="text-danger small"></span>
     </div>
 
 
-    <div class="form-groupd">
+    @*<div class="form-groupd">
         <label>Khối lượng: </label>
         <input asp-for="khoiLuong" class="form-control" />
         <span asp-validation-for="khoiLuong" class="text-danger small"></span>
@@ -39,7 +39,7 @@
         <label>Đơn vị tính: </label>
         <input asp-for="donViTinh" class="form-control" />
         <span asp-validation-for="donViTinh" class="text-danger small"></span>
-    </div>
+    </div>*@
 
     <div class="form-groupd">
         <label>Giá: </label>

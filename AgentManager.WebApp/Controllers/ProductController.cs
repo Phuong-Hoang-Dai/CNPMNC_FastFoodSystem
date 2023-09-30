@@ -20,13 +20,20 @@ namespace AgentManager.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Detail(int id)
-        {
-            ViewBag.ProductDetail = dBHelper.GetProductByID(id);
-            return View();
-        }
+		public IActionResult Details(int id)
+		{
+			SanPhamVM sanPhamVM = new SanPhamVM()
+			{
+				maSanPham = id,
+				tenSanPham = dBHelper.GetProductByID(id).ProductName,
+				anh = dBHelper.GetProductByID(id).Image,
+				gia = dBHelper.GetProductByID(id).Price
+			};
+			if (sanPhamVM == null) return NotFound();
+			else return View(sanPhamVM);
+		}
 
-        public IActionResult Create()
+		public IActionResult Create()
         {
             return View();
         }

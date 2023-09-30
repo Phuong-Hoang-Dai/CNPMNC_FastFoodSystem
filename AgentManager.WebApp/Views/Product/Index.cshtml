@@ -1,46 +1,40 @@
-﻿
-
 @{
     var lstProduct = ViewData["listProduct"] as IEnumerable<AgentManager.WebApp.Models.Data.Product>;
+    Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-		<table class="table table-image">
-		  <thead>
-		    <tr>
-		      <th scope="col">MaSP</th>
-		      <th scope="col">Tên</th>
-		      <th scope="col">Hình ảnh</th>
-		      @*<th scope="col">Số lượng tồn kho</th>
-		      <th scope="col">Khối lượng</th>*@
-		      <th scope="col">Giá</th>
-			  <th><a class="btn btn-primary rounded btn-lg" style="display:inline" asp-controller="Product" asp-action="Create">Add Product</a></th>
-		    </tr>
-		  </thead>
-		  <tbody>
-			@foreach (var item in lstProduct)
-			{
-				<tr>
-					<th scope="row">@item.ProductId</th>
-					<td>@item.ProductName</td>
-					<td class="w-25">
-						<img src="/img/@item.Image" class="img-fluid">
-					</td>
-					@*<td>@item.soLuongTonKho</td>
-					<td>@item.khoiLuong</td>*@
-					<td>@item.Price₫</td>
-					<td>
-								<a asp-controller="Product" asp-action="Detail" asp-route-ID="@item.ProductId" type="button" class="btn btn-info"><i class="fas fa-eye"></i></a>
-								<a asp-controller="Product" asp-action="Edit" asp-route-ID="@item.ProductId" type="button" class="btn btn-success"><i class="fas fa-edit"></i></a>
-								<a asp-controller="Product" asp-action="Delete" asp-route-ID="@item.ProductId" type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></a>
-					</td>
-				</tr>
-			}
-		  </tbody>
-		</table>
-@*		<a class="btn btn-primary rounded-pill btn-block" asp-area="Admin" asp-controller="Product" asp-action="Create">Add Product</a>
-*@    </div> 
-  </div>
-</div>
+<section class="content">
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>MaSP</th>
+                        <th>Tên</th>
+                        <th>Hình ảnh</th>
+                        <th>Giá</th>
+                        @Html.Partial("Buttons/_AddButton")
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in lstProduct)
+			        {
+                    <tr>
+                        <th scope="row">@item.ProductId</th>
+                        <td>@item.ProductName</td>
+                        <td class="w-25">
+                            <img src="@item.Image" class="img-fluid  w-25">
+                        </td>
+                        <td>@item.Price₫</td>
+                        <td class="project-actions text-right">
+                            @Html.Partial("Buttons/_DetailsButton", @item.ProductId)
+                            @Html.Partial("Buttons/_EditButton", @item.ProductId)
+                            @Html.Partial("Buttons/_DeleteButton", @item.ProductId)
+                        </td>
+                    </tr>
+			        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
