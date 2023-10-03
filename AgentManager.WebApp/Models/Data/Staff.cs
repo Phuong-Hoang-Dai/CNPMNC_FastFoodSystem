@@ -25,6 +25,6 @@ namespace AgentManager.WebApp.Models.Data
         public ICollection<Receipt>? Receipts { get; set; }
         public ICollection<DeliveryNote>? DeliveryNotes { get; set; }
         public ICollection<FFSOrder>? Orders { get; set; }
-        public ICollection<FFSShipment>? Shipments { get; set; }
+        public ICollection<FFSDeliveryRecievedNote>? FFSDeliveryRecievedNotes { get; set; }
     }
 }

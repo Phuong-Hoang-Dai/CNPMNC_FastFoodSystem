@@ -341,17 +341,12 @@ namespace AgentManager.WebApp.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("StaffId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("FFSIngredientId", "FFSDeliveryRecievedNoteId");
 
                     b.HasIndex("FFSDeliveryRecievedNoteId");
-
-                    b.HasIndex("StaffId");
 
                     b.ToTable("FFSShipments");
                 });
@@ -763,7 +758,7 @@ namespace AgentManager.WebApp.Migrations
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSDeliveryRecievedNote", b =>
                 {
                     b.HasOne("AgentManager.WebApp.Models.Data.Staff", "Staff")
-                        .WithMany()
+                        .WithMany("FFSDeliveryRecievedNotes")
                         .HasForeignKey("StaffId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -844,10 +839,6 @@ namespace AgentManager.WebApp.Migrations
                         .HasForeignKey("FFSIngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("AgentManager.WebApp.Models.Data.Staff", null)
-                        .WithMany("Shipments")
-                        .HasForeignKey("StaffId");
 
                     b.Navigation("FFSDeliveryRecievedNote");
 
@@ -1033,11 +1024,11 @@ namespace AgentManager.WebApp.Migrations
                 {
                     b.Navigation("DeliveryNotes");
 
+                    b.Navigation("FFSDeliveryRecievedNotes");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Receipts");
-
-                    b.Navigation("Shipments");
                 });
 #pragma warning restore 612, 618
         }

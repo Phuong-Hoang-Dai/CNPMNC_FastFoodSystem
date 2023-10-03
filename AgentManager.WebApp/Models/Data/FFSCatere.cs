@@ -17,6 +17,12 @@ namespace AgentManager.WebApp.Models.Data
         [Required]
         [Display (Name = "Mã hợp đồng")]
         public string ContractId { get; set; }
-        public ICollection<FFSIngredient> FFSIngredients { get; set;}
+		[Required]
+		[Display(Name = "Số điện thoại")]
+		public string PhoneNumber { get; set; }
+		[Required]
+		[Display(Name = "Địa chỉ Email")]
+		public string EmailAddress { get; set; }
+		public ICollection<FFSIngredient> FFSIngredients { get; set;}
     }
 }
