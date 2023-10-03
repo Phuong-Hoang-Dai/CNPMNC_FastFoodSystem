@@ -2,15 +2,18 @@
 
 namespace AgentManager.WebApp.Models.Data
 {
-    public class ProductCategories
+    public class FFSProductCategory
     {
 
         [Display(Name = "Mã loại sản phẩm")]
-        public String ProductCategoryId { get; set; }
         [Required]
+        public string FFSProductCategoryId { get; set; }
+
         [Display(Name = "Tên loại sản phẩm")]
-        public string? Name { get; set; }
+        [Required]
+		public string? Name { get; set; }
+
         [Display(Name = "Danh sách sản phẩm")]
-        public ICollection<Product>? Products { get; set; }
+        public ICollection<FFSProduct>? FFSProducts { get; set; }
     }
 }

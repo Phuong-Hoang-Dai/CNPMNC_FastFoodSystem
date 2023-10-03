@@ -15,10 +15,13 @@ namespace AgentManager.WebApp.Models.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<DeliveryNoteDetail>().HasKey(x => new { x.ProductId, x.DeliveryNoteId });
 
-
-            //Sua ten cac bang cua Identity
-            FixNameIdentityTables(modelBuilder);
+            modelBuilder.Entity<FFSProductOrder>().HasKey(x => new { x.FFSOrderId, x.FFSProductId });
+            modelBuilder.Entity<FFSShipment>().HasKey(x => new { x.FFSIngredientId, x.FFSDeliveryRecievedNoteId });
+			//Sua ten cac bang cua Identity
+			FixNameIdentityTables(modelBuilder);
         }
+
+        //AgentManageSystem
         public DbSet<Agent>? Agents { get; set; }
         public DbSet<AgentCategory>? AgentCategories { get; set; }
         public DbSet<DeliveryNote>? DeliveryNotes { get; set; }
@@ -31,10 +34,27 @@ namespace AgentManager.WebApp.Models.Data
         public DbSet<Receipt>? Receipts { get; set; }
         public DbSet<Staff>? Staffs { get; set; }
 
+		//FastFoodSystem
+		public DbSet<FFSProduct>? FFSProducts { get; set; }
+		public DbSet<FFSProductOrder>? FFSProductOrders { get; set; }
+		public DbSet<FFSProductCategory>? FFSProductCategories { get; set; }
+		public DbSet<FFSOrder>? FFSOrders { get; set; }
+        public DbSet<FFSVoucher> FFSVouchers { get; set; }
+        public DbSet<FFSDeliveryRecievedNote> FFSDeliveryRecievedNotes { get; set; }
+		public DbSet<FFSShipment> FFSShipments{ get; set; }
+		public DbSet<FFSIngredient> FFSIngredients { get; set; }
+		public DbSet<FFSCatere> FFSCateres { get; set; }
+		//public DbSet<Staff>? Staffs { get; set; }
+		//public DbSet<Position>? Positions { get; set; }
 
 
 
-        private static void FixNameIdentityTables(ModelBuilder modelBuilder)
+
+
+
+
+
+		private static void FixNameIdentityTables(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {

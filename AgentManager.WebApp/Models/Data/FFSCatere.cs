@@ -2,20 +2,21 @@
 
 namespace AgentManager.WebApp.Models.Data
 {
-    public class Catere
+    public class FFSCatere
     {
         
         [Display (Name = "Mã nhà cung cấp")]
-        public String CatereId { get; set; }
+        [Required]  
+        public string FFSCatereId { get; set; }
         [Required]
         [Display (Name = "Tên nhà cung cấp")]
-        public String Name { get; set; }
+        public string Name { get; set; }
         [Required]
         [Display (Name = "Địa chỉ")]
-        public String Address { get; set; }
+        public string Address { get; set; }
         [Required]
         [Display (Name = "Mã hợp đồng")]
-        public String ContractId { get; set; }
-        public ICollection<Ingredients> Ingredients { get; set;}
+        public string ContractId { get; set; }
+        public ICollection<FFSIngredient> FFSIngredients { get; set;}
     }
 }

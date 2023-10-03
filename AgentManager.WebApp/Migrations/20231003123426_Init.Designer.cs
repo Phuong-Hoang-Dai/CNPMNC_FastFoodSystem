@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgentManager.WebApp.Migrations
 {
     [DbContext(typeof(AgentManagerDbContext))]
-    [Migration("20230806113823_init")]
-    partial class init
+    [Migration("20231003123426_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,6 +99,7 @@ namespace AgentManager.WebApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StaffId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TotalPrice")
@@ -143,6 +144,7 @@ namespace AgentManager.WebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"), 1L, 1);
 
                     b.Property<string>("DepartmentName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartmentId");
@@ -159,11 +161,227 @@ namespace AgentManager.WebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DistrictID"), 1L, 1);
 
                     b.Property<string>("DistrictName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DistrictID");
 
                     b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSCatere", b =>
+                {
+                    b.Property<string>("FFSCatereId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContractId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSCatereId");
+
+                    b.ToTable("FFSCateres");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSDeliveryRecievedNote", b =>
+                {
+                    b.Property<string>("FFSDeliveryRecievedNoteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StaffId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSDeliveryRecievedNoteId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("FFSDeliveryRecievedNotes");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSIngredient", b =>
+                {
+                    b.Property<string>("FFSIngredientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FFSCatereId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSIngredientId");
+
+                    b.HasIndex("FFSCatereId");
+
+                    b.ToTable("FFSIngredients");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSOrder", b =>
+                {
+                    b.Property<int>("FFSOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FFSOrderId"), 1L, 1);
+
+                    b.Property<double>("Cash")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FFSVoucherId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StaffId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TableId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSOrderId");
+
+                    b.HasIndex("FFSVoucherId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("FFSOrders");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProduct", b =>
+                {
+                    b.Property<string>("FFSProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FFSProductCategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("FFSProductId");
+
+                    b.HasIndex("FFSProductCategoryId");
+
+                    b.ToTable("FFSProducts");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProductCategory", b =>
+                {
+                    b.Property<string>("FFSProductCategoryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSProductCategoryId");
+
+                    b.ToTable("FFSProductCategories");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProductOrder", b =>
+                {
+                    b.Property<int>("FFSOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FFSProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("FFSOrderId", "FFSProductId");
+
+                    b.HasIndex("FFSProductId");
+
+                    b.ToTable("FFSProductOrders");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSShipment", b =>
+                {
+                    b.Property<string>("FFSIngredientId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FFSDeliveryRecievedNoteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StaffId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("FFSIngredientId", "FFSDeliveryRecievedNoteId");
+
+                    b.HasIndex("FFSDeliveryRecievedNoteId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("FFSShipments");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSVoucher", b =>
+                {
+                    b.Property<string>("FFSVoucherId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Num")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FFSVoucherId");
+
+                    b.ToTable("FFSVouchers");
                 });
 
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.Position", b =>
@@ -175,6 +393,7 @@ namespace AgentManager.WebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PositionId"), 1L, 1);
 
                     b.Property<string>("PositionName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PositionId");
@@ -207,6 +426,7 @@ namespace AgentManager.WebApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductWeight")
@@ -228,6 +448,7 @@ namespace AgentManager.WebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductCategoryId"), 1L, 1);
 
                     b.Property<string>("ProductCategoryName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductCategoryId");
@@ -513,7 +734,9 @@ namespace AgentManager.WebApp.Migrations
 
                     b.HasOne("AgentManager.WebApp.Models.Data.Staff", "Staff")
                         .WithMany("DeliveryNotes")
-                        .HasForeignKey("StaffId");
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Agent");
 
@@ -537,6 +760,100 @@ namespace AgentManager.WebApp.Migrations
                     b.Navigation("DeliveryNote");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSDeliveryRecievedNote", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSIngredient", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSCatere", "FFSCatere")
+                        .WithMany("FFSIngredients")
+                        .HasForeignKey("FFSCatereId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FFSCatere");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSOrder", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSVoucher", "FFSVoucher")
+                        .WithMany("FFSOrders")
+                        .HasForeignKey("FFSVoucherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgentManager.WebApp.Models.Data.Staff", "Staff")
+                        .WithMany("Orders")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FFSVoucher");
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProduct", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSProductCategory", "FFSProductCategory")
+                        .WithMany("FFSProducts")
+                        .HasForeignKey("FFSProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FFSProductCategory");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProductOrder", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSOrder", "FFSOrder")
+                        .WithMany("FFSProductOrders")
+                        .HasForeignKey("FFSOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSProduct", "FFSProduct")
+                        .WithMany("FFSProductOrders")
+                        .HasForeignKey("FFSProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FFSOrder");
+
+                    b.Navigation("FFSProduct");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSShipment", b =>
+                {
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSDeliveryRecievedNote", "FFSDeliveryRecievedNote")
+                        .WithMany("FFSShipments")
+                        .HasForeignKey("FFSDeliveryRecievedNoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgentManager.WebApp.Models.Data.FFSIngredient", "FFSIngredient")
+                        .WithMany("FFSShipments")
+                        .HasForeignKey("FFSIngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgentManager.WebApp.Models.Data.Staff", null)
+                        .WithMany("Shipments")
+                        .HasForeignKey("StaffId");
+
+                    b.Navigation("FFSDeliveryRecievedNote");
+
+                    b.Navigation("FFSIngredient");
                 });
 
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.Product", b =>
@@ -664,6 +981,41 @@ namespace AgentManager.WebApp.Migrations
                     b.Navigation("Agents");
                 });
 
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSCatere", b =>
+                {
+                    b.Navigation("FFSIngredients");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSDeliveryRecievedNote", b =>
+                {
+                    b.Navigation("FFSShipments");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSIngredient", b =>
+                {
+                    b.Navigation("FFSShipments");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSOrder", b =>
+                {
+                    b.Navigation("FFSProductOrders");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProduct", b =>
+                {
+                    b.Navigation("FFSProductOrders");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSProductCategory", b =>
+                {
+                    b.Navigation("FFSProducts");
+                });
+
+            modelBuilder.Entity("AgentManager.WebApp.Models.Data.FFSVoucher", b =>
+                {
+                    b.Navigation("FFSOrders");
+                });
+
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.Position", b =>
                 {
                     b.Navigation("Staffs");
@@ -683,7 +1035,11 @@ namespace AgentManager.WebApp.Migrations
                 {
                     b.Navigation("DeliveryNotes");
 
+                    b.Navigation("Orders");
+
                     b.Navigation("Receipts");
+
+                    b.Navigation("Shipments");
                 });
 #pragma warning restore 612, 618
         }

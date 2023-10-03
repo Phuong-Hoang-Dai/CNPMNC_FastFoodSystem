@@ -2,19 +2,22 @@
 
 namespace AgentManager.WebApp.Models.Data
 {
-    public class ProductOrder
+    public class FFSProductOrder
     {
   
         [Display (Name = "Mã sản phẩm")]
-        public String ProductId { get; set; }
+        [Required]
+        public string FFSProductId { get; set; }
+        public FFSProduct FFSProduct { get; set; }
 
+        [Required]
         [Display (Name = "Mã hóa đơn")]
-        public String OrderId { get; set; }
+        public int FFSOrderId { get; set; }
+        public FFSOrder FFSOrder { get; set; }
 
         [Required]
         [Display (Name = "Số lượng")]
         public int Quantity { get; set; }
 
-        public ICollection<Orders>? Orders { get; set; }
     }
 }

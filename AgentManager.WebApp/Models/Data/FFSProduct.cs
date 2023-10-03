@@ -2,11 +2,12 @@
 
 namespace AgentManager.WebApp.Models.Data
 {
-    public class Products
+    public class FFSProduct
     {
        
         [Display(Name = "Mã sản phẩm")]
-        public String ProductId { get; set; }
+        [Required]
+        public string FFSProductId { get; set; }
 
         [Display(Name = "Tên sản phẩm")]
         [Required]
@@ -20,11 +21,12 @@ namespace AgentManager.WebApp.Models.Data
         public int Price { get; set; }
 
         [Display(Name = "Loại sản phẩm")]
-        public String ProductCategoryId { get; set; }
+        public string FFSProductCategoryId { get; set; }
+		public FFSProductCategory FFSProductCategory { get; set; }
 
-        [Display(Name = "Hình ảnh")]
+		[Display(Name = "Hình ảnh")]
         public string Image {  get; set; }
 
-        public ICollection<ProductOrder>? ProductOrder { get; set; }
+        public ICollection<FFSProductOrder>? FFSProductOrders { get; set; }
     }
 }
