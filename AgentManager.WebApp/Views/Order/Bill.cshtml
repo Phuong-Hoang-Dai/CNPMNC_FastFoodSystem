@@ -1,0 +1,135 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    DateTime date = DateTime.Now;
+    Console.WriteLine(date);
+    string dateBill = DateTime.Now.ToString("yyyy-MM-dd");
+    string id = date.ToString("yyMMddHHmmss");
+
+}
+<div class="card">
+  <div class="card-body mx-4">
+    <div class="container">
+      <p class="my-5 mx-5" style="font-size: 30px;">Hoá đơn</p>
+      <div class="row">
+        <ul class="list-unstyled">
+          <li class="text-black">John Doe</li>
+          <li class="text-muted mt-1"><span class="text-black">Mã hoá đơn</span> #@id</li>
+          <li class="text-black mt-1">@dateBill</li>
+        </ul>
+        <hr>
+        @* Demo *@
+        <div title="list-order">
+            <div class="d-flex justify-content-between">
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">Gà cay giòn</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">1</p>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+                <div class="float-end ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">Gà cay giòn</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">1</p>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+                <div class="float-end ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">Gà cay giòn</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">1</p>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+                <div class="float-end ">
+                    <div>
+                        <p class=" fw-normal mb-0">$799</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-xl-10">
+          <p>Tổng tiền</p>
+        </div>
+        <div class="col-xl-2">
+          <p class="float-end">$100.00
+          </p>
+        </div>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-xl-10">
+          <p>Tiền khách đưa</p>
+        </div>
+        <div class="col-xl-2">
+          <p class="float-end">$10.00
+          </p>
+        </div>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-xl-10">
+          <p>Tiền thối </p>
+        </div>
+        <div class="col-xl-2">
+          <p class="float-end">$10.00
+          </p>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top: 90px;">
+        <p>HUFLIT- CÔNG NGHỆ PHẦN MỀM NÂNG CAO</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+@* In hoá đơn *@
+<div class="text-center mt-3">
+    <button type="button" class="btn btn-info">In hoá đơn</button>
+</div>

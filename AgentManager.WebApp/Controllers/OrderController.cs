@@ -15,6 +15,16 @@ namespace AgentManager.WebApp.Controllers
             return View();
         }
 
+        public ActionResult Cart()
+        {
+            return View();
+        }
+
+        public ActionResult Bill()
+        {
+            return View();
+        }
+
         // GET: OrderController/Details/5
         public ActionResult Details(int id)
         {
