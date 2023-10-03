@@ -513,8 +513,7 @@ namespace AgentManager.WebApp.Migrations
                     FFSDeliveryRecievedNoteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StaffId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -531,11 +530,6 @@ namespace AgentManager.WebApp.Migrations
                         principalTable: "FFSIngredients",
                         principalColumn: "FFSIngredientId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_FFSShipments_Users_StaffId",
-                        column: x => x.StaffId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -622,11 +616,6 @@ namespace AgentManager.WebApp.Migrations
                 name: "IX_FFSShipments_FFSDeliveryRecievedNoteId",
                 table: "FFSShipments",
                 column: "FFSDeliveryRecievedNoteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FFSShipments_StaffId",
-                table: "FFSShipments",
-                column: "StaffId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_ProductCategoryId",
