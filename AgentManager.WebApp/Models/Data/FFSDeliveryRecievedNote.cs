@@ -20,5 +20,8 @@ namespace AgentManager.WebApp.Models.Data
 
 		public ICollection<FFSShipment> FFSShipments { get; set; }
 
-	}
+        [Required]
+        [Display(Name = "Thời gian")]
+        public DateTime Date { get; set; }
+    }
 }
