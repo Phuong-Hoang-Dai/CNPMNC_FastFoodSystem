@@ -1,5 +1,6 @@
+@model IEnumerable<AgentManager.WebApp.Models.Data.Agent>
 @{
-    var lstProduct = ViewData["listProduct"] as IEnumerable<AgentManager.WebApp.Models.Data.Product>;
+    var lstProduct = ViewData["listProduct"] as IEnumerable<AgentManager.WebApp.Models.Data.FFSProduct>;
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 
@@ -13,23 +14,23 @@
                         <th>Tên</th>
                         <th>Hình ảnh</th>
                         <th>Giá</th>
-                        @Html.Partial("Buttons/_AddButton")
+                        @Html.Partial("Buttons/_AddButton") 
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in lstProduct)
 			        {
                     <tr>
-                        <th scope="row">@item.ProductId</th>
-                        <td>@item.ProductName</td>
+                        <th scope="row">@item.FFSProductId</th>
+                        <td>@item.Name</td>
                         <td class="w-25">
                             <img src="@item.Image" class="img-fluid  w-25">
                         </td>
                         <td>@item.Price₫</td>
                         <td class="project-actions text-right">
-                            @Html.Partial("Buttons/_DetailsButton", @item.ProductId)
-                            @Html.Partial("Buttons/_EditButton", @item.ProductId)
-                            @Html.Partial("Buttons/_DeleteButton", @item.ProductId)
+                            @Html.Partial("Buttons/_DetailsButton", @item.FFSProductId)
+                            @Html.Partial("Buttons/_EditButton", @item.FFSProductId)
+                            @Html.Partial("Buttons/_DeleteButton", @item.FFSProductId)
                         </td>
                     </tr>
 			        }

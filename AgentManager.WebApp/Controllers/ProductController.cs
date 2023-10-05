@@ -20,20 +20,22 @@ namespace AgentManager.WebApp.Controllers
             return View();
         }
 
-		public IActionResult Details(int id)
-		{
-			SanPhamVM sanPhamVM = new SanPhamVM()
-			{
-				maSanPham = id,
-				tenSanPham = dBHelper.GetProductByID(id).ProductName,
-				anh = dBHelper.GetProductByID(id).Image,
-				gia = dBHelper.GetProductByID(id).Price
-			};
-			if (sanPhamVM == null) return NotFound();
-			else return View(sanPhamVM);
-		}
+        public IActionResult Details(string id)
+        {
+            SanPhamVM sanPhamVM = new SanPhamVM()
+            {
+                maSanPham = id,
+                tenSanPham = dBHelper.GetProductByID(id).Name,
+                anh = dBHelper.GetProductByID(id).Image,
+                gia = dBHelper.GetProductByID(id).Price,
+                loaiSanPham = dBHelper.GetProductByID(id).FFSProductCategoryId,
+                mota = dBHelper.GetProductByID(id).Desc
+            };
+            if (sanPhamVM == null) return NotFound();
+            else return View(sanPhamVM);
+        }
 
-		public IActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -43,15 +45,14 @@ namespace AgentManager.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product sanPham = new Product()
+                FFSProduct sanPham = new FFSProduct()
                 {
-                    ProductName = sanPhamVM.tenSanPham,
+                    Name = sanPhamVM.tenSanPham,
                     Image = sanPhamVM.anh,
-                    ProductWeight = (int)sanPhamVM.khoiLuong,
-                    InventoryQuantity = sanPhamVM.soLuongTonKho,
-                    ItemUnit = sanPhamVM.donViTinh,
                     Price = sanPhamVM.gia,
-                    ProductCategoryId = 1
+                    Desc = sanPhamVM.mota,
+                    FFSProductId = sanPhamVM.maSanPham,
+                    FFSProductCategoryId = sanPhamVM.loaiSanPham
                 };
                 dBHelper.InsertProduct(sanPham);
                 return RedirectToAction("index");
@@ -59,16 +60,13 @@ namespace AgentManager.WebApp.Controllers
             return View(sanPhamVM);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
             {
                 maSanPham = id,
-                tenSanPham = dBHelper.GetProductByID(id).ProductName,
+                tenSanPham = dBHelper.GetProductByID(id).Name,
                 anh = dBHelper.GetProductByID(id).Image,
-                khoiLuong = dBHelper.GetProductByID(id).ProductWeight,
-                soLuongTonKho = dBHelper.GetProductByID(id).InventoryQuantity,
-                donViTinh = dBHelper.GetProductByID(id).ItemUnit,
                 gia = dBHelper.GetProductByID(id).Price
             };
             if (sanPhamVM == null)
@@ -83,20 +81,19 @@ namespace AgentManager.WebApp.Controllers
                 dBHelper.DeleteProduct(sanPhamVM.maSanPham);
                 return RedirectToAction("index");
             }
+            else Console.WriteLine("ERROR");
             return View(sanPhamVM);
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
             {
                 maSanPham = id,
-                tenSanPham = dBHelper.GetProductByID(id).ProductName,
+                tenSanPham = dBHelper.GetProductByID(id).Name,
                 anh = dBHelper.GetProductByID(id).Image,
-                khoiLuong = dBHelper.GetProductByID(id).ProductWeight,
-                soLuongTonKho = dBHelper.GetProductByID(id).InventoryQuantity,
-                donViTinh = dBHelper.GetProductByID(id).ItemUnit,
-                gia = dBHelper.GetProductByID(id).Price
+                gia = dBHelper.GetProductByID(id).Price,
+                mota = dBHelper.GetProductByID(id).Desc
             };
             if (sanPhamVM == null) return NotFound();
             else return View(sanPhamVM);
@@ -106,16 +103,12 @@ namespace AgentManager.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product sanPham = new Product()
+                FFSProduct sanPham = new FFSProduct()
                 {
-                    ProductId = sanPhamVM.maSanPham,
-                    ProductName = sanPhamVM.tenSanPham,
+                    FFSProductId = sanPhamVM.maSanPham,
+                    Name = sanPhamVM.tenSanPham,
                     Image = sanPhamVM.anh,
-                    ProductWeight = (int)sanPhamVM.khoiLuong,
-                    InventoryQuantity = sanPhamVM.soLuongTonKho,
-                    ItemUnit = sanPhamVM.donViTinh,
-                    Price = sanPhamVM.gia,
-                    ProductCategoryId = 1
+                    Price = sanPhamVM.gia
                 };
                 dBHelper.EditProduct(sanPham);
                 return RedirectToAction("Index");
