@@ -353,6 +353,43 @@ namespace AgentManager.WebApp.Models
                     context.SaveChanges();
                 }
 
+				if (!context.FFSProductCategories.Any())
+				{
+					context.AddRange(
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "BG",
+							Name = "Burger"
+						},
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "CK",
+							Name = "Các món gà rán"
+						},
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "CBC",
+							Name = "Combo cơm"
+						},
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "CB",
+							Name = "Combo"
+						},
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "BC",
+							Name = "Bánh cuộn"
+						},
+						new FFSProductCategory
+						{
+							FFSProductCategoryId = "CMAK",
+							Name = "Các món ăn kèm"
+						}
+					);
+					context.SaveChanges();
+				}
+
 				//Add data for FastFood
 				if (!context.FFSProducts.Any())
 				{
@@ -451,73 +488,6 @@ namespace AgentManager.WebApp.Models
 					context.SaveChanges();
 				}
 
-				if (!context.FFSProductCategories.Any())
-				{
-					context.AddRange(
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "BG",
-							Name = "Burger"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CK",
-							Name = "Các món gà rán"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CBCK2",
-							Name = "Conbo gà rán (2 người)"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CBCK1",
-							Name = "Conbo gà rán (1 người)"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CKSM",
-							Name = "Gà giòn sốt me"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CKBT",
-							Name = "Gà sốt bơ tỏi & thảo mộc"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CBGD",
-							Name = "Combo gia đình & bạn bè"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CBTK",
-							Name = "Combo tiết kiệm"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CBC",
-							Name = "Combo cơm"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "SCKX",
-							Name = "Set gà rán có xương"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "BC",
-							Name = "Bánh cuộn"
-						},
-						new FFSProductCategory
-						{
-							FFSProductCategoryId = "CMAK",
-							Name = "Các món ăn kèm"
-						}
-					);
-					context.SaveChanges();
-				}
-
 				if (!context.FFSCateres.Any())
 				{
 					context.AddRange(
@@ -575,40 +545,48 @@ namespace AgentManager.WebApp.Models
 					context.AddRange(
 						new FFSIngredient
 						{
+                            FFSIngredientId = "CG",
 							Name = "Chân gà",
 							FFSCatereId = "CT1"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "UG",
 							Name = "Ức gà",
 							FFSCatereId = "CT1"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "BCG",
 							Name = "Bột chiên giòn",
 							FFSCatereId = "CT2"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "BCX",
 							Name = "Bột chiên xù",
 							FFSCatereId = "CT2"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "P",
 							Name = "Nước pesi",
 							FFSCatereId = "CT3"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "C",
 							Name = "Nước cocacola",
 							FFSCatereId = "CT3"
 						},
 						new FFSIngredient
 						{
+                            FFSIngredientId = "S",
 							Name = "Nước soda",
 							FFSCatereId = "CT3"
 						}
-						);
+					);
+					context.SaveChanges();
 				}
 
 			}
