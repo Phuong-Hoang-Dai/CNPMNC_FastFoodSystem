@@ -7,30 +7,30 @@
 <h1>Edit product</h1>
 
 <form method="post" asp-action="Edit" asp-controller="Product">
-    <input asp-for="maSanPham" type="hidden" class="form-control" />
     <div class="form-group">
+        <label>Mã sản phẩm: </label>
+        <input asp-for="maSanPham" type="text" class="form-control" />
+        <span asp-validation-for="maSanPham" class="text-danger small"></span>
+
         <label>Tên sản phẩm: </label>
-        <input asp-for="tenSanPham" class="form-control" />
+        <input asp-for="tenSanPham" type="text" class="form-control" />
         <span asp-validation-for="tenSanPham" class="text-danger small"></span>
-    </div>
 
-    <div class="form-groupd">
-        <label class="col-md-12">Ảnh: </label>
-        <input asp-for="anh" class="form-control" />
-        <img src="@Model.anh" class="img-fluid" style="max-width:30rem"/>
+        <label>Ảnh</label>
+        <input asp-for="anh" type="text" class="form-control" />
         <span asp-validation-for="anh" class="text-danger small"></span>
-    </div>
 
-    <div class="form-groupd">
-        <label>Giá: </label>
-        <input asp-for="gia" class="form-control" />
-        <span asp-validation-for="gia" class="text-danger small"></span>
-    </div>
-
-    <div class="form-groupd">
         <label>Mô tả: </label>
-        <input asp-for="mota" class="form-control" />
+        <input asp-for="mota" type="text" class="form-control" />
         <span asp-validation-for="mota" class="text-danger small"></span>
+
+        <label>Loại sản phẩm: </label>
+        <input asp-for="loaiSanPham" type="text" class="form-control" />
+        <span asp-validation-for="loaiSanPham" class="text-danger small"></span>
+
+        <label>Giá</label>
+        <input asp-for="gia" type="number" class="form-control" />
+        <span asp-validation-for="gia" class="text-danger small"></span>
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Update</button>

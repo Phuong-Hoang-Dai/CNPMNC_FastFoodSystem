@@ -89,12 +89,14 @@ namespace AgentManager.WebApp.Controllers
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
             {
-                maSanPham = id,
+                maSanPham = dBHelper.GetProductByID(id).FFSProductId,
                 tenSanPham = dBHelper.GetProductByID(id).Name,
                 anh = dBHelper.GetProductByID(id).Image,
                 gia = dBHelper.GetProductByID(id).Price,
-                mota = dBHelper.GetProductByID(id).Desc
+                mota = dBHelper.GetProductByID(id).Desc,
+                loaiSanPham = dBHelper.GetProductByID(id).FFSProductCategoryId,
             };
+            Console.WriteLine("Post Edit Product Clone:", sanPhamVM);
             if (sanPhamVM == null) return NotFound();
             else return View(sanPhamVM);
         }
@@ -105,13 +107,15 @@ namespace AgentManager.WebApp.Controllers
             {
                 FFSProduct sanPham = new FFSProduct()
                 {
-                    FFSProductId = sanPhamVM.maSanPham,
                     Name = sanPhamVM.tenSanPham,
                     Image = sanPhamVM.anh,
-                    Price = sanPhamVM.gia
+                    Price = sanPhamVM.gia,
+                    Desc = sanPhamVM.mota,
+                    FFSProductId = sanPhamVM.maSanPham,
+                    FFSProductCategoryId = sanPhamVM.loaiSanPham
                 };
                 dBHelper.EditProduct(sanPham);
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             return View(sanPhamVM);
         }
