@@ -10,32 +10,32 @@ namespace AgentManager.WebApp.Models
             this.dbContext = dbContext;
         }
 
-        public List<Product> GetProducts()
+        public List<FFSProduct> GetProducts()
         {
-            return dbContext.Products.ToList();
+            return dbContext.FFSProducts.ToList();
         }
 
-        public Product GetProductByID(int id)
+        public FFSProduct GetProductByID(string id)
         {
-            return dbContext.Products.First(x => x.ProductId == id);
+            return dbContext.FFSProducts.First(x => x.FFSProductId == id);
         }
 
-        public void InsertProduct(Product sanPham)
+        public void InsertProduct(FFSProduct sanPham)
         {
-            dbContext.Products.Add(sanPham);
+            dbContext.FFSProducts.Add(sanPham);
             dbContext.SaveChanges();
         }
 
-        public void EditProduct(Product sanPham)
+        public void EditProduct(FFSProduct sanPham)
         {
-            dbContext.Products.Update(sanPham);
+            dbContext.FFSProducts.Update(sanPham);
             dbContext.SaveChanges();
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(string id)
         {
-            Product sanPham = GetProductByID(id);
-            dbContext.Products.Remove(sanPham);
+            FFSProduct sanPham = GetProductByID(id);
+            dbContext.FFSProducts.Remove(sanPham);
             dbContext.SaveChanges();
         }
     }

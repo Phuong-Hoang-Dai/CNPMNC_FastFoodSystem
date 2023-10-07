@@ -5,7 +5,7 @@ namespace AgentManager.WebApp.Models.Data
     public class Product
     {
         [Display(Name ="Mã sản phẩm")]
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         [Display(Name ="Tên sản phẩm")]
         [Required]
         public string? ProductName { get; set; }

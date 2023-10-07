@@ -21,7 +21,7 @@
                             <div class="mt-4 mb-3">
                                 <div style="text-align: right;">
                                     <span class="text-uppercase text-muted brand" style="float: left;">@Html.DisplayFor(model => model.maSanPham)</span>
-                                    <span class="text-uppercase text-muted brand">Gà quay-Gà rán</span>
+                                    <span class="text-uppercase text-muted brand">@Html.DisplayFor(model => model.loaiSanPham)</span>
                                 </div>
 
                                 <h5 class="text-uppercase">@Html.DisplayFor(model => model.tenSanPham)</h5>
@@ -29,7 +29,7 @@
                                     <span class="act-price">@Html.DisplayFor(model => model.gia) VND</span>
                                 </div>
                             </div>
-                            <p class="about">Gà quay hấp dẫn, thơm ngon từng miếng thịt. Đậm đà hơn khi ăn kèm cơm súp khoai</p>
+                            <p class="about">@Html.DisplayFor(model => model.mota)</p>
                         </div>
                     </div>
                 </div>
