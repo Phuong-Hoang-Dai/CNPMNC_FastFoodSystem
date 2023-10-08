@@ -21,7 +21,6 @@ namespace AgentManager.WebApp.Controllers
         // GET: Agent
         public async Task<IActionResult> Index()
         {
-           // var agentManagerDbContext = _context.Staffs.Include(a => a.Position).Include(a => a.Department);
             var agentManagerDbContext = _context.Staffs.Include(a => a.Position);
             return View(await agentManagerDbContext.ToListAsync());
         }
@@ -29,6 +28,13 @@ namespace AgentManager.WebApp.Controllers
         // GET: Agent/Details/5
         public async Task<IActionResult> Details(string? id)
         {
+            var staff = dbHelper.GetStaffByID(id);
+
+            if (staff == null) return NotFound();
+
+            List<Position> positions = GetPositions();
+            var position = positions.FirstOrDefault(p => p.PositionId == staff.PositionId);
+            if (position == null) return NotFound();
             StaffVM staffVM = new StaffVM()
             {
                 StaffName = dbHelper.GetStaffByID(id).StaffName,
@@ -36,18 +42,23 @@ namespace AgentManager.WebApp.Controllers
                 Gender = dbHelper.GetStaffByID(id).Gender,
                 DoB = dbHelper.GetStaffByID(id).DoB,
                 Email = dbHelper.GetStaffByID(id).Email,
-                PositionId = dbHelper.GetStaffByID(id).PositionId,          
+                PositionId = dbHelper.GetStaffByID(id).PositionId,
+                Position = position,
             };
             if (staffVM == null) return NotFound();
             
             else return View(staffVM);
         }
 
+        private List<Position> GetPositions()
+        {
+            return _context.Positions.ToList();
+        }
+
         // GET: Agent/Create
         public IActionResult Create()
         {
             ViewData["PositionId"] = new SelectList(_context.Positions, "PositionId", "PositionName");
-            //ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
             var gender = new List<string> { "Nam", "Nữ" };
             ViewData["Gender"] = new SelectList(gender);
             return View();
@@ -68,7 +79,7 @@ namespace AgentManager.WebApp.Controllers
                 newStaff.Gender = staff.Gender;
                 newStaff.DoB = staff.DoB;
                 newStaff.Address = staff.Address;
-                //newStaff.DepartmentId = staff.DepartmentId;
+                newStaff.DepartmentId = 1;
                 newStaff.PositionId = staff.PositionId;
                 newStaff.Email = staff.Email;
 
@@ -86,7 +97,6 @@ namespace AgentManager.WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PositionId"] = new SelectList(_context.Positions, "PositionId", "PositionName");
-            //ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
 			var gender = new List<string> { "Nam", "Nữ" };
 			ViewData["Gender"] = new SelectList(gender);
 			return View(staff);
@@ -105,8 +115,9 @@ namespace AgentManager.WebApp.Controllers
             {
                 return NotFound();
             }
+            var gender = new List<string> { "Nam", "Nữ" };
+            ViewData["Gender"] = new SelectList(gender);
             ViewData["PositionId"] = new SelectList(_context.Positions, "PositionId", "PositionName");
-            //ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentName");
             return View(staff);
         }
 

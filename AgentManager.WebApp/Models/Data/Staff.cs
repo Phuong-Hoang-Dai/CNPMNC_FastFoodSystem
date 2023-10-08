@@ -15,10 +15,10 @@ namespace AgentManager.WebApp.Models.Data
         [Display(Name = "Địa chỉ")]
         public string? Address { get; set; }
         [Display(Name = "Mã phòng ban")]
-        /*public int DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         [Display(Name = "Phòng ban")]
         public Department? Department { get; set; }
-        [Display(Name = "Mã chức vụ")]*/
+        [Display(Name = "Mã chức vụ")]
         public int PositionId { get; set; }
         [Display(Name = "Chức vụ")]
         public Position? Position { get; set; }
@@ -26,5 +26,6 @@ namespace AgentManager.WebApp.Models.Data
         public ICollection<DeliveryNote>? DeliveryNotes { get; set; }
         public ICollection<FFSOrder>? Orders { get; set; }
         public ICollection<FFSDeliveryRecievedNote>? FFSDeliveryRecievedNotes { get; set; }
+        
     }
 }
