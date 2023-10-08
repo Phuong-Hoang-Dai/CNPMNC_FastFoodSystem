@@ -250,7 +250,7 @@ namespace AgentManager.WebApp.Models
                             LockoutEnabled = false,
                             AccessFailedCount = 0,
                             PositionId = r.Next(1,3),
-                            DepartmentId = r.Next(1,3),
+                            //DepartmentId = r.Next(1,3),
                             StaffName = "Staff-" + i.ToString("D3"),
                             Gender = "Nam",
                             DoB = new DateTime(r.Next(1990,2000),r.Next(1,12), r.Next(1, 30)),

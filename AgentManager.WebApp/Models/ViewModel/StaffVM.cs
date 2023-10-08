@@ -23,10 +23,10 @@ namespace AgentManager.WebApp.Models.ViewModel
         [Required]
         public string? Address { get; set; }
         [Display(Name = "Mã phòng ban")]
-        public int DepartmentId { get; set; }
+        /*public int DepartmentId { get; set; }
         [Display(Name = "Phòng ban")]
         public Department? Department { get; set; }
-        [Display(Name = "Mã chức vụ")]
+        [Display(Name = "Mã chức vụ")]*/
         public int PositionId { get; set; }
         [Display(Name = "Chức vụ")]
         public Position? Position { get; set; }

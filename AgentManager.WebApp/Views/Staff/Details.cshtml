@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Thông tin chi tiết nhân viên";
+    ViewData["Action"] = "Quản lý nhân viên";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@model AgentManager.WebApp.Models.ViewModel.StaffVM
+
+<section class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin chi tiết nhân viên</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.StaffName): &nbsp;</b>
+                            <a>@Html.DisplayFor(model => model.StaffName)</a>
+                        </p> 
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Address): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Address)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Gender): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Gender)
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.DoB): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.DoB)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Position): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.PositionId)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Email): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Email)
+                            </a>
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>     
+        </div>
+    </div>
+    <div class="text-center mt-5 mb-3">
+        <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+    </div>
+</section>
