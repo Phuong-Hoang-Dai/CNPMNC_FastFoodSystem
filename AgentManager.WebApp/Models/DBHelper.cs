@@ -38,5 +38,36 @@ namespace AgentManager.WebApp.Models
             dbContext.FFSProducts.Remove(sanPham);
             dbContext.SaveChanges();
         }
+
+        //Staff
+        public List<Staff> GetStaffs()
+        {
+            return dbContext.Staffs.ToList();
+        }
+
+        public Staff GetStaffByID(string id)
+        {
+            return dbContext.Staffs.First(x => x.Id == id);
+        }
+
+        public void InsertStaff(Staff staff)
+        {
+            dbContext.Staffs.Add(staff);
+            dbContext.SaveChanges();
+        }
+
+        public void EditStaff(Staff staff)
+        {
+            dbContext.Staffs.Update(staff);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteStaff(string id)
+        {
+            Staff staff = GetStaffByID(id);
+            dbContext.Staffs.Remove(staff);
+            dbContext.SaveChanges();
+        }
+
     }
 }

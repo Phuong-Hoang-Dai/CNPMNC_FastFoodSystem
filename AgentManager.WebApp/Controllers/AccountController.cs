@@ -26,7 +26,8 @@ namespace AgentManager.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _userManager.Users.Include(x => x.Position)
-                .Include(y => y.Department).ToListAsync());
+                //.Include(y => y.Department)
+                .ToListAsync());
         }
         public async Task<IActionResult> Register(string? id)
         {
