@@ -22,7 +22,7 @@ namespace AgentManager.WebApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AgentManager.WebApp.Models.Data.Agent", b =>
+           /* modelBuilder.Entity("AgentManager.WebApp.Models.Data.Agent", b =>
                 {
                     b.Property<int>("AgentId")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace AgentManager.WebApp.Migrations
 
                     b.ToTable("Agents");
                 });
-
+*/
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.AgentCategory", b =>
                 {
                     b.Property<int>("AgentCategoryId")
@@ -954,12 +954,12 @@ namespace AgentManager.WebApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("AgentManager.WebApp.Models.Data.Agent", b =>
+            /*modelBuilder.Entity("AgentManager.WebApp.Models.Data.Agent", b =>
                 {
                     b.Navigation("DeliveryNotes");
 
                     b.Navigation("Receipts");
-                });
+                });*/
 
             modelBuilder.Entity("AgentManager.WebApp.Models.Data.AgentCategory", b =>
                 {
