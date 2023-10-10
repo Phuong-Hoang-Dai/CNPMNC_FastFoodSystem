@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgentManager.WebApp.Models.Data
+namespace FastFoodSystem.WebApp.Models.Data
 {
-    public class AgentManagerDbContext : IdentityDbContext<Staff>
+    public class FastFoodSystemDbContext : IdentityDbContext<Staff>
     {
-        public AgentManagerDbContext(DbContextOptions<AgentManagerDbContext> options) : base(options)
+        public FastFoodSystemDbContext(DbContextOptions<FastFoodSystemDbContext> options) : base(options)
         {
 
         }

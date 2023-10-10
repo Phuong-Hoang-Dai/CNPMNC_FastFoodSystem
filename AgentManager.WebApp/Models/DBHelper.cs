@@ -1,11 +1,11 @@
-﻿using AgentManager.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Models.Data;
 
-namespace AgentManager.WebApp.Models
+namespace FastFoodSystem.WebApp.Models
 {
     public class DBHelper
     {
-        AgentManagerDbContext dbContext;
-        public DBHelper(AgentManagerDbContext dbContext)
+        FastFoodSystemDbContext dbContext;
+        public DBHelper(FastFoodSystemDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

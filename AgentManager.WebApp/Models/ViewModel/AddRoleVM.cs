@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
 
-namespace AgentManager.WebApp.Models.ViewModel
+namespace FastFoodSystem.WebApp.Models.ViewModel
 {
     public class AddRoleVM
     {

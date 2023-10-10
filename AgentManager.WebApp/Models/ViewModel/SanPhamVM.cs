@@ -1,7 +1,7 @@
 ﻿
 using System.Globalization;
 
-namespace AgentManager.WebApp.Models.ViewModel
+namespace FastFoodSystem.WebApp.Models.ViewModel
 {
 	public class SanPhamVM
     {

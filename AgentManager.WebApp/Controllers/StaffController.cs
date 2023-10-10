@@ -1,18 +1,18 @@
-﻿using AgentManager.WebApp.Models;
-using AgentManager.WebApp.Models.Data;
-using AgentManager.WebApp.Models.ViewModel;
+﻿using FastFoodSystem.WebApp.Models;
+using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class StaffController : Controller
     {
-        private readonly AgentManagerDbContext _context;
+        private readonly FastFoodSystemDbContext _context;
         DBHelper dbHelper;
-        public StaffController(AgentManagerDbContext context, AgentManagerDbContext db)
+        public StaffController(FastFoodSystemDbContext context, FastFoodSystemDbContext db)
         {
             _context = context;
             dbHelper = new DBHelper(db);
