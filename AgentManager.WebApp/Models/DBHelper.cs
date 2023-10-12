@@ -1,4 +1,5 @@
-﻿using FastFoodSystem.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Controllers;
+using FastFoodSystem.WebApp.Models.Data;
 
 namespace FastFoodSystem.WebApp.Models
 {
@@ -66,6 +67,38 @@ namespace FastFoodSystem.WebApp.Models
         {
             Staff staff = GetStaffByID(id);
             dbContext.Staffs.Remove(staff);
+            dbContext.SaveChanges();
+        }
+        public Staff GetStaffByIdPosition(int id)
+        {
+            return dbContext.Staffs.FirstOrDefault(x => x.PositionId == id);
+        }
+        //Position
+        public List<Position> GetPositions()
+        {
+            return dbContext.Positions.ToList();
+        }
+
+        public Position GetPositionByID(int id)
+        {
+            return dbContext.Positions.First(x => x.PositionId == id);
+        }
+        
+        public void InsertPositions(Position position)
+        {
+            dbContext.Positions.Add(position);
+            dbContext.SaveChanges();
+        }
+        public void EditPositions(Position position)
+        {
+            dbContext.Positions.Update(position);
+            dbContext.SaveChanges();
+        }
+
+        internal void DeletePositions(int id)
+        {
+            Position position = GetPositionByID(id);
+            dbContext.Positions.Remove(position);
             dbContext.SaveChanges();
         }
 
