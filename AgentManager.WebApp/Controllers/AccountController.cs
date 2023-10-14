@@ -1,5 +1,5 @@
-﻿using AgentManager.WebApp.Models.Data;
-using AgentManager.WebApp.Models.ViewModel;
+﻿using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<Staff>? _userManager;
-        private readonly AgentManagerDbContext _context;
+        private readonly FastFoodSystemDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public AccountController(AgentManagerDbContext context, UserManager<Staff>? userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(FastFoodSystemDbContext context, UserManager<Staff>? userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
@@ -26,7 +26,8 @@ namespace AgentManager.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _userManager.Users.Include(x => x.Position)
-                .Include(y => y.Department).ToListAsync());
+                //.Include(y => y.Department)
+                .ToListAsync());
         }
         public async Task<IActionResult> Register(string? id)
         {

@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using AgentManager.WebApp.Models;
-using AgentManager.WebApp.Models.Data;
-using AgentManager.WebApp.Models.ViewModel;
+using FastFoodSystem.WebApp.Models;
+using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.ViewModel;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class ProductController : Controller
     {
         DBHelper dBHelper;
-        public ProductController(AgentManagerDbContext db)
+        public ProductController(FastFoodSystemDbContext db)
         {
             dBHelper = new DBHelper(db);
         }

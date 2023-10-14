@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using AgentManager.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace AgentManager.WebApp.Areas.Identity.Pages.Account
+namespace FastFoodSystem.WebApp.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -117,7 +117,7 @@ namespace AgentManager.WebApp.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.DepartmentId = 1;
+                //user.DepartmentId = 1;
                 user.PositionId = 1;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

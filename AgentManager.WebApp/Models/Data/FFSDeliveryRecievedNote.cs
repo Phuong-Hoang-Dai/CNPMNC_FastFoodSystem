@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgentManager.WebApp.Models.Data
+namespace FastFoodSystem.WebApp.Models.Data
 {
     public class FFSDeliveryRecievedNote
     {
@@ -20,5 +20,8 @@ namespace AgentManager.WebApp.Models.Data
 
 		public ICollection<FFSShipment> FFSShipments { get; set; }
 
-	}
+        [Required]
+        [Display(Name = "Thời gian")]
+        public DateTime Date { get; set; }
+    }
 }
