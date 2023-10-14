@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     internal class HttpStatusCodeResult : ActionResult
     {

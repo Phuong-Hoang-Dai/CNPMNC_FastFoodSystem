@@ -1,4 +1,4 @@
-namespace AgentManager.WebApp.Models
+namespace FastFoodSystem.WebApp.Models
 {
     public class ErrorViewModel
     {

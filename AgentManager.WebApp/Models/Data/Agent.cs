@@ -1,4 +1,4 @@
-﻿namespace AgentManager.WebApp.Models.Data
+﻿namespace FastFoodSystem.WebApp.Models.Data
 {
     public class Agent
     {

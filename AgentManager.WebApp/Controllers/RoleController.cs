@@ -1,19 +1,19 @@
-﻿using AgentManager.WebApp.Models.Data;
-using AgentManager.WebApp.Models.ViewModel;
+﻿using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class RoleController : Controller
     {
-        private readonly AgentManagerDbContext _context;
+        private readonly FastFoodSystemDbContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RoleController(AgentManagerDbContext context, RoleManager<IdentityRole> roleManager)
+        public RoleController(FastFoodSystemDbContext context, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _roleManager = roleManager;

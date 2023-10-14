@@ -1,14 +1,14 @@
-﻿using AgentManager.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgentManager.WebApp.Models
+namespace FastFoodSystem.WebApp.Models
 {
     public class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (AgentManagerDbContext? context = new AgentManagerDbContext(serviceProvider.GetRequiredService<
-                    DbContextOptions<AgentManagerDbContext>>()))
+            using (FastFoodSystemDbContext? context = new FastFoodSystemDbContext(serviceProvider.GetRequiredService<
+                    DbContextOptions<FastFoodSystemDbContext>>()))
             {
                 if (!context.Positions.Any())
                 {

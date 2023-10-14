@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace AgentManager.WebApp.Models.Data
+namespace FastFoodSystem.WebApp.Models.Data
 {
     public class Position
     {
