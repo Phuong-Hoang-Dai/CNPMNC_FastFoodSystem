@@ -260,6 +260,16 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a asp-controller="FFSDeliveryRecievedNotes" asp-action="Index" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Quản lý kho hàng
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -339,5 +349,6 @@
     <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
