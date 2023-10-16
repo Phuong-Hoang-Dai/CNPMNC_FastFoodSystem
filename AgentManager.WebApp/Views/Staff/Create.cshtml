@@ -1,8 +1,8 @@
-﻿@model AgentManager.WebApp.Models.ViewModel.StaffVM
+﻿@model FastFoodSystem.WebApp.Models.ViewModel.StaffVM
 
 @{
-    ViewData["Title"] = "Quản lý quyền";
-    ViewData["Action"] = "Thêm quyền";
+    ViewData["Title"] = "Quản lý nhân viên";
+    ViewData["Action"] = "Thêm nhân viên";
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 <form asp-action="Create" class="content">
@@ -42,10 +42,10 @@
                         <label asp-for="PositionId" class="control-label"></label>
                         <select asp-for="PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
                     </div>
-                    <div class="form-group">
+                    @* <div class="form-group">
                         <label asp-for="DepartmentId" class="control-label"></label>
                         <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>

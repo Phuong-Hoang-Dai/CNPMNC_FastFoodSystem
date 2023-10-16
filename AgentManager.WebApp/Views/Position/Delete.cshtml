@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Quản lý chức vụ";
+    ViewData["Action"] = "Xóa chức vụ";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@model FastFoodSystem.WebApp.Models.ViewModel.PositionVM
+
+<form asp-action="Delete" class="content" asp-controller="Position">
+    <div class="row">
+        <div class="col">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Xóa thông tin chức vụ</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="maChucVu" />
+                    <div class="form-group">
+                        <label>Mã chức vụ: </label>
+                        <input asp-for="maChucVu" class="form-control" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label>Tên chức vụ: </label>
+                        <input asp-for="tenChucVu" class="form-control" readonly />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Xóa" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>
