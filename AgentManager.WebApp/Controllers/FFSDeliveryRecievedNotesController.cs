@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AgentManager.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.Data;
 using Newtonsoft.Json;
-using AgentManager.WebApp.Models.ViewModel;
+using FastFoodSystem.WebApp.Models.ViewModel;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class FFSDeliveryRecievedNotesController : Controller
     {
-        private readonly AgentManagerDbContext _context;
+        private readonly FastFoodSystemDbContext _context;
 
-        public FFSDeliveryRecievedNotesController(AgentManagerDbContext context)
+        public FFSDeliveryRecievedNotesController(FastFoodSystemDbContext context)
         {
             _context = context;
         }
@@ -51,21 +52,23 @@ namespace AgentManager.WebApp.Controllers
         {
             var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
             ViewBag.Ingredients =Ingredients;
-            ViewBag.JsonIngredients = JsonConvert.SerializeObject(Ingredients);
-
-            return View();
+            FFSDeliveryRecievedNote deliveryRecievedNote = new FFSDeliveryRecievedNote
+            {
+                FFSShipments = new List<FFSShipment>()
+                {
+                    new FFSShipment { Quantity = 1} }
+                
+            };
+            return View(deliveryRecievedNote);
         }
 
         // POST: FFSDeliveryRecievedNotes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddShipmentsVM addShipmentsVM)
+        public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
             
-            Console.WriteLine(addShipmentsVM.haha);
-            Console.WriteLine(addShipmentsVM);
             //if (ModelState.IsValid)
             //{
             //    _context.Add(fFSDeliveryRecievedNote);
@@ -170,6 +173,12 @@ namespace AgentManager.WebApp.Controllers
         private bool FFSDeliveryRecievedNoteExists(string id)
         {
           return (_context.FFSDeliveryRecievedNotes?.Any(e => e.FFSDeliveryRecievedNoteId == id)).GetValueOrDefault();
+        }
+        public IActionResult NewItem()
+        {
+            var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
+            ViewBag.Ingredients = Ingredients; 
+            return PartialView("_AddItem", new FFSShipment());
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using AgentManager.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Models.Data;
 
-namespace AgentManager.WebApp.Models.ViewModel
+namespace FastFoodSystem.WebApp.Models.ViewModel
 {
 	public class AddShipmentsVM
 	{
