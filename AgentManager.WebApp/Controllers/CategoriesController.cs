@@ -1,4 +1,4 @@
-﻿using AgentManager.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,9 +9,9 @@ namespace AgentManager.WebApp.Controllers
 
     public class CategoriesController : Controller
     {
-        private readonly AgentManagerDbContext _context;
+        private readonly FastFoodSystemDbContext _context;
 
-        public CategoriesController(AgentManagerDbContext context)
+        public CategoriesController(FastFoodSystemDbContext context)
         {
             _context = context;
         }
@@ -111,7 +111,7 @@ namespace AgentManager.WebApp.Controllers
         {
             if (_context.FFSProductCategories == null)
             {
-                return Problem("Entity set 'AgentManagerDbContext.FFSProductCategory'  is null.");
+                return Problem("Entity set 'FastFoodSystemDbContext.FFSProductCategory'  is null.");
             }
             var category = await _context.FFSProductCategories.FindAsync(id);
             if (category != null)
