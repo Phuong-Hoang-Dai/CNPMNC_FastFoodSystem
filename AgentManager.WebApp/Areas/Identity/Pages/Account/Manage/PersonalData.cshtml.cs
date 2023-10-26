@@ -2,13 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 using System;
 using System.Threading.Tasks;
-using AgentManager.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace AgentManager.WebApp.Areas.Identity.Pages.Account.Manage
+namespace FastFoodSystem.WebApp.Areas.Identity.Pages.Account.Manage
 {
     public class PersonalDataModel : PageModel
     {

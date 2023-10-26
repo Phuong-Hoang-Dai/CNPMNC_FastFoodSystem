@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgentManager.WebApp.Models.ViewModel
+namespace FastFoodSystem.WebApp.Models.ViewModel
 {
     public class EditRoleVM
     {

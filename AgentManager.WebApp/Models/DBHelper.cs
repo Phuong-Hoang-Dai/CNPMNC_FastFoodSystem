@@ -1,42 +1,106 @@
-﻿using AgentManager.WebApp.Models.Data;
+﻿using FastFoodSystem.WebApp.Controllers;
+using FastFoodSystem.WebApp.Models.Data;
 
-namespace AgentManager.WebApp.Models
+namespace FastFoodSystem.WebApp.Models
 {
     public class DBHelper
     {
-        AgentManagerDbContext dbContext;
-        public DBHelper(AgentManagerDbContext dbContext)
+        FastFoodSystemDbContext dbContext;
+        public DBHelper(FastFoodSystemDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public List<Product> GetProducts()
+        public List<FFSProduct> GetProducts()
         {
-            return dbContext.Products.ToList();
+            return dbContext.FFSProducts.ToList();
         }
 
-        public Product GetProductByID(int id)
+        public FFSProduct GetProductByID(string id)
         {
-            return dbContext.Products.First(x => x.ProductId == id);
+            return dbContext.FFSProducts.First(x => x.FFSProductId == id);
         }
 
-        public void InsertProduct(Product sanPham)
+        public void InsertProduct(FFSProduct sanPham)
         {
-            dbContext.Products.Add(sanPham);
+            dbContext.FFSProducts.Add(sanPham);
             dbContext.SaveChanges();
         }
 
-        public void EditProduct(Product sanPham)
+        public void EditProduct(FFSProduct sanPham)
         {
-            dbContext.Products.Update(sanPham);
+            dbContext.FFSProducts.Update(sanPham);
             dbContext.SaveChanges();
         }
 
-        public void DeleteProduct(int id)
+        public void DeleteProduct(string id)
         {
-            Product sanPham = GetProductByID(id);
-            dbContext.Products.Remove(sanPham);
+            FFSProduct sanPham = GetProductByID(id);
+            dbContext.FFSProducts.Remove(sanPham);
             dbContext.SaveChanges();
         }
+
+        //Staff
+        public List<Staff> GetStaffs()
+        {
+            return dbContext.Staffs.ToList();
+        }
+
+        public Staff GetStaffByID(string id)
+        {
+            return dbContext.Staffs.First(x => x.Id == id);
+        }
+
+        public void InsertStaff(Staff staff)
+        {
+            dbContext.Staffs.Add(staff);
+            dbContext.SaveChanges();
+        }
+
+        public void EditStaff(Staff staff)
+        {
+            dbContext.Staffs.Update(staff);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteStaff(string id)
+        {
+            Staff staff = GetStaffByID(id);
+            dbContext.Staffs.Remove(staff);
+            dbContext.SaveChanges();
+        }
+        public Staff GetStaffByIdPosition(int id)
+        {
+            return dbContext.Staffs.FirstOrDefault(x => x.PositionId == id);
+        }
+        //Position
+        public List<Position> GetPositions()
+        {
+            return dbContext.Positions.ToList();
+        }
+
+        public Position GetPositionByID(int id)
+        {
+            return dbContext.Positions.First(x => x.PositionId == id);
+        }
+        
+        public void InsertPositions(Position position)
+        {
+            dbContext.Positions.Add(position);
+            dbContext.SaveChanges();
+        }
+        public void EditPositions(Position position)
+        {
+            dbContext.Positions.Update(position);
+            dbContext.SaveChanges();
+        }
+
+        internal void DeletePositions(int id)
+        {
+            Position position = GetPositionByID(id);
+            dbContext.Positions.Remove(position);
+            dbContext.SaveChanges();
+        }
+
     }
 }

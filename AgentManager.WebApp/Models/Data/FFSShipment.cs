@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgentManager.WebApp.Models.Data
+namespace FastFoodSystem.WebApp.Models.Data
 {
     public class FFSShipment
     {
@@ -10,18 +10,22 @@ namespace AgentManager.WebApp.Models.Data
         public int Quantity { get; set; }
         [Required]
         [Display (Name = "Hạn sản xuất")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime StartDate { get; set; }
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display (Name = "Hạn sử dụng")]
         public DateTime EndDate { get; set; }
 
 		[Required]
-		[Display(Name = "Mã nguyên vật liệu")]
+		[Display(Name = "Nguyên vật liệu")]
 		public string FFSIngredientId { get; set; }
 		public FFSIngredient? FFSIngredient { get; set; }
 
 		[Required]
-		[Display(Name = "Mã nguyên vật liệu")]
+		[Display(Name = "Mã phiếu nhập/xuất")]
 		public string FFSDeliveryRecievedNoteId { get; set; }
 		public FFSDeliveryRecievedNote? FFSDeliveryRecievedNote { get; set; }
 	}
