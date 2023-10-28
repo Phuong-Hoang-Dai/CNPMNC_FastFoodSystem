@@ -5,9 +5,9 @@
 
 <h1>Create product</h1>
 
-<form method="post" asp-action="Create" asp-controller="Product">
+<form method="post" asp-action="Create" asp-controller="Product" enctype="multipart/form-data">
 
-    <div class="form-group">
+    @* <div class="form-group">
         <label>Mã sản phẩm: </label>
         <input asp-for="maSanPham" type="text" class="form-control" />
         <span asp-validation-for="maSanPham" class="text-danger small"></span>
@@ -31,8 +31,16 @@
         <label>Giá</label>
         <input asp-for="gia" type="number" class="form-control" />
         <span asp-validation-for="gia" class="text-danger small"></span>
+    </div> *@
+
+    <div class="form-group">
+        <label for="excelFile">Chọn tệp Excel:</label>
+        <input type="file" name="excelFile" id="excelFile" accept=".xlsx" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
-
+@* <form method="post" enctype="multipart/form-data">
+    <input type="file" name="excelFile" />
+    <input type="submit" value="Import" />
+</form> *@

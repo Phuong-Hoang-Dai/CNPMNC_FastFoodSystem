@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
+using FastFoodSystem.WebApp.Controllers.ExcelImport;
+using OfficeOpenXml;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
@@ -41,9 +43,35 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(SanPhamVM sanPhamVM)
+        public IActionResult Create(SanPhamVM sanPhamVM, IFormFile excelFile)
         {
-            if (ModelState.IsValid)
+            if (excelFile != null && excelFile.Length > 0)
+            {
+                try
+                {
+                    using (var stream = excelFile.OpenReadStream())
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        var importedProducts = ExcelReader.ImportProductsFromExcel(package);
+
+                        if (importedProducts != null && importedProducts.Any())
+                        {
+                            // Thêm các sản phẩm đã import vào CSDL ở đây
+                            foreach (var product in importedProducts)
+                            {
+                                dBHelper.InsertProduct(product);
+                            }
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("excelFile", "Lỗi khi import từ file Excel: " + ex.Message);
+                }
+            }
+            /*
+            else if (ModelState.IsValid)
             {
                 FFSProduct sanPham = new FFSProduct()
                 {
@@ -55,12 +83,13 @@ namespace FastFoodSystem.WebApp.Controllers
                     FFSProductCategoryId = sanPhamVM.loaiSanPham
                 };
                 dBHelper.InsertProduct(sanPham);
-                return RedirectToAction("index");
-            }
+                return RedirectToAction("Index");
+            }*/
+
             return View(sanPhamVM);
         }
-
-        public IActionResult Delete(string id)
+    
+    public IActionResult Delete(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
             {
