@@ -1,8 +1,8 @@
-﻿using AgentManager.WebApp.Models;
+﻿using FastFoodSystem.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AgentManager.WebApp.Controllers
+namespace FastFoodSystem.WebApp.Controllers
 {
     public class HomeController : Controller
     {

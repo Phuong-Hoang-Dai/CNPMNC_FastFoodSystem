@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Quản lý chức vụ";
+    ViewData["Action"] = "Thêm chức vụ";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@model FastFoodSystem.WebApp.Models.ViewModel.PositionVM
+
+<form method="post" asp-action="Create" asp-controller="Position">
+
+    <div class="form-group">
+        <label>Tên chức vụ: </label>
+        <input asp-for="tenChucVu" type="text" class="form-control" />
+        <span asp-validation-for="tenChucVu" class="text-danger small"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+

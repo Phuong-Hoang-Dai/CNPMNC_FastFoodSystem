@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@using FastFoodSystem.WebApp.Models.Data;
+@model IEnumerable<FFSProductCategory>
+<h1 class="text-center">Categories Page</h1>
+
+
+<section class="content">
+
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã danh mục
+                        </th>
+                        <th>
+                            Tên danh mục
+                        </th>
+                         @Html.Partial("Buttons/_AddButton") 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FFSProductCategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="project-actions text-right">
+                                @Html.Partial("Buttons/_EditButton", item.FFSProductCategoryId)
+                                @Html.Partial("Buttons/_DeleteButton", item.FFSProductCategoryId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

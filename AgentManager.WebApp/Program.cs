@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using AgentManager.WebApp.Models.Data;
-using AgentManager.WebApp.Models;
+using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("AgentManagerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AgentManagerDbContextConnection' not found.");
@@ -11,13 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AgentManagerDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("AgentManagerDbContext")));
+builder.Services.AddDbContext<FastFoodSystemDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("AgentManagerDbContext")));
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentity<Staff, IdentityRole>()
-                .AddEntityFrameworkStores<AgentManagerDbContext>()
+                .AddEntityFrameworkStores<FastFoodSystemDbContext>()
                 .AddDefaultTokenProviders();
 
 
@@ -79,4 +79,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.Run();

@@ -1,4 +1,4 @@
-﻿@using AgentManager.WebApp.Models.Data
+﻿@using FastFoodSystem.WebApp.Models.Data
 @model IEnumerable<Staff>
 
 @{
@@ -19,9 +19,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Position.PositionName)
                         </th>
-                        <th>
+                        @* <th>
                             @Html.DisplayNameFor(model => model.Department.DepartmentName)
-                        </th>
+                        </th> *@
                         <th style="width: 30%">
                         </th>
                     </tr>
@@ -36,9 +36,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Position.PositionName)
                             </td>
-                            <td>
+                            @* <td>
                                 @Html.DisplayFor(modelItem => item.Department.DepartmentName)
-                            </td>
+                            </td> *@
                             <td class="project-actions text-right">
                                 @if(item.PasswordHash == null)
                                 {

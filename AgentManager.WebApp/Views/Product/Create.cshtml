@@ -1,13 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model AgentManager.WebApp.Models.ViewModel.SanPhamVM
+@model FastFoodSystem.WebApp.Models.ViewModel.SanPhamVM
 
 <h1>Create product</h1>
 
 <form method="post" asp-action="Create" asp-controller="Product">
 
     <div class="form-group">
+        <label>Mã sản phẩm: </label>
+        <input asp-for="maSanPham" type="text" class="form-control" />
+        <span asp-validation-for="maSanPham" class="text-danger small"></span>
+
         <label>Tên sản phẩm: </label>
         <input asp-for="tenSanPham" type="text" class="form-control" />
         <span asp-validation-for="tenSanPham" class="text-danger small"></span>
@@ -16,23 +20,19 @@
         <input asp-for="anh" type="text" class="form-control" />
         <span asp-validation-for="anh" class="text-danger small"></span>
 
-        <label>Khối lượng</label>
-        <input asp-for="khoiLuong" type="number" class="form-control" />
-        <span asp-validation-for="khoiLuong" class="text-danger small"></span>
+        <label>Mô tả: </label>
+        <input asp-for="mota" type="text" class="form-control" />
+        <span asp-validation-for="mota" class="text-danger small"></span>
 
-        <label>Số lượng tồn kho</label>
-        <input asp-for="soLuongTonKho" type="number" class="form-control" />
-        <span asp-validation-for="soLuongTonKho" class="text-danger small"></span>
-
-        <label>Đơn vị tính</label>
-        <input asp-for="donViTinh" type="text" class="form-control" />
-        <span asp-validation-for="donViTinh" class="text-danger small"></span>
+        <label>Loại sản phẩm: </label>
+        <input asp-for="loaiSanPham" type="text" class="form-control" />
+        <span asp-validation-for="loaiSanPham" class="text-danger small"></span>
 
         <label>Giá</label>
         <input asp-for="gia" type="number" class="form-control" />
         <span asp-validation-for="gia" class="text-danger small"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
 
