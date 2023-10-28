@@ -21,14 +21,12 @@ namespace FastFoodSystem.WebApp.Controllers
             _context = context;
         }
 
-        // GET: FFSDeliveryRecievedNotes
         public async Task<IActionResult> Index()
         {
             var agentManagerDbContext = _context.FFSDeliveryRecievedNotes.Include(f => f.Staff);
             return View(await agentManagerDbContext.ToListAsync());
         }
 
-        // GET: FFSDeliveryRecievedNotes/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.FFSDeliveryRecievedNotes == null)
@@ -47,7 +45,6 @@ namespace FastFoodSystem.WebApp.Controllers
             return View(fFSDeliveryRecievedNote);
         }
 
-        // GET: FFSDeliveryRecievedNotes/Create
         public IActionResult Create()
         {
             var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
@@ -56,27 +53,30 @@ namespace FastFoodSystem.WebApp.Controllers
             {
                 FFSShipments = new List<FFSShipment>()
                 {
-                    new FFSShipment { Quantity = 1} }
-                
+                    new FFSShipment { Quantity = 1} 
+                }
             };
             return View(deliveryRecievedNote);
         }
 
-        // POST: FFSDeliveryRecievedNotes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
             
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(fFSDeliveryRecievedNote);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["StaffId"] = new SelectList(_context.Staffs, "Id", "Id", fFSDeliveryRecievedNote.StaffId);
-            return View();
+            if (ModelState.IsValid)
+            {
+                deliveryRecievedNote.Date = DateTime.Now;
+                deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
+                _context.Add(deliveryRecievedNote);
+                foreach (var item in deliveryRecievedNote.FFSShipments)
+                {
+                    item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
+                    _context.Add(item);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(deliveryRecievedNote);
         }
 
         // GET: FFSDeliveryRecievedNotes/Edit/5

@@ -9,16 +9,6 @@
 
 <h4>FFSDeliveryRecievedNote</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group col-sm" id="Add">
-            <div class="btn btn-success">
-                +
-            </div>
-        </div>
-    </div>
-</div>
-
 <form asp-action="Create" method="post">
     <div id="editorRows" class="container text-center">
         @foreach (var item in Model.FFSShipments)
@@ -42,17 +32,23 @@
             e.preventDefault();
             var formData = new FormData();
 
-            $("input[name='FFSIngredientId']").each(function (i) {
-                var FFSIngredientId = $(this).val();
-                formData.append("FFSShipments[" + i + "].FFSIngredientId", FFSIngredientId);
-
+            $("select[name='FFSIngredientId']").each(function (i) {
+                var ingredientId = $(this).val();
+                formData.append("FFSShipments[" + i + "].FFSIngredientId", ingredientId);
             });
             $("input[name='Quantity']").each(function (i) {
-                var Quantity = $(this).val();
-                formData.append("FFSShipments[" + i + "].Quantity", Quantity);
-
+                ValidateQuantity()
+                var quantity = $(this).val();
+                formData.append("FFSShipments[" + i + "].Quantity", quantity);
             });
-
+            $("input[name='StartDate']").each(function (i) {
+                var startDate = $(this).val();
+                formData.append("FFSShipments[" + i + "].StartDate", startDate);
+            });
+            $("input[name='EndDate']").each(function (i) {
+                var endDate = $(this).val();
+                formData.append("FFSShipments[" + i + "].EndDate", endDate);
+            }); 
             $.ajax({
                 method: 'post',
                 url: "Create",
@@ -75,8 +71,17 @@
         });
 
         $("#deleteRow").on("click", function () {
-            $(this).parents("div#DynamicItem").remove();
+            $(this).parents("div.editorRow:first").remove();
             return false;
         });
+        function ValidateQuantity() {
+            if ($(this).val() < 1) 
+                $(this).val().addClass("is-invalid")
+            else
+                $(this).val().removeClass("is-invalid")
+
+            return;
+
+        }
     </script>
 }
