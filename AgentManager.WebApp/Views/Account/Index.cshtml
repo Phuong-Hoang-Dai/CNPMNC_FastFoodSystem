@@ -19,6 +19,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Position.PositionName)
                         </th>
+                        @* <th>
+                            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+                        </th> *@
                         <th style="width: 30%">
                         </th>
                     </tr>
@@ -33,6 +36,9 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Position.PositionName)
                             </td>
+                            @* <td>
+                                @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                            </td> *@
                             <td class="project-actions text-right">
                                 @if(item.PasswordHash == null)
                                 {
@@ -47,10 +53,10 @@
                                         Đặt lại mật khẩu
                                     </a>
                                 }
-                                @* <a asp-action="AddRole" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                <a asp-action="AddRole" asp-route-id="@item.Id" class="btn btn-info btn-sm">
                                     <i class="fas fa-folder"></i>
                                     Sửa quyền
-                                </a> *@
+                                </a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
                                     <i class="fas fa-folder"></i>
                                     Xóa

@@ -76,9 +76,9 @@
         });
         function ValidateQuantity() {
             if ($(this).val() < 1) 
-                $(this).addClass("aaaaa")
+                $(this).val().addClass("is-invalid")
             else
-                $(this).removeClass("aaaaa")
+                $(this).val().removeClass("is-invalid")
 
             return;
 
