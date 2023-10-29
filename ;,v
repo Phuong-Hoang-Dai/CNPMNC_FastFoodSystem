@@ -1,0 +1,21 @@
+[33m0956a94[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m Update package
+[33m03c131d[m Merge branch 'WarehouseManagementDemo' of https://github.com/Phuong-Hoang-Dai/CNPMNC_FastFoodSystem
+[33mde2b564[m Update SeedData Migration
+[33m55f3352[m Add Date for Delivery Recieved Note
+[33mfa813b5[m Completed Data Model
+[33me95ad39[m Not Completed
+[33m4b5e8b1[m Merge remote-tracking branch 'origin/groupButtons_demo_1_HViet'
+[33mb6abfde[m[33m ([m[1;31morigin/groupButtons_demo_1_HViet[m[33m)[m Auto stash before merge of "groupButtons_demo_1_HViet" and "origin/groupButtons_demo_1_HViet"
+[33m1809901[m Merge remote-tracking branch 'origin/groupButtons_demo_1_HViet' into groupButtons_demo_1_HViet
+[33ma9edb38[m 30/Sep: Update Product Page ⬆️
+[33m86aa553[m Update model 2
+[33m98f4706[m Create "3 buttons"
+[33md38ea98[m create Common buttons: Details
+[33md7fa59e[m Revert "Merge pull request #23 from Phuong-Hoang-Dai/groupButtons_demo_1_HViet"
+[33md3c394b[m Merge pull request #23 from Phuong-Hoang-Dai/groupButtons_demo_1_HViet
+[33m54df3c2[m create Common buttons: Details
+[33m47e7773[m Update model
+[33m08ac1ae[m update documentation
+[33m188321d[m Add Base
+[33mf47586d[m Add product backlog documentation
+[33m405f61f[m Initial commit
