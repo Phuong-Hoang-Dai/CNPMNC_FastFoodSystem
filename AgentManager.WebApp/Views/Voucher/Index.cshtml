@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@using FastFoodSystem.WebApp.Models.Data;
+@model IEnumerable<FFSVoucher>
+
+<section class="content">
+
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã khuyễn mãi
+                        </th>
+                        <th>
+                            Phần trăm
+                        </th>
+                        <th>
+                            Ngày bắt đầu
+                        </th>
+                        <th>
+                            Ngày kết thúc
+                        </th>
+                        <th>
+                            Số lượng
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+                        @Html.Partial("Buttons/_AddButton")
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FFSVoucherId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Num)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td class="project-actions text-right">
+                                @Html.Partial("Buttons/_DetailsButton", @item.FFSVoucherId)
+                                @Html.Partial("Buttons/_EditButton", item.FFSVoucherId)
+                                @Html.Partial("Buttons/_DeleteButton", item.FFSVoucherId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
