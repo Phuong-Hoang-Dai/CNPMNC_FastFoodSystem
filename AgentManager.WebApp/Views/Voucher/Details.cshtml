@@ -1,0 +1,68 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSVoucher
+
+@{
+    ViewData["Title"] = "Thông tin mã khuyến mãi";
+    ViewData["Action"] = "Quản lý mã khuyến mãi";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<section class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin mã khuyến mãi</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.FFSVoucherId): &nbsp;</b>
+                            <a>@Html.DisplayFor(model => model.FFSVoucherId)</a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Num): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Num)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Price): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Price)
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.StartDate): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.StartDate)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.EndDate): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.EndDate)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.State): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.State)
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="text-center mt-5 mb-3">
+        <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+    </div>
+</section>

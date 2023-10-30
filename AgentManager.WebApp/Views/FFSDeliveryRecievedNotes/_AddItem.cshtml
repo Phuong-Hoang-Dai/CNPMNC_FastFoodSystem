@@ -1,0 +1,22 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSShipment
+<div class="row align-items-start editorRow">
+    <div class="form-group col-sm ml-2">
+        <select name="FFSIngredientId" aria-label="Hãy chọn nguyên liệu" asp-for="FFSIngredientId" class="form-control" asp-items="ViewBag.Ingredients"></select>
+    </div>
+    <div class="form-group col-sm ml-2">
+        <input name="Quantity" placeholder="Nhập số lượng" asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="form-group col-sm row ml-2 flex-nowrap">
+        <div class="input-group-text">NSX: </div>
+        <input asp-format="{0:dd/MM/yyyy}" placeholder="Ngày sản xuất" asp-for="StartDate" class="form-control" />
+    </div>
+    <div class="form-group col-sm row ml-2 flex-nowrap">
+        <div class="input-group-text">HSD: </div>
+        <input asp-format="{0:dd/MM/yyyy}" placeholder="Ngày hết hạn" asp-for="EndDate" class="form-control" />
+    </div>
+    <div class="form-group col-sm deletebtn" id="deleteRow">
+        <div class="btn btn-danger">
+            -
+        </div>
+    </div>
+</div>

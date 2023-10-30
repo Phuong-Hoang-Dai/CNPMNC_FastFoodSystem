@@ -1,0 +1,59 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSVoucher
+
+@{
+    ViewData["Title"] = "Sửa thông tin mã khuyến mãi";
+    ViewData["Action"] = "Quản lý mã khuyến mãi";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
+<form asp-action="Edit" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Sửa thông tin mã khuyến mãi</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="FFSVoucherId" />
+                    <div class="form-group">
+                        <label asp-for="FFSVoucherId" class="control-label"></label>
+                        <input asp-for="FFSVoucherId" class="form-control" />
+                        <span asp-validation-for="FFSVoucherId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Num" class="control-label"></label>
+                        <input asp-for="Num" class="form-control" />
+                        <span asp-validation-for="Num" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control"/>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control"/>
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label"></label>
+                        <input asp-for="State" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Lưu chỉnh sửa" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>
