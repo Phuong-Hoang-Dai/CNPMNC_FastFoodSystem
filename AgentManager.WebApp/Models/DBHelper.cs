@@ -102,5 +102,36 @@ namespace FastFoodSystem.WebApp.Models
             dbContext.SaveChanges();
         }
 
+        //Voucher
+
+        public List<FFSVoucher> GetVouchers()
+        {
+            return dbContext.FFSVouchers.ToList();
+        }
+
+        public FFSVoucher GetVoucherByID(string id)
+        {
+            return dbContext.FFSVouchers.First(x => x.FFSVoucherId == id);
+        }
+
+        public void InsertVoucher(FFSVoucher voucher)
+        {
+            dbContext.FFSVouchers.Add(voucher);
+            dbContext.SaveChanges();
+        }
+
+        public void EditVoucher(FFSVoucher voucher)
+        {
+            dbContext.FFSVouchers.Update(voucher);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteVoucher(string id)
+        {
+            FFSVoucher voucher = GetVoucherByID(id);
+            dbContext.FFSVouchers.Remove(voucher);
+            dbContext.SaveChanges();
+        }
+
     }
 }
