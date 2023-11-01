@@ -3,16 +3,18 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_mLayout.cshtml";
+    
 }
 
 <h1>Create</h1>
 
-<h4>Lập phiếu nhập hàng</h4>
+<h4>Lập phiếu @Model.State hàng</h4>
 <hr />
 <div class="container text-center">
     <div class="card">
         <div class="card-body p-0 my-3">
             <form asp-action="Create" method="post">
+                
                 <div id="editorRows" class="container">
                     @foreach (var item in Model.FFSShipments)
                     {
