@@ -47,10 +47,10 @@ namespace FastFoodSystem.WebApp.Controllers
             return View(fFSDeliveryRecievedNote);
         }
 
-        public IActionResult Create(string state)
+        public IActionResult Create()
         {
             var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
-            ViewBag.Ingredients =Ingredients;
+            ViewBag.Ingredients = Ingredients;
             FFSDeliveryRecievedNote deliveryRecievedNote = new FFSDeliveryRecievedNote
             {
                 FFSShipments = new List<FFSShipment>()
@@ -58,28 +58,79 @@ namespace FastFoodSystem.WebApp.Controllers
                     new FFSShipment { Quantity = 1} 
                 }
             };
-            deliveryRecievedNote.State = state;
-            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
-            deliveryRecievedNote.Date = DateTime.Now;
-            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
-
             return View(deliveryRecievedNote);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
+            deliveryRecievedNote.State = "nhập";
+            deliveryRecievedNote.Date = DateTime.Now;
+            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString(); 
+            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
             _context.Add(deliveryRecievedNote);
+
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
                 item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
                 _context.Add(item);
+                
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
        
         }
+
+
+
+
+        public IActionResult CreateExport()
+        {
+            var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
+            ViewBag.Ingredients = Ingredients;
+            FFSDeliveryRecievedNote deliveryRecievedNote = new FFSDeliveryRecievedNote
+            {
+                FFSShipments = new List<FFSShipment>()
+                {
+                    new FFSShipment { Quantity = 1}
+                }
+            };
+
+            return View(deliveryRecievedNote);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateExport(FFSDeliveryRecievedNote deliveryRecievedNote)
+        {
+            deliveryRecievedNote.State = "xuất";
+            deliveryRecievedNote.Date = DateTime.Now.Date;
+            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
+            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
+            _context.Add(deliveryRecievedNote);
+            foreach (var item in deliveryRecievedNote.FFSShipments)
+            {
+                item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
+                _context.Add(item);
+                FFSIngredient ingredient = await _context.FFSIngredients.FindAsync(item.FFSIngredientId);
+                if (item.Quantity > ingredient.Quantity)
+                {
+                    ModelState.AddModelError("Quantity", $"Nguyên liệu {ingredient.Name} không đủ, chỉ còn {ingredient.Quantity} đơn vị");
+                    return View(deliveryRecievedNote);
+                }
+                else
+                {
+                    ingredient.Quantity -= item.Quantity;
+                    _context.Update(ingredient);
+                }
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
 
         // GET: FFSDeliveryRecievedNotes/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -194,8 +245,16 @@ namespace FastFoodSystem.WebApp.Controllers
         public IActionResult NewItem()
         {
             var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
-            ViewBag.Ingredients = Ingredients; 
+            ViewBag.Ingredients = Ingredients;
+
             return PartialView("_AddItem", new FFSShipment());
+        }
+        public IActionResult NewItemExport()
+        {
+            var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
+            ViewBag.Ingredients = Ingredients;
+
+            return PartialView("_AddItemExport", new FFSShipment());
         }
     }
 }
