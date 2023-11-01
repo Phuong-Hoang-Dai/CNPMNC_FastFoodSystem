@@ -57,24 +57,27 @@ namespace FastFoodSystem.WebApp.Controllers
                 }
             };
             deliveryRecievedNote.State = state;
-            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
             return View(deliveryRecievedNote);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
-                deliveryRecievedNote.Date = DateTime.Now;
-                deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
-                _context.Add(deliveryRecievedNote);
+            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
+            deliveryRecievedNote.Date = DateTime.Now;
+            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
+            _context.Add(deliveryRecievedNote);
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
                 item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
                 _context.Add(item);
             }
-            await _context.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            //return View(deliveryRecievedNote);
+            }
+            return View(deliveryRecievedNote);
         }
 
         // GET: FFSDeliveryRecievedNotes/Edit/5

@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-body p-0 my-3">
             <form asp-action="Create" method="post">
-                
+                <input type="hidden" asp-for="State" value="@Model.State"/>
                 <div id="editorRows" class="container">
                     @foreach (var item in Model.FFSShipments)
                     {
