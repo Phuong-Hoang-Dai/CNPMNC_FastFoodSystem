@@ -37,6 +37,8 @@ namespace FastFoodSystem.WebApp.Controllers
             var fFSDeliveryRecievedNote = await _context.FFSDeliveryRecievedNotes
                 .Include(f => f.Staff)
                 .FirstOrDefaultAsync(m => m.FFSDeliveryRecievedNoteId == id);
+            fFSDeliveryRecievedNote.FFSShipments = _context.FFSShipments
+                .Include(n => n.FFSIngredient).Where(i => i.FFSDeliveryRecievedNoteId == id).ToList();
             if (fFSDeliveryRecievedNote == null)
             {
                 return NotFound();
@@ -57,27 +59,26 @@ namespace FastFoodSystem.WebApp.Controllers
                 }
             };
             deliveryRecievedNote.State = state;
+            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
+            deliveryRecievedNote.Date = DateTime.Now;
+            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
+
             return View(deliveryRecievedNote);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
-            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
-            deliveryRecievedNote.Date = DateTime.Now;
-            deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
             _context.Add(deliveryRecievedNote);
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
                 item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
                 _context.Add(item);
             }
-            if (ModelState.IsValid)
-            {
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(deliveryRecievedNote);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+       
         }
 
         // GET: FFSDeliveryRecievedNotes/Edit/5
@@ -88,12 +89,15 @@ namespace FastFoodSystem.WebApp.Controllers
                 return NotFound();
             }
 
-            var fFSDeliveryRecievedNote = await _context.FFSDeliveryRecievedNotes.FindAsync(id);
+            var fFSDeliveryRecievedNote = await _context.FFSDeliveryRecievedNotes
+                .Include(s => s.Staff)
+                .FirstOrDefaultAsync(m => m.FFSDeliveryRecievedNoteId == id);
+            fFSDeliveryRecievedNote.FFSShipments = _context.FFSShipments
+               .Include(n => n.FFSIngredient).Where(i => i.FFSDeliveryRecievedNoteId == id).ToList();
             if (fFSDeliveryRecievedNote == null)
             {
                 return NotFound();
             }
-            ViewData["StaffId"] = new SelectList(_context.Staffs, "Id", "Id", fFSDeliveryRecievedNote.StaffId);
             return View(fFSDeliveryRecievedNote);
         }
 
@@ -102,7 +106,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("FFSDeliveryRecievedNoteId,State,StaffId,Date")] FFSDeliveryRecievedNote fFSDeliveryRecievedNote)
+        public async Task<IActionResult> Edit(string id, FFSDeliveryRecievedNote fFSDeliveryRecievedNote)
         {
             if (id != fFSDeliveryRecievedNote.FFSDeliveryRecievedNoteId)
             {
@@ -144,6 +148,9 @@ namespace FastFoodSystem.WebApp.Controllers
             var fFSDeliveryRecievedNote = await _context.FFSDeliveryRecievedNotes
                 .Include(f => f.Staff)
                 .FirstOrDefaultAsync(m => m.FFSDeliveryRecievedNoteId == id);
+            fFSDeliveryRecievedNote.FFSShipments = _context.FFSShipments
+               .Include(n => n.FFSIngredient)
+               .Where(i => i.FFSDeliveryRecievedNoteId == id).ToList();
             if (fFSDeliveryRecievedNote == null)
             {
                 return NotFound();
@@ -162,10 +169,19 @@ namespace FastFoodSystem.WebApp.Controllers
                 return Problem("Entity set 'AgentManagerDbContext.FFSDeliveryRecievedNotes'  is null.");
             }
             var fFSDeliveryRecievedNote = await _context.FFSDeliveryRecievedNotes.FindAsync(id);
+            List<FFSShipment> shipments = _context.FFSShipments.Where(l => l.FFSDeliveryRecievedNoteId == fFSDeliveryRecievedNote.FFSDeliveryRecievedNoteId).ToList();
             if (fFSDeliveryRecievedNote != null)
             {
                 _context.FFSDeliveryRecievedNotes.Remove(fFSDeliveryRecievedNote);
+                foreach(var item in shipments)
+                {
+                    if(item != null)
+                    {
+                        _context.FFSShipments.Remove(item);
+                    }
+                }
             }
+            
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -14,7 +14,6 @@
     <div class="card">
         <div class="card-body p-0 my-3">
             <form asp-action="Create" method="post">
-                <input type="hidden" asp-for="State" value="@Model.State"/>
                 <div id="editorRows" class="container">
                     @foreach (var item in Model.FFSShipments)
                     {
@@ -31,6 +30,10 @@
                         <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
                     </div>
                 </div>
+                <input type="hidden" asp-for="State" />
+                <input type="hidden" asp-for="StaffId" />
+                <input type="hidden" asp-for="Date" />
+                <input type="hidden" asp-for="FFSDeliveryRecievedNoteId" />
             </form>
         </div>
     </div>
@@ -45,6 +48,11 @@
         $("#submit").click(function (e) {
             e.preventDefault();
             var formData = new FormData();
+
+            formData.append("State", @Model.State);
+            formData.append("StaffId", @Model.StaffId);
+            formData.append("Date", @Model.Date);
+            formData.append("FFSDeliveryRecievedNoteId", @Model.FFSDeliveryRecievedNoteId);
 
             $("select[name='FFSIngredientId']").each(function (i) {
                 var ingredientId = $(this).val();

@@ -1,0 +1,17 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSShipment
+<div class="row align-items-start editorRow">
+    <div class="form-group col-sm ml-2">
+        @Html.DisplayFor(modelItem => modelItem.FFSIngredient.Name)
+    </div>
+    <div class="form-group col-sm ml-2">
+        @Html.DisplayFor(modelItem => modelItem.Quantity)
+    </div>
+    <div class="form-group col-sm row ml-2 flex-nowrap">
+        <div class="input-group-text">NSX: </div>
+        @Html.DisplayFor(modelItem => modelItem.StartDate)
+    </div>
+    <div class="form-group col-sm row ml-2 flex-nowrap">
+        <div class="input-group-text">HSD: </div>
+        @Html.DisplayFor(modelItem => modelItem.EndDate)
+    </div>
+</div>
