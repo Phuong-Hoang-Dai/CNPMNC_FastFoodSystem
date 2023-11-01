@@ -1,36 +1,39 @@
-﻿@*
+﻿@using FastFoodSystem.WebApp.Models.ViewModel;
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    
+    var model = new ProductCategoryViewModel();
+    model.Categories = ViewBag.Categories;
+    model.Products = ViewBag.Products;
 }
 <h1 class="text-center align-items-center justify-content-center">Order Page</h1>
 <div class="container mx-3 mt-5">
     <div title="header-tab-categories" class="">
         <!-- Tabs navs -->
-        <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active"
-                   id="ex3-tab-1"
-                   data-mdb-toggle="tab"
-                   href="#ex3-tabs-1"
-                   role="tab"
-                   aria-controls="ex3-tabs-1"
-                   aria-selected="true">Thức ăn</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-black"
-                   id="ex3-tab-2"
-                   data-mdb-toggle="tab"
-                   href="#ex3-tabs-2"
-                   role="tab"
-                   aria-controls="ex3-tabs-2"
-                   aria-selected="false">Nước uống</a>
-            </li>
+        <ul class="nav nav-tabs nav-justified mb-3" id="category-tabs" role="tablist">
+            @if (model.Categories != null)
+            {
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link text-black"
+                           data-mdb-toggle="tab"
+                           role="tab"
+                           aria-controls="ex3-tabs-2"
+                           aria-selected="false"
+                           data-category-id="@category.FFSProductCategoryId"
+                           href="?selectedCategoryId=@category.FFSProductCategoryId">@category.Name</a>
+                    </li>
+                }
+            }
         </ul>
+        
         <!-- Tabs navs -->
         <!-- Tabs content -->
-        <div class="tab-content" id="ex2-content">
+        
+        <div class="tab-content">
             <div class="tab-pane fade show active"
                  id="ex3-tabs-1"
                  role="tabpanel"
@@ -38,77 +41,46 @@
 
                 <section style="background-color: #eee;">
                     <div class="container py-5">
-                        <h4 class="mt-4 mb-5 text-center"><strong>Thức ăn đơn</strong></h4>
-
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
-                                         data-mdb-ripple-color="light">
-                                        <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
-                                             class="w-100 rounded" />
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Gà cay giòn</h5>
-                                        <div class="d-flex">
-                                            <div class="form-outline" style="width: 150px;">
-                                                <input value="1" type="number" id="typeNumber" class="form-control" />
+                            @if (ViewBag.SelectedCategoryId != "")
+                            {
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="col-lg-4 col-md-12 mb-4">
+                                        <div class="card">
+                                            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
+                                                 data-mdb-ripple-color="light">
+                                                @if (product.Image == "")
+                                                {
+                                                    <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
+                                                         class="img-thumnail w-100 rounded" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@product.Image"
+                                                         class="img-thumnail w-100 rounded" />
+                                                }
                                             </div>
-                                            <button class="btn btn-outline-success ms-3">Thêm</button>
-                                        </div>
-                                        <div class="text-black-50 fw-bold mt-3 fs-5">$61.99</div>
-                                    </div>
-                                </div>
-                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-3">@product.Name</h5>
+                                                <div class="d-flex">
+                                                    <div class="form-outline" style="width: 150px;">
+                                                        <input name="quantity" value="1" type="number" id="typeNumber" class="form-control" />
+                                                    </div>
+                                                    <a asp-action="AddToCart" asp-route-id="@product.FFSProductId" class="btn btn-outline-success ms-3 add-to-cart">
+                                                        Thêm
+                                                    </a>
 
-                            <div class="col-lg-4 col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
-                                         data-mdb-ripple-color="light">
-                                        <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
-                                             class="w-100 rounded" />
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Gà cay giòn</h5>
-                                        <div class="d-flex">
-                                            <div class="form-outline" style="width: 150px;">
-                                                <input value="1" type="number" id="typeNumber" class="form-control" />
+                                                </div>
+                                                <div class="text-black-50 fw-bold mt-3 fs-5">@product.Price VND</div>
                                             </div>
-                                            <button class="btn btn-outline-success ms-3">Thêm</button>
                                         </div>
-                                        <div class="text-black-50 fw-bold mt-3 fs-5">$61.99</div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-12 mb-4">
-                                <div class="card">
-                                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
-                                         data-mdb-ripple-color="light">
-                                        <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
-                                             class="w-100 rounded" />
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Gà cay giòn</h5>
-                                        <div class="d-flex">
-                                            <div class="form-outline" style="width: 150px;">
-                                                <input value="1" type="number" id="typeNumber" class="form-control" />
-                                            </div>
-                                            <button class="btn btn-outline-success ms-3">Thêm</button>
-                                        </div>
-                                        <div class="text-black-50 fw-bold mt-3 fs-5">$61.99</div>
-                                    </div>
-                                </div>
-                            </div>
+                                }
+                            }
                         </div>
                     </div>
                 </section>
-            </div>
-            <div class="tab-pane fade"
-                 id="ex3-tabs-2"
-                 role="tabpanel"
-                 aria-labelledby="ex3-tab-2">
-                Nước uống
             </div>
         </div>
         <!-- Tabs content -->
