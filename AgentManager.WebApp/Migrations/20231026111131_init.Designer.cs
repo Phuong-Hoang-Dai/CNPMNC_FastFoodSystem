@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FastFoodSystem.Web.Migrations
+namespace FastFoodSystem.WebApp.Migrations
 {
     [DbContext(typeof(FastFoodSystemDbContext))]
-    [Migration("20231010085800_NameMigration")]
-    partial class NameMigration
+    [Migration("20231026111131_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

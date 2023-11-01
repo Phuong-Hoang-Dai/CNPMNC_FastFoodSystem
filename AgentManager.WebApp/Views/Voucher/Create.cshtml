@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Quản lý mã khuyến mãi";
+    ViewData["Action"] = "Thêm mã khuyến mãi";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+@model FastFoodSystem.WebApp.Models.Data.FFSVoucher
+
+<form asp-action="Create" class="content">
+    <div class="row">
+        <div class="col">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h3 class="card-title">Thêm mã khuyến mãi</h3>
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FFSVoucherId"></label>
+                        <input asp-for="FFSVoucherId" type="text" class="form-control" />
+                        <span asp-validation-for="FFSVoucherId" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Num"></label>
+                        <input asp-for="Num" type="text" class="form-control" />
+                        <span asp-validation-for="Num" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" type="text" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger small"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State"></label>
+                        <input asp-for="State" type="text" class="form-control" />
+                        <span asp-validation-for="State" class="text-danger small"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <input type="submit" value="Tạo mới" class="btn btn-success float-right">
+        </div>
+    </div>
+</form>

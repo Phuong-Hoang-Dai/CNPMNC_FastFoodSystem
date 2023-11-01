@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FastFoodSystem.Web.Migrations
+namespace FastFoodSystem.WebApp.Migrations
 {
-    public partial class NameMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
