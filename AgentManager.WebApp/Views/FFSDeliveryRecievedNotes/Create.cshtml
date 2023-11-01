@@ -10,24 +10,28 @@
 <h4>Lập phiếu nhập hàng</h4>
 <hr />
 <div class="container text-center">
-    <form asp-action="Create" method="post">
-        <div id="editorRows" class="container">
-            @foreach (var item in Model.FFSShipments)
-            {
-                <partial name="_AddItem" model="item" />
-            }
-        </div>
-        <div class="mx-3 mb-3">
-            <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItem">+</a>
-        </div>
+    <div class="card">
+        <div class="card-body p-0 my-3">
+            <form asp-action="Create" method="post">
+                <div id="editorRows" class="container">
+                    @foreach (var item in Model.FFSShipments)
+                    {
+                        <partial name="_AddItem" model="item" />
+                    }
+                </div>
+                <div class="mx-3 mb-3">
+                    <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItem">+</a>
+                </div>
 
-        <div class="row mx-2">
-            <div class="col-12 d-flex justify-content-between">
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-                <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
-            </div>
+                <div class="row mx-2">
+                    <div class="col-12 d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
 

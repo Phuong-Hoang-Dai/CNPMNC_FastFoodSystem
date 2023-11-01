@@ -1,37 +1,36 @@
 ﻿@model FastFoodSystem.WebApp.Models.Data.FFSDeliveryRecievedNote
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Create</h1>
 
-<div>
-    <h4>FFSDeliveryRecievedNote</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.State)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Staff)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Staff.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-    </dl>
+<h4>Phiếu @Model.State hàng #@Model.FFSDeliveryRecievedNoteId</h4>
+<hr />
+<div class="container text-center">
+    <div id="editorRows" class="container">
+        @foreach (var item in Model.FFSShipments)
+        {
+            <partial name="_AddItem" model="item" />
+        }
+    </div>
+    <div class="mx-3 mb-3">
+        <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItem">+</a>
+    </div>
+
+    <div class="row mx-2">
+        <div class="col-12 d-flex justify-content-between">
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <a asp-action="Edit" class="btn btn-success float-right">Chỉnh sửa</a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.FFSDeliveryRecievedNoteId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

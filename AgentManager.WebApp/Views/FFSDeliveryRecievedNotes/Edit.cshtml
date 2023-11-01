@@ -5,41 +5,87 @@
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
-<h4>FFSDeliveryRecievedNote</h4>
+<h4>Chỉnh sửa phiếu @Model.State hàng #@Model.FFSDeliveryRecievedNoteId </h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FFSDeliveryRecievedNoteId" />
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+<div class="container text-center">
+    <form asp-action="Create" method="post">
+        <div id="editorRows" class="container">
+            @foreach (var item in Model.FFSShipments)
+            {
+                <partial name="_AddItem" model="item" />
+            }
+        </div>
+        <div class="mx-3 mb-3">
+            <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItem">+</a>
+        </div>
+
+        <div class="row mx-2">
+            <div class="col-12 d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <input id="submit" type="submit" value="Lưu" class="btn btn-success float-right">
             </div>
-            <div class="form-group">
-                <label asp-for="StaffId" class="control-label"></label>
-                <select asp-for="StaffId" class="form-control" asp-items="ViewBag.StaffId"></select>
-                <span asp-validation-for="StaffId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#submit").click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+
+            $("select[name='FFSIngredientId']").each(function (i) {
+                var ingredientId = $(this).val();
+                formData.append("FFSShipments[" + i + "].FFSIngredientId", ingredientId);
+            });
+            $("input[name='Quantity']").each(function (i) {
+                var quantity = $(this).val();
+                formData.append("FFSShipments[" + i + "].Quantity", quantity);
+            });
+            $("input[name='StartDate']").each(function (i) {
+                var startDate = $(this).val();
+                formData.append("FFSShipments[" + i + "].StartDate", startDate);
+            });
+            $("input[name='EndDate']").each(function (i) {
+                var endDate = $(this).val();
+                formData.append("FFSShipments[" + i + "].EndDate", endDate);
+            });
+            $.ajax({
+                method: 'post',
+                url: "Create",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                }
+            });
+
+        });
+
+        $("#addItem").click(function () {
+            $.ajax({
+                url: this.href,
+                cache: false,
+                success: function (html) {
+                    $("#editorRows").append(html);
+                    $(".deleteRow").on("click", function () {
+                        $(this).parents("div.editorRow:first").remove();
+                        return false;
+                    });
+                }
+            });
+            return false;
+        });
+
+        $(".deleteRow").on("click", function () {
+            $(this).parents("div.editorRow:first").remove();
+            return false;
+        });
+    </script>
 }
