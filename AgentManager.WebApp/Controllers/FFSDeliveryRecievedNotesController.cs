@@ -45,7 +45,7 @@ namespace FastFoodSystem.WebApp.Controllers
             return View(fFSDeliveryRecievedNote);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(string state)
         {
             var Ingredients = new SelectList(_context.FFSIngredients, "FFSIngredientId", "Name");
             ViewBag.Ingredients =Ingredients;
@@ -56,6 +56,8 @@ namespace FastFoodSystem.WebApp.Controllers
                     new FFSShipment { Quantity = 1} 
                 }
             };
+            deliveryRecievedNote.State = state;
+
             return View(deliveryRecievedNote);
         }
 
