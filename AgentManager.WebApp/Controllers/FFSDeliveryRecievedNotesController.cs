@@ -67,22 +67,21 @@ namespace FastFoodSystem.WebApp.Controllers
             deliveryRecievedNote.State = "nhập";
             deliveryRecievedNote.Date = DateTime.Now;
             deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString(); 
-            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
+            deliveryRecievedNote.StaffId = "1cd05d7f-ab22-4a44-8e73-c4ec2992b58f";
             _context.Add(deliveryRecievedNote);
-
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
                 item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
                 _context.Add(item);
-                
+                FFSIngredient ingredient = await _context.FFSIngredients.FindAsync(item.FFSIngredientId);
+                ingredient.Quantity+=item.Quantity;
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
        
         }
-
-
 
 
         public IActionResult CreateExport()
@@ -104,9 +103,10 @@ namespace FastFoodSystem.WebApp.Controllers
         public async Task<IActionResult> CreateExport(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
             deliveryRecievedNote.State = "xuất";
-            deliveryRecievedNote.Date = DateTime.Now.Date;
+            deliveryRecievedNote.Date = DateTime.Now;
             deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
-            deliveryRecievedNote.StaffId = "1680b360-ab1f-4762-ba3b-12d3fe304d48";
+            deliveryRecievedNote.StaffId = "1cd05d7f-ab22-4a44-8e73-c4ec2992b58f";
+
             _context.Add(deliveryRecievedNote);
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
@@ -115,7 +115,7 @@ namespace FastFoodSystem.WebApp.Controllers
                 FFSIngredient ingredient = await _context.FFSIngredients.FindAsync(item.FFSIngredientId);
                 if (item.Quantity > ingredient.Quantity)
                 {
-                    ModelState.AddModelError("Quantity", $"Nguyên liệu {ingredient.Name} không đủ, chỉ còn {ingredient.Quantity} đơn vị");
+                    ModelState.AddModelError("FFSIngredientId", $"Nguyên liệu {ingredient.Name} không đủ, chỉ còn {ingredient.Quantity} đơn vị");
                     return View(deliveryRecievedNote);
                 }
                 else
