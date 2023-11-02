@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Staff")]
     public class FFSDeliveryRecievedNotesController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
@@ -134,6 +135,7 @@ namespace FastFoodSystem.WebApp.Controllers
 
 
         // GET: FFSDeliveryRecievedNotes/Edit/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.FFSDeliveryRecievedNotes == null)
@@ -158,6 +160,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id, FFSDeliveryRecievedNote fFSDeliveryRecievedNote)
         {
             if (id != fFSDeliveryRecievedNote.FFSDeliveryRecievedNoteId)
@@ -190,6 +193,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSDeliveryRecievedNotes/Delete/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.FFSDeliveryRecievedNotes == null)
@@ -214,6 +218,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // POST: FFSDeliveryRecievedNotes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.FFSDeliveryRecievedNotes == null)

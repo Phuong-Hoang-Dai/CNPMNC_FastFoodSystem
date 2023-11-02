@@ -10,9 +10,11 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Staff")]
     public class CartController : Controller
     {
         private readonly IHttpContextAccessor _contx;

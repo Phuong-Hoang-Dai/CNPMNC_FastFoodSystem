@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FastFoodSystem.WebApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Staff")]
     public class FFSIngredientsController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
@@ -45,6 +47,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSIngredients/Create
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             ViewData["FFSCatereId"] = new SelectList(_context.FFSCateres, "FFSCatereId", "FFSCatereId");
@@ -56,6 +59,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create([Bind("FFSIngredientId,Name,FFSCatereId")] FFSIngredient fFSIngredient)
         {
             _context.Add(fFSIngredient);
@@ -66,6 +70,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSIngredients/Edit/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.FFSIngredients == null)
@@ -87,6 +92,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id, [Bind("FFSIngredientId,Name,Quantity,FFSCatereId")] FFSIngredient fFSIngredient)
         {
             if (id != fFSIngredient.FFSIngredientId)
@@ -119,6 +125,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSIngredients/Delete/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.FFSIngredients == null)
@@ -140,6 +147,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // POST: FFSIngredients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.FFSIngredients == null)

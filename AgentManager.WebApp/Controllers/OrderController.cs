@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using NuGet.Protocol;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AgentManager.WebApp.Controllers
 {
+    [Authorize (Roles = "Admin,Manager,Staff")]
     public class OrderController : Controller
     {
         // Setting Session form item cart

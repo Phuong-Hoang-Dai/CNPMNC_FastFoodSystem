@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FastFoodSystem.WebApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize (Roles = "Admin,Manager,Staff")]
     public class FFSCateresController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
@@ -27,6 +29,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSCateres/Details/5
+        [Authorize (Roles = "Admin,Manager")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.FFSCateres == null)
@@ -45,6 +48,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSCateres/Create
+        [Authorize (Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +57,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // POST: FFSCateres/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize (Roles = "Admin,Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FFSCatereId,Name,Address,ContractId,PhoneNumber,EmailAddress")] FFSCatere fFSCatere)
@@ -67,6 +72,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSCateres/Edit/5
+        [Authorize (Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.FFSCateres == null)
@@ -87,6 +93,7 @@ namespace FastFoodSystem.WebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize (Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id, [Bind("FFSCatereId,Name,Address,ContractId,PhoneNumber,EmailAddress")] FFSCatere fFSCatere)
         {
             if (id != fFSCatere.FFSCatereId)
@@ -118,6 +125,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSCateres/Delete/5
+        [Authorize (Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.FFSCateres == null)
@@ -136,6 +144,7 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // POST: FFSCateres/Delete/5
+        [Authorize (Roles = "Admin,Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
