@@ -1,4 +1,4 @@
-﻿using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastFoodSystem.WebApp.Models
@@ -286,8 +286,31 @@ namespace FastFoodSystem.WebApp.Models
 					);
 					context.SaveChanges();
 				}
-
-			}
+                if (!context.FFSVouchers.Any())
+                {
+                    context.AddRange(
+                    new FFSVoucher
+                    {
+                        FFSVoucherId = "P",
+						Num = 10,
+						StartDate = DateTime.Now,
+						EndDate = DateTime.Now,
+						State = "P",
+						Price = 50,
+                    },
+                    new FFSVoucher
+                    {
+                        FFSVoucherId = "P2",
+                        Num = 10,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now,
+                        State = "P",
+                        Price = 20,
+                    }
+                    );
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
