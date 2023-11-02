@@ -99,9 +99,23 @@ namespace FastFoodSystem.WebApp.Controllers
             _context.SaveChanges();
             Console.WriteLine("Add Success");
 
-            //Clean Cart
-            HttpContext.Session.Clear(); 
-            return RedirectToAction("Index", "Order");
+            
+            return RedirectToAction("Bill", "Cart", new { id = newOrderId });
+        }
+
+        public IActionResult Bill(int id)
+        {
+            RetrieveCartitem(out List<CartItem> lst, out decimal totalbill);
+            var bill = _context.FFSOrders.FirstOrDefault(o => o.FFSOrderId == id);
+            foreach(var item in lst)
+            {
+                Console.WriteLine(item.FFSProductId);
+            }
+            Console.WriteLine(lst.ToJson());
+            ViewBag.Bill = bill;
+            ////Clean Cart
+            //HttpContext.Session.Clear();
+            return View(lst);  
         }
     }
 }
