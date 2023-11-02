@@ -18,7 +18,7 @@ namespace FastFoodSystem.WebApp.Models.Data
         public string StaffId  { get; set; }
 		public Staff? Staff { get; set; }
 
-		public ICollection<FFSShipment> FFSShipments { get; set; }
+		public ICollection<FFSShipment>? FFSShipments { get; set; }
 
         [Required]
         [Display(Name = "Thời gian")]

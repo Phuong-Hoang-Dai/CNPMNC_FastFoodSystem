@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-body p-0 my-3">
             <form asp-action="CreateExport" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div id="editorRows" class="container">
                     @foreach (var item in Model.FFSShipments)
                     {

@@ -13,7 +13,8 @@ namespace FastFoodSystem.WebApp.Models.Data
         public int Quantity { get; set; }
         [Required]
 		public string FFSCatereId { get; set; }
-		public FFSCatere FFSCatere { get; set; }
-		public ICollection<FFSShipment> FFSShipments { get; set; }
+
+		public FFSCatere? FFSCatere { get; set; }
+		public ICollection<FFSShipment>? FFSShipments { get; set; }
     }
 }
