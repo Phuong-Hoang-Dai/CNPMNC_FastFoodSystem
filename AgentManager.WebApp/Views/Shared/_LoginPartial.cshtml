@@ -6,14 +6,6 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-   <div class="nav-item">
-        <a id="manage" class="d-block" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </div>
-   <div class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="d-block">Logout</button>
-        </form>
-    </li>*@
      <div class="info d-flex row">
         <a id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="col">@UserManager.GetUserName(User)</a>
         <form id="logoutForm" class="form-inline col-md-auto" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -25,8 +17,5 @@
 }
 else
 {
-@*    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>*@
     <a asp-area="Identity" asp-page="/Account/Login" class="d-block">Đăng nhập</a>
 }
