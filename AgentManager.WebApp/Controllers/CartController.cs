@@ -6,6 +6,10 @@ using Microsoft.IdentityModel.Protocols;
 using Newtonsoft.Json;
 using NuGet.Protocol;
 using Microsoft.EntityFrameworkCore;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.Text;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
@@ -89,7 +93,7 @@ namespace FastFoodSystem.WebApp.Controllers
                 //Attribute
                 Date = DateTime.Now,
                 Cash = Convert.ToDouble(bill),
-                StaffId = "00f8d252-bfa5-4d15-9484-970f67456d75",
+                StaffId = "22cddc5f-1379-40a3-bad8-16030613f304",
                 TableId = "Table456",
                 FFSVoucherId = "P2",
                 FFSProductOrders = productOrders
@@ -114,8 +118,52 @@ namespace FastFoodSystem.WebApp.Controllers
             Console.WriteLine(lst.ToJson());
             ViewBag.Bill = bill;
             ////Clean Cart
-            //HttpContext.Session.Clear();
-            return View(lst);  
+            /*HttpContext.Session.Clear();*/
+            /*return RedirectToAction("ExportToPdf", "Cart", new { nid = id });*/
+            return View(lst);
+        }
+
+        public IActionResult ExportToPdf(int id)
+        {
+            RetrieveCartitem(out List<CartItem> lst, out decimal totalbill);
+            var bill = _context.FFSOrders.FirstOrDefault(o => o.FFSOrderId == id);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A6, 25, 25, 0, 0);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Đọc mẫu HTML từ tệp hoặc chuỗi HTML
+                string htmlTemplate = System.IO.File.ReadAllText("Views/Shared/template2.html"); // Thay đổi đường dẫn
+
+                // Tạo một StringBuilder để xây dựng nội dung HTML
+                StringBuilder staffInfoHtml = new StringBuilder();
+
+                foreach (var cart in lst)
+                {
+                    staffInfoHtml.Append($"<tr><td>{cart.tenSanPham}</td><td>{cart.Quantity}</td><td>{cart.gia}</td><td>{cart.total}</td></tr>");
+                }
+
+                // Thay thế {{StaffInfo}} bằng nội dung đã xây dựng
+                htmlTemplate = htmlTemplate.Replace("{{StaffInfo}}", staffInfoHtml.ToString())
+                                            .Replace("{{IdBill}}", id.ToString())
+                                            .Replace("{{IdStaff}}", bill.StaffId)
+                                            .Replace("{{Total}}", bill.Cash.ToString())
+                                            .Replace("{{DateTime}}", bill.Date.ToString());
+
+
+                // Render HTML thành PDF
+                HTMLWorker worker = new HTMLWorker(document);
+                using (StringReader sr = new StringReader(htmlTemplate))
+                {
+                    worker.Parse(sr);
+                }
+                document.Close();
+                HttpContext.Session.Clear();
+                byte[] pdfBytes = ms.ToArray();
+                return File(pdfBytes, "application/pdf", "staff_info.pdf");
+            }
         }
     }
 }
