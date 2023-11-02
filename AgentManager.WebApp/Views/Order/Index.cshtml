@@ -67,7 +67,7 @@
                                                     <div class="form-outline" style="width: 150px;">
                                                         <input name="quantity" value="1" type="number" id="typeNumber" class="form-control" />
                                                     </div>
-                                                    <a asp-action="AddToCart" asp-route-id="@product.FFSProductId" class="btn btn-outline-success ms-3 add-to-cart">
+                                                    <a class="btn btn-outline-success ms-3 add-to-cart" data-product-id="@product.FFSProductId">
                                                         Thêm
                                                     </a>
 
@@ -86,3 +86,39 @@
         <!-- Tabs content -->
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".add-to-cart").click(function () {
+            var productId = $(this).data("product-id");
+            var quantity = $(this).closest(".card").find("input[name=quantity]").val();
+            var controller = "Cart"; // Đây là tên controller (cần điều chỉnh nếu tên controller khác)
+
+            // Dữ liệu để gửi lên server dưới dạng JSON
+            var data = {
+                FFSProductId: productId,
+                quantity: quantity
+            };
+            console.log(data);
+            // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
+            $.ajax({
+                url: "/Order",
+                type: "POST",
+                data: JSON.stringify(data), // Chuyển dữ liệu thành JSON
+                contentType: "application/json", // Đặt loại dữ liệu trong request header
+                success: function (data) {
+                    // Xử lý kết quả trả về (nếu cần)
+                    alert("Sản phẩm đã được thêm vào giỏ hàng!");
+                    console.log("After post: " + data);
+                },
+                error: function () {
+                    // Xử lý lỗi (nếu có)
+                    alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+                    console.log(err);
+                }
+            });
+        });
+    });
+
+
+</script>

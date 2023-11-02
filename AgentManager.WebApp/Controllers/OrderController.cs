@@ -10,21 +10,27 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Asn1.X509;
 using System.Runtime.InteropServices;
-
+using NuGet.Protocol;
 
 namespace AgentManager.WebApp.Controllers
 {
     public class OrderController : Controller
     {
+        // Setting Session form item cart
+        private readonly ILogger<OrderController> logger;
+        private readonly IHttpContextAccessor _contx;
         private readonly FastFoodSystemDbContext _context;
+        //
         public int SelectedCategoryId { get; set; }
         DBHelper dBHelper;
-        public OrderController(FastFoodSystemDbContext context)
+        public OrderController(ILogger<OrderController> logger, IHttpContextAccessor contx, FastFoodSystemDbContext context)
         {
+            this.logger = logger;
+            _contx = contx;
             _context = context;
         }
+
         // GET: OrderController
         // Trong controller
         public async Task<IActionResult> Index(string selectedCategoryId = "BG")
@@ -47,144 +53,40 @@ namespace AgentManager.WebApp.Controllers
             return View(model);
         }
 
-        public IActionResult AddToCart(string id)
-        {
-            dBHelper = new DBHelper(_context);
-            SanPhamVM sanPhamVM = new SanPhamVM()
-            {
-                maSanPham = id,
-                tenSanPham = dBHelper.GetProductByID(id).Name,
-                anh = dBHelper.GetProductByID(id).Image,
-                gia = dBHelper.GetProductByID(id).Price,
-                loaiSanPham = dBHelper.GetProductByID(id).FFSProductCategoryId,
-                mota = dBHelper.GetProductByID(id).Desc
-            };
-            if (sanPhamVM == null) return NotFound();
-            else return View(sanPhamVM);
-        }
+        List<CartItem> cartItems = new List<CartItem>(); // Danh sách sản phẩm trong giỏ hàng
         [HttpPost]
-        public IActionResult AddToCart(string productId, int quantity)
+        public IActionResult Index([FromBody] CartItem data)
         {
-            // Tìm sản phẩm trong cơ sở dữ liệu dựa trên productId
-            FFSProduct product = _context.FFSProducts.FirstOrDefault(p => p.FFSProductId == productId);
-
-            if (product != null)
+            try
             {
-                // Tạo một bản ghi FFSProductOrder và thêm sản phẩm vào giỏ hàng
-                FFSProductOrder productOrder = new FFSProductOrder
+                string cartItemsString = _contx.HttpContext.Session.GetString("CartItems");
+                cartItems = JsonConvert.DeserializeObject<List<CartItem>>(cartItemsString);
+            }
+            catch { }
+            if (data != null)
+            {
+                string productId = data.FFSProductId;
+                int quantity = data.Quantity;
+                // Tìm sản phẩm trong danh sách giỏ hàng
+                var existingItem = cartItems.FirstOrDefault(item => item.FFSProductId == productId);
+
+                if (existingItem != null)
                 {
-                    FFSProduct = product,
-                    FFSProductId = productId,
-                    Quantity = quantity
-                    // Không cần thiết lập giá trị cho FFSOrderId vì đây là trường tự tăng
-                };
+                    // Cập nhật số lượng nếu sản phẩm đã tồn tại
+                    existingItem.Quantity = quantity;
+                }
+                else
+                {
+                    // Thêm sản phẩm mới vào giỏ hàng
+                    var product = new CartItem { FFSProductId = productId, Quantity = quantity };
+                    cartItems.Add(product);
+                }
 
-                _context.FFSProductOrders.Add(productOrder);
-                _context.SaveChanges();
+                //Session saving - 1hour
+                string cartItemString = JsonConvert.SerializeObject(cartItems);
+                _contx.HttpContext.Session.SetString("CartItems", cartItemString);
             }
-            // ...
-            return View("Index");
-        }
-
-
-        public ActionResult Cart(string ffsProductId, int quantity)
-        {
-            
-            return View();
-        }
-
-        public ActionResult Bill()
-        {
-            var cashReceipt = new CashReceiptModel
-            {
-                CustomerName = "Phan Hoang Viet",
-                
-            };
-            return View(cashReceipt);
-        }
-
-        public FileResult GeneratePDF()
-        {
-            var cashReceipt = new CashReceiptModel
-            {
-                CustomerName = "Phan Hoang Viet",
-            };
-
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Document document = new Document();
-                
-            }
-            return null;
-        }
-
-        // GET: OrderController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: OrderController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: OrderController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: OrderController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: OrderController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return Ok(); // Trả về kết quả Ajax thành công
         }
     }
 }
