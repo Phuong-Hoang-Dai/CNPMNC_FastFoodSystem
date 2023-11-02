@@ -1,48 +1,59 @@
 ﻿@model IEnumerable<FastFoodSystem.WebApp.Models.Data.FFSDeliveryRecievedNote>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý phiếu nhập/xuất kho";
+    ViewData["Action"] = "Danh sách phiếu nhập/xuất kho";
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.State)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Staff)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Staff.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FFSDeliveryRecievedNoteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FFSDeliveryRecievedNoteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FFSDeliveryRecievedNoteId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="content">
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FFSDeliveryRecievedNoteId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Staff)
+                        </th> 
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th class="project-actions text-right">
+                            <a asp-action="Create" class="btn btn-sm btn-success"> Nhập hàng</a>
+                            <a asp-action="CreateExport" class="btn btn-sm btn-danger"> Xuất hàng</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FFSDeliveryRecievedNoteId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Staff.StaffName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td class="project-actions text-right">
+                                @Html.Partial("Buttons/_DetailsButton", @item.FFSDeliveryRecievedNoteId)
+                                @* @Html.Partial("Buttons/_EditButton", @item.FFSDeliveryRecievedNoteId) *@
+                                @Html.Partial("Buttons/_DeleteButton", @item.FFSDeliveryRecievedNoteId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

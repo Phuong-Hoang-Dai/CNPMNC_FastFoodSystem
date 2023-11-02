@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FastFoodSystem.WebApp.Models.Data.FFSCatere>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
+<section class="content">
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ContractId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PhoneNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAddress)
+                        </th>
+                        @Html.Partial("Buttons/_AddButton")
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContractId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailAddress)
+                            </td>
+                            <td>
+                                @Html.Partial("Buttons/_EditButton", @item.FFSCatereId)
+                                @Html.Partial("Buttons/_DeleteButton", @item.FFSCatereId)
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</section>

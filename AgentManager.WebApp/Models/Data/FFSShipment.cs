@@ -8,12 +8,13 @@ namespace FastFoodSystem.WebApp.Models.Data
         [Required]
         [Display (Name = "Số lượng")]
         public int Quantity { get; set; }
-        [Required]
+
+
         [Display (Name = "Hạn sản xuất")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime StartDate { get; set; }
-        [Required]
+
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display (Name = "Hạn sử dụng")]
