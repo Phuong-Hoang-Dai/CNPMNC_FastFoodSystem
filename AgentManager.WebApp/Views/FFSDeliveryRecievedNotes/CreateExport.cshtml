@@ -5,9 +5,6 @@
     Layout = "~/Views/Shared/_mLayout.cshtml";
 
 }
-
-<h1>Create</h1>
-
 <h4>Lập phiếu @Model.State hàng</h4>
 <hr />
 <div class="container text-center">
@@ -26,7 +23,7 @@
                 </div>
                 <div class="row mx-2">
                     <div class="col-12 d-flex justify-content-between">
-                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
                         <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
                     </div>
                 </div>
@@ -56,7 +53,7 @@
 
 
             $.ajax({
-                method: 'post',
+                method: 'POST',
                 url: "CreateExport",
                 data: formData,
                 processData: false,

@@ -9,24 +9,27 @@ using FastFoodSystem.WebApp.Models.Data;
 using Newtonsoft.Json;
 using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
     public class FFSDeliveryRecievedNotesController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
+        private readonly UserManager<Staff> _UserManager;
 
-        public FFSDeliveryRecievedNotesController(FastFoodSystemDbContext context)
+
+        public FFSDeliveryRecievedNotesController(FastFoodSystemDbContext context, UserManager<Staff> userManager)
         {
             _context = context;
+            _UserManager = userManager;
         }
-
         public async Task<IActionResult> Index()
         {
             var agentManagerDbContext = _context.FFSDeliveryRecievedNotes.Include(f => f.Staff);
             return View(await agentManagerDbContext.ToListAsync());
         }
-
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.FFSDeliveryRecievedNotes == null)
@@ -60,14 +63,13 @@ namespace FastFoodSystem.WebApp.Controllers
             };
             return View(deliveryRecievedNote);
         }
-
         [HttpPost]
         public async Task<IActionResult> Create(FFSDeliveryRecievedNote deliveryRecievedNote)
         {
             deliveryRecievedNote.State = "nhập";
             deliveryRecievedNote.Date = DateTime.Now;
             deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString(); 
-            deliveryRecievedNote.StaffId = "1cd05d7f-ab22-4a44-8e73-c4ec2992b58f";
+            deliveryRecievedNote.StaffId = _UserManager.GetUserId(User);
             _context.Add(deliveryRecievedNote);
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
@@ -80,7 +82,6 @@ namespace FastFoodSystem.WebApp.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
-       
         }
 
 
@@ -105,14 +106,16 @@ namespace FastFoodSystem.WebApp.Controllers
             deliveryRecievedNote.State = "xuất";
             deliveryRecievedNote.Date = DateTime.Now;
             deliveryRecievedNote.FFSDeliveryRecievedNoteId = deliveryRecievedNote.Date.ToOADate().ToString();
-            deliveryRecievedNote.StaffId = "1cd05d7f-ab22-4a44-8e73-c4ec2992b58f";
+            deliveryRecievedNote.StaffId = _UserManager.GetUserId(User);
 
             _context.Add(deliveryRecievedNote);
+            if(deliveryRecievedNote.FFSShipments == null) return View("Error");
             foreach (var item in deliveryRecievedNote.FFSShipments)
             {
                 item.FFSDeliveryRecievedNoteId = deliveryRecievedNote.FFSDeliveryRecievedNoteId;
                 _context.Add(item);
                 FFSIngredient ingredient = await _context.FFSIngredients.FindAsync(item.FFSIngredientId);
+
                 if (item.Quantity > ingredient.Quantity)
                 {
                     ModelState.AddModelError("FFSIngredientId", $"Nguyên liệu {ingredient.Name} không đủ, chỉ còn {ingredient.Quantity} đơn vị");
@@ -125,11 +128,9 @@ namespace FastFoodSystem.WebApp.Controllers
                 }
             }
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(actionName: "Index", controllerName: "FFSDeliveryRecievedNotes");
+
         }
-
-
-
 
 
         // GET: FFSDeliveryRecievedNotes/Edit/5
