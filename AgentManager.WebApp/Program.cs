@@ -16,6 +16,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FastFoodSystemDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("AgentManagerDbContext")));
 builder.Services.AddRazorPages();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+#region Session and cookies settings
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+});
+
+#endregion
+
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentity<Staff, IdentityRole>()
@@ -68,6 +79,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

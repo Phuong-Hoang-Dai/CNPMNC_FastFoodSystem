@@ -1,0 +1,124 @@
+﻿@using FastFoodSystem.WebApp.Models.ViewModel;
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var model = new ProductCategoryViewModel();
+    model.Categories = ViewBag.Categories;
+    model.Products = ViewBag.Products;
+}
+<h1 class="text-center align-items-center justify-content-center">Order Page</h1>
+<div class="container mx-3 mt-5">
+    <div title="header-tab-categories" class="">
+        <!-- Tabs navs -->
+        <ul class="nav nav-tabs nav-justified mb-3" id="category-tabs" role="tablist">
+            @if (model.Categories != null)
+            {
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link text-black"
+                           data-mdb-toggle="tab"
+                           role="tab"
+                           aria-controls="ex3-tabs-2"
+                           aria-selected="false"
+                           data-category-id="@category.FFSProductCategoryId"
+                           href="?selectedCategoryId=@category.FFSProductCategoryId">@category.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+        
+        <!-- Tabs navs -->
+        <!-- Tabs content -->
+        
+        <div class="tab-content">
+            <div class="tab-pane fade show active"
+                 id="ex3-tabs-1"
+                 role="tabpanel"
+                 aria-labelledby="ex3-tab-1">
+
+                <section style="background-color: #eee;">
+                    <div class="container py-5">
+                        <div class="row">
+                            @if (ViewBag.SelectedCategoryId != "")
+                            {
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="col-lg-4 col-md-12 mb-4">
+                                        <div class="card">
+                                            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
+                                                 data-mdb-ripple-color="light">
+                                                @if (product.Image == "")
+                                                {
+                                                    <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
+                                                         class="img-thumnail w-100 rounded" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="@product.Image"
+                                                         class="img-thumnail w-100 rounded" />
+                                                }
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-3">@product.Name</h5>
+                                                <div class="d-flex">
+                                                    <div class="form-outline" style="width: 150px;">
+                                                        <input name="quantity" value="1" type="number" id="typeNumber" class="form-control" />
+                                                    </div>
+                                                    <a class="btn btn-outline-success ms-3 add-to-cart" data-product-id="@product.FFSProductId">
+                                                        Thêm
+                                                    </a>
+
+                                                </div>
+                                                <div class="text-black-50 fw-bold mt-3 fs-5">@product.Price VND</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Tabs content -->
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".add-to-cart").click(function () {
+            var productId = $(this).data("product-id");
+            var quantity = $(this).closest(".card").find("input[name=quantity]").val();
+            var controller = "Cart"; // Đây là tên controller (cần điều chỉnh nếu tên controller khác)
+
+            // Dữ liệu để gửi lên server dưới dạng JSON
+            var data = {
+                FFSProductId: productId,
+                quantity: quantity
+            };
+            console.log(data);
+            // Gửi yêu cầu Ajax để thêm sản phẩm vào giỏ hàng
+            $.ajax({
+                url: "/Order",
+                type: "POST",
+                data: JSON.stringify(data), // Chuyển dữ liệu thành JSON
+                contentType: "application/json", // Đặt loại dữ liệu trong request header
+                success: function (data) {
+                    // Xử lý kết quả trả về (nếu cần)
+                    alert("Sản phẩm đã được thêm vào giỏ hàng!");
+                    console.log("After post: " + data);
+                },
+                error: function () {
+                    // Xử lý lỗi (nếu có)
+                    alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+                    console.log(err);
+                }
+            });
+        });
+    });
+
+
+</script>
