@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<FastFoodSystem.WebApp.Models.ViewModel.CartItem>
+
+<section class="vh-100" style="background-color: #f0f0f0;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <p><span class="h2">Thanh toán </span></p>
+            <div class="col">
+
+                <div class="card mb-4">
+                    <div class="card-body p-4">
+
+                        @foreach (var sanPham in Model)
+                        {
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                    @if (sanPham.anh == "")
+                                    {
+                                        <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
+                                        class="img-fluid" alt="Generic placeholder image">
+                                    }
+                                    else
+                                    {
+                                        <img src="@sanPham.anh"
+                                             class="img-fluid" alt="Generic placeholder image">
+                                    }
+                                </div>
+                            <div class="col-md-3 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Tên</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.tenSanPham</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Số lượng</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.Quantity</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Giá</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.gia VND</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Tổng</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.total VND </p>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="card mb-5">
+                    <div class="card-body p-4">
+
+                        <div class="float-end">
+                            <p class="mb-0 me-5 d-flex align-items-center">
+                                <span class="small text-muted me-2">Tổng hoá đơn:</span> <span class="lead fw-normal">@ViewBag.Bill VND</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-light btn-lg me-2 m-2">Quay lại</button>
+                    <form method="post" asp-controller="Cart" asp-action="Index">
+                        <input type="hidden" name="state" value="@ViewBag.State" />
+                        <button type="submit" class="btn btn-primary btn-lg m-2">Thanh toán</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
