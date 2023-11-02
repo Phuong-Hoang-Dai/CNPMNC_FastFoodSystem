@@ -19,7 +19,7 @@ namespace FastFoodSystem.WebApp.Models.Data
         [Required]
         [Display(Name = "Loại mã")]
         public string State { get; set; }
-        [Display(Name = "")]
+        [Display(Name = "Phần trăm")]
         public double Price { get; set; }
 
         public ICollection<FFSOrder>? FFSOrders { get; set; }
