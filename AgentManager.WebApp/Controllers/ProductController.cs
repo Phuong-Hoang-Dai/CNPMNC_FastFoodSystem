@@ -70,8 +70,8 @@ namespace FastFoodSystem.WebApp.Controllers
                     ModelState.AddModelError("excelFile", "Lỗi khi import từ file Excel: " + ex.Message);
                 }
             }
-            /*
-            else if (ModelState.IsValid)
+
+            else
             {
                 FFSProduct sanPham = new FFSProduct()
                 {
@@ -84,12 +84,12 @@ namespace FastFoodSystem.WebApp.Controllers
                 };
                 dBHelper.InsertProduct(sanPham);
                 return RedirectToAction("Index");
-            }*/
+            }
 
             return View(sanPhamVM);
         }
-    
-    public IActionResult Delete(string id)
+
+        public IActionResult Delete(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
             {

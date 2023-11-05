@@ -7,7 +7,7 @@
 
 <form method="post" asp-action="Create" asp-controller="Product" enctype="multipart/form-data">
 
-    @* <div class="form-group">
+    <div class="form-group type-form" id ="productForm">
         <label>Mã sản phẩm: </label>
         <input asp-for="maSanPham" type="text" class="form-control" />
         <span asp-validation-for="maSanPham" class="text-danger small"></span>
@@ -31,16 +31,40 @@
         <label>Giá</label>
         <input asp-for="gia" type="number" class="form-control" />
         <span asp-validation-for="gia" class="text-danger small"></span>
-    </div> *@
+    </div>
 
-    <div class="form-group">
+    <div class="form-group exe-form" id="exeform">
         <label for="excelFile">Chọn tệp Excel:</label>
         <input type="file" name="excelFile" id="excelFile" accept=".xlsx" />
     </div>
 
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
-@* <form method="post" enctype="multipart/form-data">
-    <input type="file" name="excelFile" />
-    <input type="submit" value="Import" />
-</form> *@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#excelFile").change(function () {
+            if (this.files.length > 0) {
+                $("#productForm").hide();
+            }
+        });
+
+        $(".form-control").on("input", function () {
+            var anyInputFilled = false;
+
+            $(".form-control").each(function () {
+                if ($(this).val().trim() !== "") {
+                    anyInputFilled = true;
+                    return false; // Kết thúc vòng lặp khi có ít nhất một trường có dữ liệu
+                }
+            });
+
+            if (anyInputFilled) {
+                $("#exeform").hide();
+            } else {
+                $("#exeform").show();
+            }
+        });
+    });
+</script>
