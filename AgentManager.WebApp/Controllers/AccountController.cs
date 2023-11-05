@@ -62,7 +62,7 @@ namespace FastFoodSystem.WebApp.Controllers
             Console.WriteLine(s.PasswordHash + result);
             return RedirectToAction(nameof(Index));
         }
-        /*public async Task<IActionResult> AddRole(string? id)
+        public async Task<IActionResult> AddRole(string? id)
         {
             if (id == null)
             {
@@ -108,7 +108,7 @@ namespace FastFoodSystem.WebApp.Controllers
             await _userManager.AddToRolesAsync(s, newRole);
 
             return RedirectToAction(nameof(Index));
-        }*/
+        }
         // GET: AccountController/Delete/5
         public ActionResult Delete(int id)
         {

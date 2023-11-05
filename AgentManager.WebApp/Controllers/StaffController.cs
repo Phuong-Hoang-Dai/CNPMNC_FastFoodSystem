@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
-    [Authorize (Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin,Manager")]
     public class StaffController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
