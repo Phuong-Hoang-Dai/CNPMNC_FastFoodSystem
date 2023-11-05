@@ -1,32 +1,35 @@
 ﻿@model FastFoodSystem.WebApp.Models.Data.FFSDeliveryRecievedNote
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_mLayout.cshtml";
+
 }
-
-<h1>Create</h1>
-
-<h4>Chỉnh sửa phiếu @Model.State hàng #@Model.FFSDeliveryRecievedNoteId </h4>
+<h4>Lập phiếu @Model.State hàng</h4>
 <hr />
 <div class="container text-center">
-    <form asp-action="Create" method="post">
-        <div id="editorRows" class="container">
-            @foreach (var item in Model.FFSShipments)
-            {
-                <partial name="_AddItem" model="item" />
-            }
+    <div class="card">
+        <div class="card-body p-0 my-3">
+            <form asp-action="CreateExport" method="post">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div id="editorRows" class="container">
+                    @foreach (var item in Model.FFSShipments)
+                    {
+                        <partial name="_AddItemExport" model="item" />
+                    }
+                </div>
+                <div class="mx-3 mb-3">
+                    <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItemExport">+</a>
+                </div>
+                <div class="row mx-2">
+                    <div class="col-12 d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                        <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="mx-3 mb-3">
-            <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItem">+</a>
-        </div>
-        <div class="row mx-2">
-            <div class="col-12 d-flex justify-content-between">
-                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-                <input id="submit" type="submit" value="Lưu" class="btn btn-success float-right">
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
 
@@ -47,17 +50,11 @@
                 var quantity = $(this).val();
                 formData.append("FFSShipments[" + i + "].Quantity", quantity);
             });
-            $("input[name='StartDate']").each(function (i) {
-                var startDate = $(this).val();
-                formData.append("FFSShipments[" + i + "].StartDate", startDate);
-            });
-            $("input[name='EndDate']").each(function (i) {
-                var endDate = $(this).val();
-                formData.append("FFSShipments[" + i + "].EndDate", endDate);
-            });
+
+
             $.ajax({
-                method: 'post',
-                url: "Create",
+                method: 'POST',
+                url: "CreateExport",
                 data: formData,
                 processData: false,
                 contentType: false,

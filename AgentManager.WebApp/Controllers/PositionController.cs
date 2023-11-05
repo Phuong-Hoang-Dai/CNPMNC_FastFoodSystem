@@ -3,9 +3,11 @@ using FastFoodSystem.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize (Roles = "Admin,Manager")]
     public class PositionController : Controller
     {
         DBHelper dBHelper;

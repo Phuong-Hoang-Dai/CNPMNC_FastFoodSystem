@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager,Staff")]
     public class ProductController : Controller
     {
         DBHelper dBHelper;
@@ -35,12 +37,14 @@ namespace FastFoodSystem.WebApp.Controllers
             else return View(sanPhamVM);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create(SanPhamVM sanPhamVM)
         {
             if (ModelState.IsValid)
@@ -60,6 +64,7 @@ namespace FastFoodSystem.WebApp.Controllers
             return View(sanPhamVM);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Delete(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
@@ -74,6 +79,7 @@ namespace FastFoodSystem.WebApp.Controllers
             else return View(sanPhamVM);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Delete(SanPhamVM sanPhamVM)
         {
             if (ModelState.IsValid)
@@ -85,6 +91,7 @@ namespace FastFoodSystem.WebApp.Controllers
             return View(sanPhamVM);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Edit(string id)
         {
             SanPhamVM sanPhamVM = new SanPhamVM()
@@ -101,6 +108,7 @@ namespace FastFoodSystem.WebApp.Controllers
             else return View(sanPhamVM);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Edit(SanPhamVM sanPhamVM)
         {
             if (ModelState.IsValid)

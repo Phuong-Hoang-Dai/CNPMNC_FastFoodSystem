@@ -58,6 +58,12 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
 });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = $"/Identity/Pages/Account/AccessDenied.cshtml";
+});
+
 builder.Services.AddOptions();
 
 
@@ -94,7 +100,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
 app.UseEndpoints(endpoints =>
 {

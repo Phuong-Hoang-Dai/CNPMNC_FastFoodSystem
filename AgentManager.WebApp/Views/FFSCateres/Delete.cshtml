@@ -1,0 +1,67 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSCatere
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+<section class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Xóa đại lý</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Name): &nbsp;</b>
+                            <a>@Html.DisplayFor(model => model.Name)</a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.Address): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.Address)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.ContractId): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.ContractId)
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.PhoneNumber): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.PhoneNumber)
+                            </a>
+                        </p>
+                        <p class="d-block">
+                            <b>@Html.DisplayNameFor(model => model.EmailAddress): &nbsp;</b>
+                            <a>
+                                @Html.DisplayFor(model => model.EmailAddress)
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-12 ">
+        <div class="text-center mt-5 mb-3">
+            <form asp-action="Delete">
+                <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+                <input type="hidden" asp-for="FFSCatereId" />
+                <input type="submit" value="Xóa" class="btn btn-sm btn-danger float-right" />
+            </form>
+        </div>
+    </div>
+</section>

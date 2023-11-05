@@ -1,5 +1,6 @@
 ﻿using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class AccountController : Controller
     {
         private readonly UserManager<Staff>? _userManager;

@@ -25,7 +25,7 @@ namespace FastFoodSystem.WebApp.Models.Data
 
         [Display (Name = "Mã giảm giá")]
         public string FFSVoucherId { get; set; }
-        public FFSVoucher FFSVoucher { get; set; }
+        public FFSVoucher? FFSVoucher { get; set; }
 
 		public ICollection<FFSProductOrder>? FFSProductOrders { get; set; }
 

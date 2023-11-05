@@ -1,4 +1,5 @@
 ﻿using FastFoodSystem.WebApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace AgentManager.WebApp.Controllers
 {
 
+    [Authorize(Roles = "Admin,Manager,Staff")]
     public class CategoriesController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
@@ -23,6 +25,7 @@ namespace AgentManager.WebApp.Controllers
             return View(await ProductCategoriesContext.ToListAsync());
         }
         // GET: CategoriesController/Create
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
@@ -31,6 +34,7 @@ namespace AgentManager.WebApp.Controllers
         // POST: CategoriesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Create([Bind("FFSProductCategoryId, Name")] FFSProductCategory category)
         {
             if (ModelState.IsValid)
@@ -44,6 +48,7 @@ namespace AgentManager.WebApp.Controllers
         }
 
         // GET: CategoriesController/Edit/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.FFSProductCategories == null)
@@ -62,6 +67,7 @@ namespace AgentManager.WebApp.Controllers
         // POST: CategoriesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Edit(string id, [Bind("FFSProductCategoryId, Name")] FFSProductCategory productCategory)
         {
             if (id != productCategory.FFSProductCategoryId)
@@ -87,6 +93,7 @@ namespace AgentManager.WebApp.Controllers
         }
 
         // GET: CategoriesController/Delete/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(string? id)
         {
             if (id == null || _context.FFSProductCategories == null)
@@ -107,6 +114,7 @@ namespace AgentManager.WebApp.Controllers
         // POST: CategoriesController/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.FFSProductCategories == null)
