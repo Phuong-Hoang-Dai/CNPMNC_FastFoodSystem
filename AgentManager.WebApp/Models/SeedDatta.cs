@@ -292,20 +292,30 @@ namespace FastFoodSystem.WebApp.Models
                     new FFSVoucher
                     {
                         FFSVoucherId = "P",
-						Num = 10,
+						Num = 50000,
 						StartDate = DateTime.Now,
 						EndDate = DateTime.Now,
-						State = "P",
-						Price = 50,
+						State = "VND",
+						Price = 50000,
                     },
                     new FFSVoucher
                     {
                         FFSVoucherId = "P2",
-                        Num = 10,
+                        Num = 25000,
                         StartDate = DateTime.Now,
                         EndDate = DateTime.Now,
-                        State = "P",
+                        State = "Phần trăm",
                         Price = 20,
+                    },
+
+                    new FFSVoucher
+                    {
+                        FFSVoucherId = "0",
+                        Num = 0,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now,
+                        State = "0",
+                        Price = 0,
                     }
                     );
                     context.SaveChanges();
