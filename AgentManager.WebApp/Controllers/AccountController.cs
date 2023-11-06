@@ -1,5 +1,6 @@
 ﻿using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class AccountController : Controller
     {
         private readonly UserManager<Staff>? _userManager;
@@ -60,7 +62,7 @@ namespace FastFoodSystem.WebApp.Controllers
             Console.WriteLine(s.PasswordHash + result);
             return RedirectToAction(nameof(Index));
         }
-        /*public async Task<IActionResult> AddRole(string? id)
+        public async Task<IActionResult> AddRole(string? id)
         {
             if (id == null)
             {
@@ -106,7 +108,7 @@ namespace FastFoodSystem.WebApp.Controllers
             await _userManager.AddToRolesAsync(s, newRole);
 
             return RedirectToAction(nameof(Index));
-        }*/
+        }
         // GET: AccountController/Delete/5
         public ActionResult Delete(int id)
         {

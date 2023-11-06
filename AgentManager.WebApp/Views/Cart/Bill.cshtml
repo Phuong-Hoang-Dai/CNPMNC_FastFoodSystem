@@ -1,0 +1,23 @@
+﻿@model List<FastFoodSystem.WebApp.Models.ViewModel.CartItem>
+
+
+<p>Mã hóa đơn: @ViewBag.Bill.FFSOrderId</p>
+<p>Ngày: @ViewBag.Bill.Date</p>
+<p>Mã nhân viên: @ViewBag.Bill.StaffId</p>
+<p>Mã bàn: @ViewBag.Bill.TableId</p>
+<p>Mã giảm giá: @ViewBag.Bill.FFSVoucherId</p>
+<h3>List sản phẩm</h3>
+@foreach (var item in Model)
+{
+    <hr/>
+    <h3>Name: @item.tenSanPham</h3>
+    <p>Quantity: @item.Quantity</p>
+    <p>Price: @item.gia</p>
+    <p>Total: @item.total</p>
+    <hr />
+
+}
+<p>Tổng tiền: @ViewBag.Bill.Cash</p>
+<div class="text-center mt-5 mb-3">
+    <a asp-action="ExportToPdf" asp-route-id="@ViewBag.Bill.FFSOrderId" class="btn btn-sm btn-secondary float-right">Xuất PDF</a>
+</div>

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FastFoodSystem.WebApp.Migrations
 {
     [DbContext(typeof(FastFoodSystemDbContext))]
-    [Migration("20231026111131_init")]
+    [Migration("20231101112944_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,9 @@ namespace FastFoodSystem.WebApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("FFSIngredientId");
 

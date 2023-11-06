@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class StaffController : Controller
     {
         private readonly FastFoodSystemDbContext _context;

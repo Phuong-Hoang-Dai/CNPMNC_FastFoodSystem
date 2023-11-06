@@ -1,11 +1,13 @@
 ﻿using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize (Roles = "Admin,Manager")]
     public class VoucherController : Controller
     {
         private readonly FastFoodSystemDbContext _context;

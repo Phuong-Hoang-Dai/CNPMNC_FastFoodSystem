@@ -16,6 +16,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FastFoodSystemDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("AgentManagerDbContext")));
 builder.Services.AddRazorPages();
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+#region Session and cookies settings
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+});
+
+#endregion
+
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddIdentity<Staff, IdentityRole>()
@@ -47,6 +58,12 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
 });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = $"/Identity/Pages/Account/AccessDenied.cshtml";
+});
+
 builder.Services.AddOptions();
 
 
@@ -69,6 +86,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -81,7 +100,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
 app.UseEndpoints(endpoints =>
 {

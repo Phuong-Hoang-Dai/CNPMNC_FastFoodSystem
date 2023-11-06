@@ -1,4 +1,4 @@
-﻿using FastFoodSystem.WebApp.Models.Data;
+using FastFoodSystem.WebApp.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastFoodSystem.WebApp.Models
