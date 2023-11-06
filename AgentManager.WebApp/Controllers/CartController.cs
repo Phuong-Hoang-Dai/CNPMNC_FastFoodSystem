@@ -95,7 +95,7 @@ namespace FastFoodSystem.WebApp.Controllers
                 //Attribute
                 Date = DateTime.Now,
                 Cash = Convert.ToDouble(bill),
-                StaffId = "22cddc5f-1379-40a3-bad8-16030613f304",
+                StaffId = "0c8e7077-505c-4e23-9825-3e6da939572e",
                 TableId = "Table456",
                 FFSVoucherId = "P2",
                 FFSProductOrders = productOrders

@@ -9,7 +9,7 @@ using System.Data;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
-    [Authorize (Roles = "Admin,Manager")]
+    [Authorize(Roles = "Admin,Manager")]
     public class RoleController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
