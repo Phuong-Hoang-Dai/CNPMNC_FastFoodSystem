@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace FastFoodSystem.WebApp.Models.Data
 {
@@ -22,7 +23,8 @@ namespace FastFoodSystem.WebApp.Models.Data
 
         [Display(Name = "Loại sản phẩm")]
         public string? FFSProductCategoryId { get; set; }
-		public FFSProductCategory? FFSProductCategory { get; set; }
+        [JsonIgnore]
+        public FFSProductCategory? FFSProductCategory { get; set; }
 
 		[Display(Name = "Hình ảnh")]
         public string? Image {  get; set; }

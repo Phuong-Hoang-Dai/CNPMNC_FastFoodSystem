@@ -1,8 +1,13 @@
-﻿// Trong tệp chart-data.js
-function initChartMonth(orderCounts) {
+﻿var myBarChart; // Biến toàn cục để lưu biểu đồ
+
+function initChart(orderCounts) {
     var ctx = document.getElementById('myBarChart').getContext('2d');
 
-    var myBarChart = new Chart(ctx, {
+    if (myBarChart) {
+        myBarChart.destroy(); // Hủy bỏ biểu đồ cũ nếu tồn tại
+    }
+
+    myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: Object.keys(orderCounts), // Nhãn của cột x
