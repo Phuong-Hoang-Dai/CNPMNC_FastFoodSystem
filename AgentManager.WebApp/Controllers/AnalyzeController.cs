@@ -1,12 +1,8 @@
 ﻿using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
-using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 using NuGet.Protocol;
-using System.Linq;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
@@ -68,21 +64,6 @@ namespace FastFoodSystem.WebApp.Controllers
             var productIds = fFSProductOrders.Select(p => p.FFSProductId).ToList();
             var product = _context.FFSProducts.ToList();
             Console.WriteLine(productIds.ToJson());
-            
-            ViewBag.OrderCountsByMonth = orderCountsByMonth;
-            ViewBag.OrderCountsByDay = orderCountsByDay;
-            ViewBag.RevenueByMonth = revenueByMonth;
-            
-
-            //var model = new ProductCategoryViewModel();
-
-            //model.Categories = _context.FFSProductCategories.ToList();
-            //model.Products = _context.FFSProducts.ToList();
-            //Console.WriteLine(model.Categories.ToJson());
-            //foreach (var prodt in model.Products)
-            //{
-            //    Console.WriteLine(prodt.FFSProductId + " : " + prodt.FFSProductCategoryId);
-            //}
 
             // Đếm số lượng sản phẩm của từng danh mục dựa trên productIds
             var categoryCounts = productIds
@@ -106,6 +87,9 @@ namespace FastFoodSystem.WebApp.Controllers
 
             // Chuyển đổi Dictionary thành JSON và trả về
             var rates = JsonConvert.SerializeObject(result);
+            ViewBag.OrderCountsByMonth = orderCountsByMonth;
+            ViewBag.OrderCountsByDay = orderCountsByDay;
+            ViewBag.RevenueByMonth = revenueByMonth;
             ViewBag.CategoriesRates = rates;
             return View();
         }

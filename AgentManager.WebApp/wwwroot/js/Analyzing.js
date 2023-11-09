@@ -1,12 +1,11 @@
 ﻿var myBarChart; // Biến toàn cục để lưu biểu đồ
 
-function initChart(orderCounts) {
+function initChart(orderCounts, categoriesData) {
     var ctx = document.getElementById('myBarChart').getContext('2d');
 
     if (myBarChart) {
         myBarChart.destroy(); // Hủy bỏ biểu đồ cũ nếu tồn tại
     }
-
     myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {

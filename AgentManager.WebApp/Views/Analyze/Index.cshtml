@@ -9,6 +9,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
 <script src="~/js/Analyzing.js"></script>
+<script src="~/js/RouteChart.js"></script>
+<script src="~/js/LineChart.js"></script>
 @* Content start *@
 
 <!-- Tabs navs -->
@@ -57,6 +59,7 @@
         currentData = orderCountsByMonth;
         initChart(currentData);
     }
+
 </script>
 
 <div class="row">
@@ -65,53 +68,10 @@
         <div style="max-width: 400px;">
             <canvas id="categoriesChart" width="400" height="200"></canvas>
         </div>
-
         <script>
             // Dữ liệu sản phẩm và số đơn hàng tương ứng
             var categoriesData = JSON.parse('@Html.Raw(ViewBag.CategoriesRates)');
-
-            var categoryNames = Object.keys(categoriesData);
-            var categoryQuantities = Object.values(categoriesData);
-            console.log(categoriesData)
-            console.log(categoryNames)
-            console.log(categoryQuantities)
-            // Màu sắc cho từng sản phẩm
-            var colors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)', 'rgb(75, 192, 192)'];
-
-            // Lấy thẻ canvas
-            var ctx = document.getElementById('categoriesChart').getContext('2d');
-
-            // Khởi tạo biểu đồ Doughnut
-            var myDoughnutChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: categoryNames,
-                    datasets: [
-                        {
-                            data: categoryQuantities,
-                            backgroundColor: colors
-                        }
-                    ]
-                },
-                options: {
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'left' // Đặt vị trí của chú thích
-                        }
-                    },
-                    tooltips: {
-                        callbacks: {
-                            title: function (tooltipItem, data) {
-                                return data.labels[tooltipItem[0].index];
-                            },
-                            label: function (tooltipItem, data) {
-                                return 'Số đơn: ' + data.datasets[0].data[tooltipItem.index];
-                            }
-                        }
-                    }
-                }
-            });
+            initRouteChart(categoriesData);
         </script>
 
     </div>
@@ -126,56 +86,10 @@
     <script>
         var revenueData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RevenueByMonth));
         // Lấy thẻ canvas
-        var ctx = document.getElementById('revenueChart').getContext('2d');
-
-        // Lấy tất cả các tháng
-        var months = [];
-        var revenues = [];
-        for (var month in revenueData) {
-            if (revenueData.hasOwnProperty(month)) {
-                months.push(month); 
-                revenues.push(revenueData[month]); 
-            }
-        }
-        // // Lấy tất cả doanh thu
-
-        // Khởi tạo biểu đồ Line Chart
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: months,
-                datasets: [
-                    {
-                        label: 'Doanh thu (VNĐ)',
-                        data: revenues,
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        borderWidth: 2
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Doanh thu (VNĐ)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Tháng'
-                        }
-                    }
-                }
-            }
-        });
+        initLineChart(revenueData);
     </script>
 
 </div>
-
 <!-- Tabs content -->
 
 
