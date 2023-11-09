@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
-    [Authorize(Roles = "Admin,Manager,Staff")]
+    //[Authorize(Roles = "Admin,Manager,Staff")]
     public class CartController : Controller
     {
         private readonly IHttpContextAccessor _contx;
@@ -95,7 +95,7 @@ namespace FastFoodSystem.WebApp.Controllers
                 //Attribute
                 Date = DateTime.Now,
                 Cash = Convert.ToDouble(bill),
-                StaffId = "0c8e7077-505c-4e23-9825-3e6da939572e",
+                StaffId = "00f8d252-bfa5-4d15-9484-970f67456d75",
                 TableId = "Table456",
                 FFSVoucherId = "P2",
                 FFSProductOrders = productOrders
@@ -119,9 +119,7 @@ namespace FastFoodSystem.WebApp.Controllers
             }
             Console.WriteLine(lst.ToJson());
             ViewBag.Bill = bill;
-            ////Clean Cart
-            /*HttpContext.Session.Clear();*/
-            /*return RedirectToAction("ExportToPdf", "Cart", new { nid = id });*/
+            
             return View(lst);
         }
 

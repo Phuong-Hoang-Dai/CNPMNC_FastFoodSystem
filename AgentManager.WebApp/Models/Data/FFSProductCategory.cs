@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace FastFoodSystem.WebApp.Models.Data
 {
@@ -14,6 +15,7 @@ namespace FastFoodSystem.WebApp.Models.Data
 		public string? Name { get; set; }
 
         [Display(Name = "Danh sách sản phẩm")]
+        [JsonIgnore]
         public ICollection<FFSProduct>? FFSProducts { get; set; }
     }
 }

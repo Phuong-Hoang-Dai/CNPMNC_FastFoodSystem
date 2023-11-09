@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Newtonsoft.Json
+@{
+    
+}
+<script src="~/lib/Chart.js/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.min.js"></script>
+<script src="~/js/Analyzing.js"></script>
+<script src="~/js/RouteChart.js"></script>
+<script src="~/js/LineChart.js"></script>
+@* Content start *@
+
+<!-- Tabs navs -->
+<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true" onclick="showDayTab(this);">Ngày</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false" onclick="showMonthTab(this);">Tháng</a>
+    </li>
+</ul>
+<!-- Tabs navs -->
+<!-- Tabs content -->
+<h1 class="text-center mt-3">Biểu đồ thống kê đơn theo thời gian</h1>
+<canvas id="myBarChart" width="400" height="200"></canvas>
+
+<script>
+    var orderCountsByMonth = @Html.Raw(JsonConvert.SerializeObject(ViewBag.OrderCountsByMonth));
+    var orderCountsByDay = @Html.Raw(JsonConvert.SerializeObject(ViewBag.OrderCountsByDay));
+    // Lấy thẻ canvas
+    var ctx = document.getElementById('myBarChart').getContext('2d');
+    var currentData = orderCountsByDay;
+    var currentTab = document.querySelector('.nav-link.active');
+    initChart(currentData);
+
+    function showDayTab(tab) {
+        if (currentTab) {
+            currentTab.classList.remove('active'); // Xóa lớp 'active' khỏi tab hiện tại
+        }
+        if (tab) {
+            tab.classList.add('active'); // Thêm lớp 'active' cho tab được click
+            currentTab = tab; // Cập nhật tab hiện tại
+        }
+        currentData = orderCountsByDay;
+        initChart(currentData);
+    }
+
+    function showMonthTab(tab) {
+        if (currentTab) {
+            currentTab.classList.remove('active'); // Xóa lớp 'active' khỏi tab hiện tại
+        }
+        if (tab) {
+            tab.classList.add('active'); // Thêm lớp 'active' cho tab được click
+            currentTab = tab; // Cập nhật tab hiện tại
+        }
+        currentData = orderCountsByMonth;
+        initChart(currentData);
+    }
+
+</script>
+
+<div class="row">
+    <div class="col">
+        <h2 class="mt-3">Thống kê loại hàng:</h2>
+        <div style="max-width: 400px;">
+            <canvas id="categoriesChart" width="400" height="200"></canvas>
+        </div>
+        <script>
+            // Dữ liệu sản phẩm và số đơn hàng tương ứng
+            var categoriesData = JSON.parse('@Html.Raw(ViewBag.CategoriesRates)');
+            initRouteChart(categoriesData);
+        </script>
+
+    </div>
+    <div class="col">
+        <h2 class="mt-3">Doanh thu:</h2>
+        <div >
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+    <canvas id="revenueChart" width="400" height="200"></canvas>
+
+    <script>
+        var revenueData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.RevenueByMonth));
+        // Lấy thẻ canvas
+        initLineChart(revenueData);
+    </script>
+
+</div>
+<!-- Tabs content -->
+
+
