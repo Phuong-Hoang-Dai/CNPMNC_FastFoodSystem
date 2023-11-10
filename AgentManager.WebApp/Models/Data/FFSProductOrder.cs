@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace FastFoodSystem.WebApp.Models.Data
 {
@@ -18,6 +20,6 @@ namespace FastFoodSystem.WebApp.Models.Data
         [Required]
         [Display (Name = "Số lượng")]
         public int Quantity { get; set; }
-
+       
     }
 }

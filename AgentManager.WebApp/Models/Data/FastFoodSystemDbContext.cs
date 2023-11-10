@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace FastFoodSystem.WebApp.Models.Data
 {
@@ -24,7 +25,8 @@ namespace FastFoodSystem.WebApp.Models.Data
 
 		//FastFoodSystem
 		public DbSet<FFSProduct>? FFSProducts { get; set; }
-		public DbSet<FFSProductOrder>? FFSProductOrders { get; set; }
+        [JsonIgnore]
+        public DbSet<FFSProductOrder>? FFSProductOrders { get; set; }
 		public DbSet<FFSProductCategory>? FFSProductCategories { get; set; }
 		public DbSet<FFSOrder>? FFSOrders { get; set; }
         public DbSet<FFSVoucher> FFSVouchers { get; set; }
