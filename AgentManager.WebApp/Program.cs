@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("AgentManagerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'AgentManagerDbContextConnection' not found.");
@@ -13,6 +15,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FastFoodSystemDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("AgentManagerDbContext")));
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+#region Session and cookies settings
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(1);
+});
+
+#endregion
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
@@ -45,6 +58,12 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
 });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = $"/Identity/Pages/Account/AccessDenied.cshtml";
+});
+
 builder.Services.AddOptions();
 
 
@@ -67,6 +86,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -79,5 +100,17 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.Run();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "pdfRoute",
+        pattern: "pdf/export",
+        defaults: new { controller = "YourController", action = "ExportToPdf" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+});

@@ -13,7 +13,7 @@
                     <h3 class="card-title">Thêm quyền</h3>
                 </div>
                 <div class="card-body">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     <div class="form-group">
                         <label asp-for="StaffName" class="control-label"></label>
                         <input asp-for="StaffName" class="form-control" />

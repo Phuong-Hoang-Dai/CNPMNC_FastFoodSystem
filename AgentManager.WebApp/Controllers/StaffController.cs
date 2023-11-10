@@ -4,10 +4,14 @@ using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Security;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class StaffController : Controller
     {
         private readonly FastFoodSystemDbContext _context;
@@ -46,7 +50,7 @@ namespace FastFoodSystem.WebApp.Controllers
                 Position = position,
             };
             if (staffVM == null) return NotFound();
-            
+
             else return View(staffVM);
         }
 
@@ -97,9 +101,9 @@ namespace FastFoodSystem.WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PositionId"] = new SelectList(_context.Positions, "PositionId", "PositionName");
-			var gender = new List<string> { "Nam", "Nữ" };
-			ViewData["Gender"] = new SelectList(gender);
-			return View(staff);
+            var gender = new List<string> { "Nam", "Nữ" };
+            ViewData["Gender"] = new SelectList(gender);
+            return View(staff);
         }
 
         // GET: Agent/Edit/5
@@ -145,9 +149,9 @@ namespace FastFoodSystem.WebApp.Controllers
                 {
                     ModelState.AddModelError(String.Empty, "Có lỗi xảy ra khi cập nhập dữ liệu");
                 }
-                
+
             }
-            
+
             return View(staff);
         }
 
@@ -188,6 +192,43 @@ namespace FastFoodSystem.WebApp.Controllers
         private bool StaffExists(string id)
         {
             return (_context.Staffs?.Any(a => a.Id == id)).GetValueOrDefault();
+        }
+
+        public IActionResult ExportToPdf(string id)
+        {
+            var staff = _context.Staffs.FirstOrDefault(s => s.Email == id);
+
+            if (staff == null)
+            {
+                return NotFound();
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Đọc mẫu HTML từ tệp hoặc chuỗi HTML
+                string htmlContent = System.IO.File.ReadAllText("Views/Shared/template.html"); // Thay đổi đường dẫn
+
+                htmlContent = htmlContent.Replace("[StaffName]", staff.StaffName)
+                                          .Replace("[Address]", staff.Address)
+                                          .Replace("[Gender]", staff.Gender)
+                                          .Replace("[DoB]", staff.DoB.ToString())
+                                          .Replace("[Email]", staff.Email);
+                // Render HTML thành PDF
+                HTMLWorker worker = new HTMLWorker(document);
+                using (StringReader sr = new StringReader(htmlContent))
+                {
+                    worker.Parse(sr);
+                }
+
+                document.Close();
+
+                byte[] pdfBytes = ms.ToArray();
+                return File(pdfBytes, "application/pdf", "staff_info.pdf");
+            }
         }
     }
 }

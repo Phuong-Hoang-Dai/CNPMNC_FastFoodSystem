@@ -1,0 +1,14 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSShipment
+<div class="row align-items-start editorRow">
+    <div class="form-group col-sm ml-2">
+        <select name="FFSIngredientId" aria-label="Hãy chọn nguyên liệu" asp-for="FFSIngredientId" class="form-control" asp-items="ViewBag.Ingredients"></select>
+    </div>
+    <div class="form-group col-sm ml-2">
+        <input name="Quantity" placeholder="Nhập số lượng" asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="form-group mx-3 deleteRow">
+        <div class="btn px-3 btn-danger">
+            -
+        </div>
+    </div>
+</div>

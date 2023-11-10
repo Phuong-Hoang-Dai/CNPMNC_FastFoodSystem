@@ -47,10 +47,15 @@
                                         Đặt lại mật khẩu
                                     </a>
                                 }
+                                <a asp-action="AddRole" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                                    <i class="fas fa-folder"></i>
+                                    Sửa quyền
+                                </a>
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
                                     <i class="fas fa-folder"></i>
                                     Xóa
                                 </a>
+                               
                             </td>
                         </tr>
                     }

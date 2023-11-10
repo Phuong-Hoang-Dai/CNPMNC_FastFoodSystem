@@ -4,8 +4,9 @@
 @model FastFoodSystem.WebApp.Models.ViewModel.SanPhamVM
 
 
-<h1>Edit product</h1>
-
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
 <form method="post" asp-action="Edit" asp-controller="Product">
     <div class="form-group">
         <label>Mã sản phẩm: </label>

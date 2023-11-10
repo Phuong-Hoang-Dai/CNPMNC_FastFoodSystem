@@ -10,10 +10,11 @@ namespace FastFoodSystem.WebApp.Models.Data
         [Required]
         [Display (Name = "Tên nguyên vật liệu")]
 		public string Name { get; set; }
-		[Required]
+        public int Quantity { get; set; }
+        [Required]
 		public string FFSCatereId { get; set; }
-		public FFSCatere FFSCatere { get; set; }
 
-		public ICollection<FFSShipment> FFSShipments { get; set; }
+		public FFSCatere? FFSCatere { get; set; }
+		public ICollection<FFSShipment>? FFSShipments { get; set; }
     }
 }

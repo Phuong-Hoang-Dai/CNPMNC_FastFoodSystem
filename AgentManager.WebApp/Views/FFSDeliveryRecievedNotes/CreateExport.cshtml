@@ -1,0 +1,87 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSDeliveryRecievedNote
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+
+}
+<h4>Lập phiếu @Model.State hàng</h4>
+<hr />
+<div class="container text-center">
+    <div class="card">
+        <div class="card-body p-0 my-3">
+            <form asp-action="CreateExport" method="post">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <div id="editorRows" class="container">
+                    @foreach (var item in Model.FFSShipments)
+                    {
+                        <partial name="_AddItemExport" model="item" />
+                    }
+                </div>
+                <div class="mx-3 mb-3">
+                    <a id="addItem" class="btn btn-block btn-outline-success btn-xs text-center" asp-action="NewItemExport">+</a>
+                </div>
+                <div class="row mx-2">
+                    <div class="col-12 d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                        <input id="submit" type="submit" value="Tạo" class="btn btn-success float-right">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#submit").click(function (e) {
+            e.preventDefault();
+            var formData = new FormData();
+
+            $("select[name='FFSIngredientId']").each(function (i) {
+                var ingredientId = $(this).val();
+                formData.append("FFSShipments[" + i + "].FFSIngredientId", ingredientId);
+            });
+            $("input[name='Quantity']").each(function (i) {
+                var quantity = $(this).val();
+                formData.append("FFSShipments[" + i + "].Quantity", quantity);
+            });
+
+
+            $.ajax({
+                method: 'POST',
+                url: "CreateExport",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                }
+            });
+
+        });
+
+        $("#addItem").click(function () {
+            $.ajax({
+                url: this.href,
+                cache: false,
+                success: function (html) {
+                    $("#editorRows").append(html);
+                    $(".deleteRow").on("click", function () {
+                        $(this).parents("div.editorRow:first").remove();
+                        return false;
+                    });
+                }
+            });
+            return false;
+        });
+
+        $(".deleteRow").on("click", function () {
+            $(this).parents("div.editorRow:first").remove();
+            return false;
+        });
+    </script>
+}
