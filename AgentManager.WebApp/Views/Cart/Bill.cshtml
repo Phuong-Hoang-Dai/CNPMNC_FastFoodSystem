@@ -1,5 +1,8 @@
 ﻿@model List<FastFoodSystem.WebApp.Models.ViewModel.CartItem>
 
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
 
 <p>Mã hóa đơn: @ViewBag.Bill.FFSOrderId</p>
 <p>Ngày: @ViewBag.Bill.Date</p>
