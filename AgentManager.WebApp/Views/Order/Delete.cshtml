@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+    var products = ViewBag.Products as List<FastFoodSystem.WebApp.Models.Data.FFSProductOrder>;
+}
+@model FastFoodSystem.WebApp.Models.Data.FFSOrder
+<section class="container mt-4">
+    <div class="" title="header-info">
+        <div class="row p-2">
+            <div class="col-md-4 ">Order Id: <span class="text-primary">@Model.FFSOrderId</span></div>
+            <div class="col-md-8">Time: @Model.Date</div>
+            <div class="col-12 mt-3">Total: <span class="h5">@Model.Cash VND</span></div>
+        </div>
+    </div>
+    <div class="" title="body-info">
+        <h4>Products  in Order</h4>
+        <div class="row mt-4 text-center bg-secondary text-white">
+            <div class="col-md-2 p-2">ID</div>
+            <div class="col-md-3 p-2">Name</div>
+            <div class="col-md-3 p-2">Price</div>
+            <div class="col-md-1 p-2">Quantity</div>
+            <div class="col-md-3 p-2">Total</div>
+        </div>
+        @foreach (var product in products)
+        {
+            <div class="row">
+                <div class="col-md-2 p-2 text-center border">@product.FFSProductId</div>
+                <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Name</div>
+                <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Price VND</div>
+                <div class="col-md-1 p-2 text-center border">@product.Quantity</div>
+                <div class="col-md-3 p-2 ps-5 border">@(product.Quantity * product.FFSProduct?.Price) VND</div>
+            </div>
+        }
+    </div>
+    <form asp-action="Delete">
+        <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+        <input type="hidden" asp-for="FFSOrderId" />
+        <input type="submit" value="Xóa" class="btn btn-sm btn-danger float-right" />
+    </form>
+</section>
+
