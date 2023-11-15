@@ -5,24 +5,37 @@
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
 @model FastFoodSystem.WebApp.Models.Data.FFSProductCategory;
-<div class="content">
-    <div class="row">
-        <div class="col">
-            <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">Xóa danh mục</h3>
-                </div>
-                <div class="card-body">
-                    <div class="">
-                        Xác nhận xóa chức vụ
-                        <b>@Html.DisplayFor(model => model.Name)</b>
-                    </div>
-                </div>
+
+<section class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Xóa đại lý</h3>
+            <div class="card-tools">
             </div>
         </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-12 col-lg-4 order-1 order-md-2">
+                    <div class="text-muted">
+                        <div class="card-header">
+                            <h3 class="card-title">Xóa loại sản phẩm</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                Xác nhận xóa loại sản phẩm
+                                <b>@Html.DisplayFor(model => model.Name)</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+        </div>
+
     </div>
-    <div class="row">
-        <div class="col-12">
+    <div class="col-12 ">
+        <div class="text-center mt-5 mb-3">
             <form asp-action="Delete">
                 <a asp-action="Index" class="btn btn-sm btn-secondary">Quay lại</a>
                 <input type="hidden" asp-for="FFSProductCategoryId" />
@@ -30,4 +43,5 @@
             </form>
         </div>
     </div>
-</div>
+</section>
+
