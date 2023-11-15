@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿ using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace FastFoodSystem.WebApp.Models.Data
@@ -29,7 +29,5 @@ namespace FastFoodSystem.WebApp.Models.Data
         public FFSVoucher? FFSVoucher { get; set; }
         [JsonIgnore]
         public ICollection<FFSProductOrder>? FFSProductOrders { get; set; }
-
-
 	}
 }

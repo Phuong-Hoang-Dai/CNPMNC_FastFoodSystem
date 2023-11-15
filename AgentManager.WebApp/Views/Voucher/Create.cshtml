@@ -23,8 +23,8 @@
                         <span asp-validation-for="FFSVoucherId" class="text-danger small"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Num"></label>
-                        <input asp-for="Num" type="text" class="form-control" />
+                        <label id="num-label">Giới hạn:</label>
+                        <input asp-for="Num" type="text" class="form-control" id="Num" />
                         <span asp-validation-for="Num" class="text-danger small"></span>
                     </div>
                     <div class="form-group">
@@ -44,8 +44,8 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="State"></label>
-                        <input asp-for="State" type="text" class="form-control" />
-                        <span asp-validation-for="State" class="text-danger small"></span>
+                        <label><input type="radio" asp-for="State" value="Phần trăm" checked /> Phần trăm</label>
+                        <label><input type="radio" asp-for="State" value="VND" /> VND</label>
                     </div>
                 </div>
             </div>
@@ -58,3 +58,27 @@
         </div>
     </div>
 </form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var stateRadioButton = document.querySelectorAll('input[name="State"]');
+        var numInput = document.getElementById("Num");
+
+        stateRadioButton.forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                var selectedState = document.querySelector('input[name="State"]:checked').value;
+
+                if (selectedState === "VND") {
+                    numInput.disabled = true;
+                    numInput.value = 0; 
+                } else {
+                    numInput.disabled = false;
+                }
+            });
+        });
+        var selectedState = document.querySelector('input[name="State"]:checked').value;
+        if (selectedState === "VND") {
+            numInput.disabled = true;
+            numInput.value = 0;
+        }
+    });
+</script>

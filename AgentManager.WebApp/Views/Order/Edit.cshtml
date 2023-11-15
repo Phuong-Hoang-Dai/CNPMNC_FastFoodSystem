@@ -1,0 +1,50 @@
+﻿@model FastFoodSystem.WebApp.Models.Data.FFSOrder
+
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+    var products = ViewBag.Products as List<FastFoodSystem.WebApp.Models.Data.FFSProductOrder>;
+    double total = 0;
+}
+
+<section class="container mt-4">
+    <div class="" title="header-info">
+        <div class="row p-2">
+            <div class="col-md-4">Mã đơn hàng: <span class="text-primary">@Model.FFSOrderId</span></div>
+            <div class="col-md-8">Thời gian: @Model.Date</div>
+            <div class="col-12 mt-3">Tổng cộng: <span class="h5">@Model.Cash VND</span></div>
+        </div>
+    </div>
+    <div class="" title="body-info">
+        <h4>Sản phẩm trong đơn hàng</h4>
+        <form asp-action="Update" method="post">
+            <div class="row mt-4 text-center bg-secondary text-white">
+                <div class="col-md-2 p-2">Mã sản phẩm</div>
+                <div class="col-md-3 p-2">Tên sản phẩm</div>
+                <div class="col-md-3 p-2">Giá</div>
+                <div class="col-md-1 p-2">Số lượng</div>
+                <div class="col-md-3 p-2">Tổng</div>
+            </div>
+            @for (var i = 0; i < products.Count; i++)
+            {
+                var product = products[i];
+                <div class="row">
+                    <div class="col-md-2 p-2 text-center border">@product.FFSProductId</div>
+                    <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Name</div>
+                    <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Price VND</div>
+                    <div class="col-md-1 p-2 text-center border">
+                        <input type="hidden" name="products[@i].FFSProductId" value="@product.FFSProductId" />
+                        <input type="number" name="products[@i].Quantity" value="@product.Quantity" min="1" style="width: 70px;" class="form-control rounded border-1 border-secondary" />
+                    </div>
+                    <div class="col-md-3 p-2 ps-5 border">@(product.Quantity * product.FFSProduct?.Price) VND</div>
+                    <input type="hidden" name="id" value="@product.FFSOrderId" />
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
+                    <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
