@@ -4,6 +4,8 @@ using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
@@ -11,8 +13,10 @@ namespace FastFoodSystem.WebApp.Controllers
     public class ProductController : Controller
     {
         DBHelper dBHelper;
-        public ProductController(FastFoodSystemDbContext db)
+        private readonly FastFoodSystemDbContext _context;
+        public ProductController(FastFoodSystemDbContext db, FastFoodSystemDbContext context)
         {
+            _context = context;
             dBHelper = new DBHelper(db);
         }
 

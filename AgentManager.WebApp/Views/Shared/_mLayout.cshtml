@@ -162,6 +162,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a asp-controller="Order" asp-action="Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Đặt hàng</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a asp-controller="Cart" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Giỏ hàng</p>
@@ -253,6 +259,23 @@
                                     <a asp-controller="FFSCateres" asp-action="Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Nhà cung cấp</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="#" asp-action="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Quản lý doanh thu
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Analyze" asp-action="Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Doanh thu bán hàng</p>
                                     </a>
                                 </li>
                             </ul>

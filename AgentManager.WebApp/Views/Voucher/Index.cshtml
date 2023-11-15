@@ -18,19 +18,20 @@
                             Mã khuyễn mãi
                         </th>
                         <th>
-                            Phần trăm
+                            Giảm
                         </th>
+                        <th>
+                            Đơn vị
+                        </th>
+                        <th>
+                            Giới hạn mức
+                        </th>
+                      
                         <th>
                             Ngày bắt đầu
                         </th>
                         <th>
                             Ngày kết thúc
-                        </th>
-                        <th>
-                            Số lượng
-                        </th>
-                        <th>
-                            Trạng thái
                         </th>
                         @Html.Partial("Buttons/_AddButton")
                     </tr>
@@ -46,16 +47,17 @@
                                 @Html.DisplayFor(modelItem => item.Price)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.StartDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndDate)
+                                @Html.DisplayFor(modelItem => item.State)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Num)
                             </td>
+                            
                             <td>
-                                @Html.DisplayFor(modelItem => item.State)
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
                             </td>
                             <td class="project-actions text-right">
                                 @Html.Partial("Buttons/_DetailsButton", @item.FFSVoucherId)
