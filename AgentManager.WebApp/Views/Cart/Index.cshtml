@@ -1,5 +1,9 @@
 ﻿@model List<FastFoodSystem.WebApp.Models.ViewModel.CartItem>
 
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
 <section class="vh-100" style="background-color: #f0f0f0;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -14,7 +18,7 @@
             </div>
             <span class="lead fw-normal text-success float-right"><b>@ViewBag.ErrorMessage</b></span>
            
-            <div class="col">
+            <div>
                 <div class="card mb-4">
                     <div class="card-body p-4">
 

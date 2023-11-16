@@ -6,24 +6,46 @@
 }
 @using FastFoodSystem.WebApp.Models.Data;
 @model IEnumerable<FFSOrder>
-<h1>List Order </h1>
-<section class="container p-4">
-    <div class="row bg-secondary">
-        <div class="col-md-2 h5 mt-1">Order Id</div>
-        <div class="col-md-6 h5 mt-1">Time</div>
-        <div class="col-md-2 h5 mt-1">Total</div>
-    </div>
-    @foreach(var order in Model)
-    {
-        <div class="row">
-            <div class="col-md-2 border">@Html.DisplayFor(item => order.FFSOrderId)</div>
-            <div class="col-md-6 border">@Html.DisplayFor(item => order.Date)</div>
-            <div class="col-md-2 border">@Html.DisplayFor(item => order.Cash) VND</div>
-            <div class="col-md-2 p-2">
-                @Html.Partial("Buttons/_DetailsButton", @order.FFSOrderId)
-                @Html.Partial("Buttons/_EditButton", @order.FFSOrderId)
-                @Html.Partial("Buttons/_DeleteButton", @order.FFSOrderId)
-            </div>
+
+<section class="content">
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th>
+                            Order Id
+                        </th>
+                        <th>
+                            Time
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(item => order.FFSOrderId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => order.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => order.Cash) VND
+                            </td>
+                            <td class="project-actions text-right">
+                                @Html.Partial("Buttons/_DetailsButton", @order.FFSOrderId)
+                                @Html.Partial("Buttons/_EditButton", @order.FFSOrderId)
+                                @Html.Partial("Buttons/_DeleteButton", @order.FFSOrderId)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    }
+    </div>
 </section>

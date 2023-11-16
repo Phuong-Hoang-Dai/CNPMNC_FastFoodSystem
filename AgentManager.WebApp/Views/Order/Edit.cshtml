@@ -14,37 +14,63 @@
             <div class="col-12 mt-3">Tổng cộng: <span class="h5">@Model.Cash VND</span></div>
         </div>
     </div>
-    <div class="" title="body-info">
-        <h4>Sản phẩm trong đơn hàng</h4>
-        <form asp-action="Update" method="post">
-            <div class="row mt-4 text-center bg-secondary text-white">
-                <div class="col-md-2 p-2">Mã sản phẩm</div>
-                <div class="col-md-3 p-2">Tên sản phẩm</div>
-                <div class="col-md-3 p-2">Giá</div>
-                <div class="col-md-1 p-2">Số lượng</div>
-                <div class="col-md-3 p-2">Tổng</div>
+
+    <form asp-action="Update" method="post">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mã sản phẩm
+                            </th>
+                            <th>
+                                Tên sản phẩm
+                            </th>
+                            <th>
+                                Giá
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Tổng
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < products.Count; i++)
+                        {
+                            var product = products[i];
+                            <tr>
+                                <td>
+                                    @product.FFSProductId
+                                </td>
+                                <td>
+                                    @product.FFSProduct?.Name
+                                </td>
+                                <td>
+                                    @product.FFSProduct?.Price VND
+                                </td>
+                                <td>
+                                    <input type="hidden" name="products[@i].FFSProductId" value="@product.FFSProductId" />
+                                    <input type="number" name="products[@i].Quantity" value="@product.Quantity" min="1" style="width: 70px;" class="form-control rounded border-1 border-secondary" />
+                                </td>
+                                <td>
+                                    @(product.Quantity * product.FFSProduct?.Price) VND
+                                    <input type="hidden" name="id" value="@product.FFSOrderId" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            @for (var i = 0; i < products.Count; i++)
-            {
-                var product = products[i];
-                <div class="row">
-                    <div class="col-md-2 p-2 text-center border">@product.FFSProductId</div>
-                    <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Name</div>
-                    <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Price VND</div>
-                    <div class="col-md-1 p-2 text-center border">
-                        <input type="hidden" name="products[@i].FFSProductId" value="@product.FFSProductId" />
-                        <input type="number" name="products[@i].Quantity" value="@product.Quantity" min="1" style="width: 70px;" class="form-control rounded border-1 border-secondary" />
-                    </div>
-                    <div class="col-md-3 p-2 ps-5 border">@(product.Quantity * product.FFSProduct?.Price) VND</div>
-                    <input type="hidden" name="id" value="@product.FFSOrderId" />
-                </div>
-            }
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
-                    <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a asp-action="ListOrder" class="btn btn-secondary">Quay lại</a>
+                <input type="submit" value="Lưu chỉnh sửa" class="btn btn-success float-right">
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </section>

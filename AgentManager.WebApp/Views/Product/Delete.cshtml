@@ -5,29 +5,43 @@
 @{
     Layout = "~/Views/Shared/_mLayout.cshtml";
 }
-<h1 class="text-uppdercase text-danger">Delete product</h1>
 
-<form method="post" asp-action="Delete" asp-controller="Product" enctype="multipart/form-data">
-    <div class="form-group">
-        <label>Mã sản phẩm: </label>
-        <input asp-for="maSanPham" class="form-control" readonly />
+<section class="content">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Xóa sản phẩm</h3>
+            <div class="card-tools">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Mã sản phẩm: </label>
+                <input asp-for="maSanPham" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label>Tên sản phẩm: </label>
+                <input asp-for="tenSanPham" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label class="col-md-12">Ảnh: </label>
+                <img src="@Model.anh" class="img-fluid">
+                <input asp-for="anh" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label>Giá: </label>
+                <input asp-for="gia" class="form-control" readonly />
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label>Tên sản phẩm: </label>
-        <input asp-for="tenSanPham" class="form-control" readonly />
+    <div class="col-12 ">
+        <div class="text-center mt-5 mb-3">
+            <form asp-action="Delete">
+                <a asp-action="Index" class="btn btn-sm btn-secondary float-left">Quay lại</a>
+                
+                <input type="submit" value="Xóa" class="btn btn-sm btn-danger float-right" />
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label class="col-md-12">Ảnh: </label>
-        <img src="@Model.anh" class="img-fluid">
-        <input asp-for="anh" class="form-control" readonly />
-    </div>
+</section>
 
-     <div class="form-group">
-        <label>Giá: </label>
-        <input asp-for="gia" class="form-control" readonly />
-    </div>
-
-
-
-    <button type="submit" class="btn btn-danger mt-3">Delete</button>
-</form>
