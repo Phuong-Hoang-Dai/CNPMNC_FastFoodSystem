@@ -6,12 +6,12 @@
     double total = 0;
 }
 
-<section class="container mt-4">
+<section class="container mt-4" style="background-color: #f0f0f0; height:auto; border-radius:10px; padding:20px;">
     <div class="" title="header-info">
         <div class="row p-2">
             <div class="col-md-4">Mã đơn hàng: <span class="text-primary">@Model.FFSOrderId</span></div>
             <div class="col-md-8">Thời gian: @Model.Date</div>
-            <div class="col-12 mt-3">Tổng cộng: <span class="h5">@Model.Cash VND</span></div>
+            <div class="col-12 mt-3">Tổng cộng: <span class="h5">@string.Format("{0:#,##0}", Model.Cash) VND</span></div>
         </div>
     </div>
 
@@ -50,14 +50,14 @@
                                     @product.FFSProduct?.Name
                                 </td>
                                 <td>
-                                    @product.FFSProduct?.Price VND
+                                    @string.Format("{0:#,##0}", product.FFSProduct?.Price) VND
                                 </td>
                                 <td>
                                     <input type="hidden" name="products[@i].FFSProductId" value="@product.FFSProductId" />
                                     <input type="number" name="products[@i].Quantity" value="@product.Quantity" min="1" style="width: 70px;" class="form-control rounded border-1 border-secondary" />
                                 </td>
                                 <td>
-                                    @(product.Quantity * product.FFSProduct?.Price) VND
+                                    @string.Format("{0:#,##0}", product.Quantity * product.FFSProduct?.Price) VND
                                     <input type="hidden" name="id" value="@product.FFSOrderId" />
                                 </td>
                             </tr>

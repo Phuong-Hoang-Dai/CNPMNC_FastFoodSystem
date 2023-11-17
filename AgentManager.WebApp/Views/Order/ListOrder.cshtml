@@ -35,7 +35,7 @@
                                 @Html.DisplayFor(item => order.Date)
                             </td>
                             <td>
-                                @Html.DisplayFor(item => order.Cash) VND
+                                @string.Format("{0:#,##0}", order.Cash) VND
                             </td>
                             <td class="project-actions text-right">
                                 @Html.Partial("Buttons/_DetailsButton", @order.FFSOrderId)
