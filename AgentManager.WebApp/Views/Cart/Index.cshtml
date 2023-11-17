@@ -1,91 +1,102 @@
 ﻿@model List<FastFoodSystem.WebApp.Models.ViewModel.CartItem>
 
-<section class="vh-100" style="background-color: #f0f0f0;">
+@{
+    Layout = "~/Views/Shared/_mLayout.cshtml";
+}
+
+<section style="background-color: #f0f0f0; height:auto; border-radius:10px;">
     <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <p><span class="h2">Thanh toán</span></p>
-            <div class="d-flex justify-content-end">
-                <form method="post" asp-controller="Cart" asp-action="ApplyPromoCode">
-                    <input type="text" id="promoCodeApply" name="promoCode" class="form-control" placeholder="Mã khuyến mãi">
-                    <input type="hidden" name="state" value="@ViewBag.State" />
-                    <button type="submit" class="btn btn-success btn-lg m-2">Áp dụng mã khuyến mãi</button>
-                </form>
-                
-            </div>
-            <span class="lead fw-normal text-success float-right"><b>@ViewBag.ErrorMessage</b></span>
-           
-            <div class="col">
-                <div class="card mb-4">
-                    <div class="card-body p-4">
-
-                        @foreach (var sanPham in Model)
-                        {
-                            <div class="row align-items-center">
-                                <div class="col-md-3">
-                                    @if (sanPham.anh == "")
-                                    {
-                                        <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
-                                             class="img-fluid" alt="Generic placeholder image">
-                                    }
-                                    else
-                                    {
-                                        <img src="@sanPham.anh"
-                                             class="img-fluid" alt="Generic placeholder image">
-                                    }
-                                </div>
-                                <div class="col-md-3 d-flex justify-content-center">
-                                    <div>
-                                        <p class="small text-muted mb-4 pb-2">Tên</p>
-                                        <p class="lead fw-normal mb-0">@sanPham.tenSanPham</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                        <p class="small text-muted mb-4 pb-2">Số lượng</p>
-                                        <p class="lead fw-normal mb-0">@sanPham.Quantity</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                        <p class="small text-muted mb-4 pb-2">Giá</p>
-                                        <p class="lead fw-normal mb-0">@sanPham.gia VND</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                        <p class="small text-muted mb-4 pb-2">Tổng</p>
-                                        <p class="lead fw-normal mb-0">@sanPham.total VND</p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        }
-                        
-                    </div>
-                </div>
-                <div class="card mb-5">
-                    <div class="card-body p-4">
-                        <div class="float-end">
-                            <p class="mb-0 me-5 d-flex align-items-center">
-                                <span class="small text-muted me-2">Tổng hoá đơn:</span>
-                                <span class="lead fw-normal">@ViewBag.Bill VND</span>
-                            </p>
-                            <span class="small text-muted me-2">Số tiền được giảm:</span>
-                            <span class="lead fw-normal text-success">- @ViewBag.DiscountAmount VND</span>
-                        </div>
-                    </div>
-                </div>
-                
-
-                <div class="d-flex justify-content-end">
-                    <form method="post" asp-controller="Cart" asp-action="Index">
-                        <input type="text" id="promoCodeCheckout" name="promoCode" class="form-control" placeholder="Mã khuyến mãi" value=0>
+        <div class="row d-flex justify-content-center" style="height: auto; padding:25px;">
+                <div class="col" style="text-align:center;"><span class="h2">Thanh toán</span></div>
+                <div class="col-4 d-flex justify-content-end">
+                    <form method="post" asp-controller="Cart" asp-action="ApplyPromoCode">
+                        <input type="text" id="promoCodeApply" name="promoCode" class="form-control" placeholder="Mã khuyến mãi">
                         <input type="hidden" name="state" value="@ViewBag.State" />
-                        <button type="submit" class="btn btn-primary btn-lg m-2">Thanh toán</button>
+                        <button type="submit" class="btn btn-success btn-lg m-2">Áp dụng mã khuyến mãi</button>
                     </form>
-                </div>
+                    <span class="lead fw-normal text-success float-right"><b>@ViewBag.ErrorMessage</b></span>
+                </div> 
+        </div>
+        <div class="row align-items-center">
+            <div class="card mb-4" style="width:100%; margin:20px;">
+                <div class="card-body p-4">
 
+                    @foreach (var sanPham in Model)
+                    {
+                        <div class="row align-items-center" >
+                            <div class="col-md-3">
+                                @if (sanPham.anh == "")
+                                {
+                                    <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
+                                         class="img-fluid" alt="Generic placeholder image">
+                                }
+                                else
+                                {
+                                    <img src="@sanPham.anh"
+                                         class="img-fluid" alt="Generic placeholder image"
+                                    style="height:200px; width: 235px; padding:15px;">
+                                }
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Tên</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.tenSanPham</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Số lượng</p>
+                                    <p class="lead fw-normal mb-0">@sanPham.Quantity</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Giá</p>
+                                    <p class="lead fw-normal mb-0">
+                                        @string.Format("{0:#,##0}", sanPham.gia) VND
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                    <p class="small text-muted mb-4 pb-2">Tổng</p>
+                                    <p class="lead fw-normal mb-0">
+                                        @string.Format("{0:#,##0}", sanPham.total) VND
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
             </div>
+            <div class="card mb-5" style="width:100%; margin:20px; text-align:end;">
+                <div class="card-body p-4">
+                    <div class="float-end">
+                        <p class="mb-0 me-5">
+                            <span class="small text-muted me-2">Tổng hoá đơn:</span>
+                            <span class="lead fw-normal">
+                                @string.Format("{0:#,##0}", ViewBag.Bill) VND
+                            </span>
+                        </p>
+                        <span class="small text-muted me-2">Số tiền được giảm:</span>
+                        <span class="lead fw-normal text-success">
+                            - @string.Format("{0:#,##0}", ViewBag.DiscountAmount) VND
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="d-flex justify-content-end" style="width:100%; margin:20px; text-align:end;">
+                <form method="post" asp-controller="Cart" asp-action="Index">
+                    <input type="text" id="promoCodeCheckout" name="promoCode" class="form-control" placeholder="Mã khuyến mãi" value=0>
+                    <input type="hidden" name="state" value="@ViewBag.State" />
+                    <button type="submit" class="btn btn-primary btn-lg m-2">Thanh toán</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </section>

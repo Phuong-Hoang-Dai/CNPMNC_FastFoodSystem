@@ -7,9 +7,11 @@
     var model = new ProductCategoryViewModel();
     model.Categories = ViewBag.Categories;
     model.Products = ViewBag.Products;
+    Layout = "~/Views/Shared/_mLayout.cshtml";
 }
-<h1 class="text-center align-items-center justify-content-center">Order Page</h1>
-<div class="container mx-3 mt-5">
+
+<h1 class="text-center align-items-center justify-content-center">Đặt hàng</h1>
+<div class="container mx-3 mt-5" style="background-color: #CCCCCC;border-radius:10px;">
     <div title="header-tab-categories" class="">
         <!-- Tabs navs -->
         <ul class="nav nav-tabs nav-justified mb-3" id="category-tabs" role="tablist">
@@ -24,7 +26,8 @@
                            aria-controls="ex3-tabs-2"
                            aria-selected="false"
                            data-category-id="@category.FFSProductCategoryId"
-                           href="?selectedCategoryId=@category.FFSProductCategoryId">@category.Name</a>
+                           href="?selectedCategoryId=@category.FFSProductCategoryId"
+                           style="color: black;">@category.Name</a>
                     </li>
                 }
             }
@@ -38,8 +41,7 @@
                  id="ex3-tabs-1"
                  role="tabpanel"
                  aria-labelledby="ex3-tab-1">
-
-                <section style="background-color: #eee;">
+                <section style="background-color: #f0f0f0; height:auto; border-radius:10px; padding:20px;">
                     <div class="container py-5">
                         <div class="row">
                             @if (ViewBag.SelectedCategoryId != "")
@@ -49,16 +51,19 @@
                                     <div class="col-lg-4 col-md-12 mb-4">
                                         <div class="card">
                                             <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light mb-3"
-                                                 data-mdb-ripple-color="light">
+                                                 data-mdb-ripple-color="light"
+                                                 style="overflow: hidden;">
                                                 @if (product.Image == "")
                                                 {
                                                     <img src="https://static.kfcvietnam.com.vn/images/category/lg/GA.jpg?v=3GWGD3"
-                                                         class="img-thumnail w-100 rounded" />
+                                                         class="img-thumnail w-100 rounded"
+                                                         style="height:280px; width: 350px;object-fit: cover;" />
                                                 }
                                                 else
                                                 {
                                                     <img src="@product.Image"
-                                                         class="img-thumnail w-100 rounded" />
+                                                         class="img-thumnail w-100 rounded"
+                                                         style="height:280px; width: 350px;object-fit: cover;" />
                                                 }
                                             </div>
                                             <div class="card-body">
@@ -72,7 +77,9 @@
                                                     </a>
 
                                                 </div>
-                                                <div class="text-black-50 fw-bold mt-3 fs-5">@product.Price VND</div>
+                                                <div class="text-black-50 fw-bold mt-3 fs-5">
+                                                    @string.Format("{0:#,##0}", product.Price) VND
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

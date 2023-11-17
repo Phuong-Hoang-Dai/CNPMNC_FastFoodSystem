@@ -7,33 +7,68 @@
 }
 @model FastFoodSystem.WebApp.Models.Data.FFSOrder
 
-<h1>Details Order</h1>
-<section class="container mt-4">
+<section class="container mt-4" style="background-color: #f0f0f0; height:auto; border-radius:10px; padding:20px;">
     <div class="" title="header-info">
         <div class="row p-2">
-            <div class="col-md-4 ">Order Id: <span class="text-primary">@Model.FFSOrderId</span></div>
-            <div class="col-md-8">Time: @Model.Date</div>
-            <div class="col-12 mt-3">Total: <span class="h5">@Model.Cash VND</span></div>
+            <div class="col-md-4">Mã đơn hàng: <span class="text-primary">@Model.FFSOrderId</span></div>
+            <div class="col-md-8">Thời gian: @Model.Date</div>
+            <div class="col-12 mt-3">Tổng cộng: <span class="h5"> @string.Format("{0:#,##0}", Model.Cash) VND</span></div>
         </div>
     </div>
-    <div class="" title="body-info">
-        <h4>Products  in Order</h4>
-        <div class="row mt-4 text-center bg-secondary text-white">
-            <div class="col-md-2 p-2">ID</div>
-            <div class="col-md-3 p-2">Name</div>
-            <div class="col-md-3 p-2">Price</div>
-            <div class="col-md-1 p-2">Quantity</div>
-            <div class="col-md-3 p-2">Total</div>
-        </div>
-        @foreach(var product in products)
-        {
-            <div class="row">
-                <div class="col-md-2 p-2 text-center border">@product.FFSProductId</div>
-                <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Name</div>
-                <div class="col-md-3 p-2 ps-4 border">@product.FFSProduct?.Price VND</div>
-                <div class="col-md-1 p-2 text-center border">@product.Quantity</div>
-                <div class="col-md-3 p-2 ps-5 border">@(product.Quantity * product.FFSProduct?.Price) VND</div>
+
+    <form method="post">
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                        <tr>
+                            <th>
+                                Mã sản phẩm
+                            </th>
+                            <th>
+                                Tên sản phẩm
+                            </th>
+                            <th>
+                                Giá
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Tổng
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < products.Count; i++)
+                        {
+                            var product = products[i];
+                            <tr>
+                                <td>
+                                    @product.FFSProductId
+                                </td>
+                                <td>
+                                    @product.FFSProduct?.Name
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,##0}", product.FFSProduct?.Price) VND
+                                </td>
+                                <td>
+                                    @product.Quantity
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,##0}", product.Quantity * product.FFSProduct?.Price) VND
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-        }
-    </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a asp-action="ListOrder" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </form>
 </section>
