@@ -1,18 +1,22 @@
-﻿var myBarChart; // Biến toàn cục để lưu biểu đồ
+﻿function initChart(ctx, orderCounts) {
+    // Tạo mảng nhãn và dữ liệu sau khi loại bỏ các ngày không có dữ liệu
+    var labelsWithData = [];
+    var dataWithValues = [];
 
-function initChart(orderCounts, categoriesData) {
-    var ctx = document.getElementById('myBarChart').getContext('2d');
+    Object.keys(orderCounts).forEach(function (key) {
+        if (orderCounts[key] !== 0) {
+            labelsWithData.push(key);
+            dataWithValues.push(orderCounts[key]);
+        }
+    });
 
-    if (myBarChart) {
-        myBarChart.destroy(); // Hủy bỏ biểu đồ cũ nếu tồn tại
-    }
-    myBarChart = new Chart(ctx, {
+     var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: Object.keys(orderCounts), // Nhãn của cột x
+            labels: labelsWithData,
             datasets: [{
-                label: 'Số lượng đơn', // Nhãn của dữ liệu
-                data: Object.values(orderCounts), // Dữ liệu cột y
+                label: 'Số lượng đơn',
+                data: dataWithValues,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
