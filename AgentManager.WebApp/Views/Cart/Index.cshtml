@@ -65,7 +65,15 @@
                                     </p>
                                 </div>
                             </div>
-
+                            <form method="post" asp-controller="Cart" asp-action="UpdateQuantity">
+                                <input type="hidden" name="FFSProductId" value="@sanPham.FFSProductId" />
+                                <input type="number" name="quantity" value="@sanPham.Quantity" />
+                                <button type="submit" class="btn btn-success btn-lg m-2">Cập nhập số lượng</button>
+                            </form>
+                            <form method="post" asp-controller="Cart" asp-action="RemoveFromCart">
+                                <input type="hidden" name="FFSProductId" value="@sanPham.FFSProductId" />
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
                         </div>
                     }
 

@@ -261,5 +261,38 @@ namespace FastFoodSystem.WebApp.Controllers
                 return File(pdfBytes, "application/pdf", "staff_info.pdf");
             }
         }
+        [HttpPost]
+        public IActionResult UpdateQuantity(string FFSProductId, int quantity)
+        {
+            RetrieveCartitem(out List<CartItem> list, out decimal bill);
+
+            var cartItem = list.FirstOrDefault(item => item.FFSProductId == FFSProductId);
+
+            if (cartItem != null)
+            {
+                cartItem.Quantity = quantity;
+
+                _contx.HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(list));
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult RemoveFromCart(string FFSProductId)
+        {
+            RetrieveCartitem(out List<CartItem> list, out decimal bill);
+
+            var cartItemToRemove = list.FirstOrDefault(item => item.FFSProductId == FFSProductId);
+
+            if (cartItemToRemove != null)
+            {
+                list.Remove(cartItemToRemove);
+
+                _contx.HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(list));
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
