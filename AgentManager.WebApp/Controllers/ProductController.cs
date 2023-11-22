@@ -4,15 +4,18 @@ using FastFoodSystem.WebApp.Models;
 using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
     [Authorize(Roles = "Admin,Manager,Staff")]
     public class ProductController : Controller
     {
+        private readonly FastFoodSystemDbContext _context;  
         DBHelper dBHelper;
-        public ProductController(FastFoodSystemDbContext db)
+        public ProductController(FastFoodSystemDbContext db, FastFoodSystemDbContext context)
         {
+            _context = context;
             dBHelper = new DBHelper(db);
         }
 
@@ -40,6 +43,8 @@ namespace FastFoodSystem.WebApp.Controllers
         [Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
+            var categories = _context.FFSProductCategories.ToList();
+            ViewBag.Categories = new SelectList(categories, "FFSProductCategoryId", "Name");
             return View();
         }
 
