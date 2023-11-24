@@ -26,11 +26,23 @@ namespace FastFoodSystem.WebApp.Controllers
             _context = context;
             _UserManager = userManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchText = "")
         {
-            var agentManagerDbContext = _context.FFSDeliveryRecievedNotes.Include(f => f.Staff);
-            return View(await agentManagerDbContext.ToListAsync());
+            ViewBag.SearchText = searchText;
+            var deliveryNoteList = _context.FFSDeliveryRecievedNotes.Include(f => f.Staff);
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                var deliveryNoteListSearch = _context.FFSDeliveryRecievedNotes.Include(f => f.Staff)
+                    .Where(a => a.FFSDeliveryRecievedNoteId.Contains(searchText));
+
+                return View( await deliveryNoteListSearch.ToListAsync());
+            }
+
+            return View(await deliveryNoteList.ToListAsync());
         }
+
+
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.FFSDeliveryRecievedNotes == null)

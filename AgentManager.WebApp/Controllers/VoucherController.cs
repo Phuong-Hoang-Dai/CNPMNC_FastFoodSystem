@@ -17,9 +17,18 @@ namespace FastFoodSystem.WebApp.Controllers
             _context = context;
             dbHelper = new DBHelper(db);
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchText = "")
         {
+            ViewBag.SearchText = searchText;
             var fFSVouchers = _context.FFSVouchers;
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                var fFSVouchersListSearch = _context.FFSVouchers
+                    .Where(a => a.FFSVoucherId.Contains(searchText));
+
+                return View(await fFSVouchersListSearch.ToListAsync());
+            }
             return View(await fFSVouchers.ToListAsync());
         }
         public async Task<IActionResult> Details(string? id)

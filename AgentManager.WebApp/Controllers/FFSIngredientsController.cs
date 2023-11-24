@@ -21,9 +21,25 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: FFSIngredients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchText = "")
         {
+            ViewBag.SearchText = searchText;
             var fastFoodSystemDbContext = _context.FFSIngredients.Include(f => f.FFSCatere);
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                List<FFSIngredient> ingredientListSearch = _context.FFSIngredients.Include(f => f.FFSCatere)
+                    .Where(a => a.FFSIngredientId.Contains(searchText)).ToList();
+
+                List<FFSIngredient> ingredientListSearchByName = _context.FFSIngredients.Include(f => f.FFSCatere)
+                    .Where(a => a.Name.Contains(searchText)).ToList();
+
+                foreach (var item in ingredientListSearchByName)
+                    ingredientListSearch.Add(item);
+
+                return View(ingredientListSearch);
+            }
+
             return View(await fastFoodSystemDbContext.ToListAsync());
         }
 
