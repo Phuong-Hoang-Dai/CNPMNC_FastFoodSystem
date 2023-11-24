@@ -23,9 +23,20 @@ namespace FastFoodSystem.WebApp.Controllers
         }
 
         // GET: Agent
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchText = "")
         {
+            ViewBag.SearchText = searchText;
             var agentManagerDbContext = _context.Staffs.Include(a => a.Position);
+
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                var fFSVouchersListSearch = _context.Staffs.Include(a => a.Position)
+                    .Where(a => a.StaffName.Contains(searchText));
+
+                return View(await fFSVouchersListSearch.ToListAsync());
+            }
+
             return View(await agentManagerDbContext.ToListAsync());
         }
 

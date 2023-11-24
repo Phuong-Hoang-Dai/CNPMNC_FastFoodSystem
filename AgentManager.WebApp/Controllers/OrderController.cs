@@ -92,10 +92,21 @@ namespace AgentManager.WebApp.Controllers
             return Ok(); // Trả về kết quả Ajax thành công
         }
 
-        public IActionResult ListOrder()
+        public IActionResult ListOrder(string searchText = "")
         {
+            ViewBag.SearchText = searchText;
             var orders = _context.FFSOrders.ToList();
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                orders = _context.FFSOrders
+                    .Where(a => a.FFSOrderId == int.Parse(searchText)).ToList();
+
+            }
+
             orders.Reverse();
+
+
             foreach(var order in orders)
             {
                 Console.WriteLine(order.FFSOrderId);

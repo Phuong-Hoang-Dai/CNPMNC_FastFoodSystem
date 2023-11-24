@@ -1,4 +1,3 @@
-
 @model IEnumerable<FastFoodSystem.WebApp.Models.Data.Agent>
 @{
     var lstProduct = ViewData["listProduct"] as IEnumerable<FastFoodSystem.WebApp.Models.Data.FFSProduct>;
@@ -6,6 +5,19 @@
 }
 
 <section class="content">
+    <div class="card my-2 p-1">
+        <form asp-controller="Product" asp-action="Index" method="get">
+            <div class="input-group">
+                <input id="searchText" name="searchText" type="search" class="form-control form-control-lg" value="@ViewBag.SearchText" placeholder="Tìm kiếm">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-lg btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="card">
         <div class="card-body p-0">
             <table class="table table-striped projects">

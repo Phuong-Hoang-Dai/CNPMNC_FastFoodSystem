@@ -5,6 +5,7 @@ using FastFoodSystem.WebApp.Models.Data;
 using FastFoodSystem.WebApp.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FastFoodSystem.WebApp.Controllers
 {
@@ -19,9 +20,25 @@ namespace FastFoodSystem.WebApp.Controllers
             dBHelper = new DBHelper(db);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchText = "")
         {
+            ViewBag.SearchText = searchText;
             ViewData["listProduct"] = dBHelper.GetProducts();
+
+            if (!String.IsNullOrEmpty(searchText))
+            {
+                List<FFSProduct> productListSearch = _context.FFSProducts
+                    .Where(a => a.FFSProductId.Contains(searchText)).ToList();
+
+                List<FFSProduct> productListSearchByName = _context.FFSProducts
+                    .Where(a => a.Name.Contains(searchText)).ToList();
+
+                foreach(var item in productListSearchByName)
+                    productListSearch.Add(item);
+
+                ViewData["listProduct"] = productListSearch;
+            }
+
             return View();
         }
 
